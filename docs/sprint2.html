@@ -1,0 +1,307 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sprint 2 — Crowdsourcing Senior Info</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f172a;
+      --card: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #38bdf8;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --card: #ffffff;
+        --text: #0f172a;
+        --muted: #475569;
+        --accent: #0ea5e9;
+      }
+    }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 20px 70px;
+      text-align: left;
+    }
+    h1, h2, h3 {
+      margin-top: 28px;
+      margin-bottom: 12px;
+    }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; }
+    h3 { font-size: 18px; }
+    h4 { font-size: 16px; margin-top: 20px; margin-bottom: 8px; }
+    h1 span, h2 span {
+      position: relative;
+      display: inline-block;
+    }
+    h1 span::after, h2 span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 999px;
+    }
+    p, li {
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .subtitle { color: var(--muted); margin-bottom: 24px; }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 16px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th { background: rgba(56, 189, 248, 0.15); }
+    ul { padding-left: 20px; }
+    .btn {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--card);
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 24px;
+    }
+    .btn:hover { opacity: 0.9; }
+    .card a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .card a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1><span>Sprint 2 — Crowdsourcing Senior Info</span></h1>
+    <p class="subtitle">March 3, 2026 — March 24, 2026 · Sheala Miller, Jarl Evanson, Carlos Marquez, Jaylon Sanders, Cole Segura</p>
+
+    <!-- Project Planning Document -->
+    <section class="card" id="planning">
+      <h2>Project Planning Document</h2>
+      <p><strong>Sprint dates:</strong> March 3, 2026 — March 24, 2026</p>
+      <h3>Project Mission</h3>
+      <p>CareBot is committed to providing an AI-powered platform that helps caregivers, social workers, and families quickly find reliable local resources before they reach a crisis. We crowdsource resource recommendations, moderate submissions, and maintain a high-quality database of Alabama healthcare and social services.</p>
+      <h3>Problems We Are Solving</h3>
+      <ul>
+        <li><strong>Resource discovery:</strong> Caregivers and families struggle to find local healthcare resources when they need them.</li>
+        <li><strong>Data quality:</strong> Community-submitted resources need validation, deduplication, and structured merge.</li>
+        <li><strong>Rural access:</strong> Gaps exist in counties with limited or scattered services.</li>
+        <li><strong>Trust &amp; moderation:</strong> Submissions must be reviewed and integrated in a controlled, auditable way.</li>
+      </ul>
+      <h3>High-level features (CareBot)</h3>
+      <ul>
+        <li><strong>Django</strong> (PostgreSQL, PostGIS, pgvector): AI chatbot (Gemini), <strong>user/staff login</strong> working, public resource submission, moderation queue with <strong>full-catalog similarity</strong> (TF‑IDF + vector embeddings), approve / merge / reject, accessible crowdsourcing UI (sponsor: large targets, readable type, clear controls — owl / out-of-scope branding unchanged).</li>
+        <li><strong>Dev &amp; ops:</strong> Docker Compose (Mac + Windows), continued security (CSRF, parameterized SQL, secrets in env), <strong>GCP cloud deployment working</strong> (Compute Engine VM, firewall, Docker) for course demos, runbooks (Docker, schema fixes), documentation on this site and in the CareBot repo.</li>
+      </ul>
+      <h3>Sprint 2 Goals</h3>
+      <p>Sprint 2 focuses on <strong>production-quality UX</strong> for the <strong>crowdsourcing portion</strong> of the site (sponsor: redesign is OK; <strong>do not change the owl</strong> / out-of-scope branding). Use <strong>clear patterns</strong> for buttons vs. checkboxes vs. dropdowns; keep flows <strong>accessible</strong> and <strong>easy for non-technical users</strong> (large touch targets for shaky hands, very readable text). The team shipped <strong>working user/staff login</strong> (with home and base layout). <strong>Similarity</strong> uses <strong>vector embeddings</strong> as the AI approach for comparing listings. Sprint 2 also continues <strong>security hardening</strong>, delivers a <strong>working GCP cloud demo</strong> (VM + Docker + firewall), and <strong>testing / documentation</strong>. Work integrates through PR review and scrum.</p>
+      <h3>Sprint 2 Scope</h3>
+      <table>
+        <tr><th>Priority</th><th>Goal</th><th>Status</th></tr>
+        <tr><td>P0</td><td>Vector + lexical similarity for deduplication &amp; moderator-facing similarity UX</td><td>Delivered — full-catalog TF‑IDF + pgvector; name-aware ranking</td></tr>
+        <tr><td>P0</td><td>Cloud or device-based demo (GCP VM or equivalent)</td><td>Done — GCP Compute Engine VM, firewall rules, Docker; demo operational</td></tr>
+        <tr><td>P1</td><td>UI/UX design (Cole) + HTML/CSS for submit &amp; moderation queue (Carlos) — grandma-friendly, large targets</td><td>In progress / merged on main — <strong>login, home &amp; base working</strong></td></tr>
+        <tr><td>P1</td><td>Backend for new UI + merge/submission (Jarl — integration checkpoint)</td><td>In progress</td></tr>
+        <tr><td>P1</td><td>Security fixes (cyber review, CSRF, migrations, entrypoint)</td><td>Ongoing</td></tr>
+        <tr><td>P1</td><td>E2E &amp; unit tests; accessibility QA (Jaylon)</td><td>In progress</td></tr>
+        <tr><td>P2</td><td>Bulk moderation, fuzzy matching improvements</td><td>Deferred / stretch</td></tr>
+      </table>
+
+      <h3 id="technical-deliverables">Technical &amp; engineering deliverables</h3>
+      <p><strong>Repository:</strong> <code>Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing</code> · <strong>App:</strong> <code>root/app/</code> (Django), Compose from <code>root/</code> · <strong>Sprint 2:</strong> Mar 3 – Mar 24, 2026</p>
+
+      <h4>1. Similarity search: full database + vector merge</h4>
+      <p><strong>Problem:</strong> Similarity only considered rows in <code>resource_embeddings</code>. Bulk-imported <code>resource_listings</code> (and anything never embedded) did not appear, so results looked like “only submitted/approved items.”</p>
+      <p><strong>Solution (<code>recommendation/similarity.py</code>):</strong></p>
+      <table>
+        <tr><th>Piece</th><th>What it does</th></tr>
+        <tr><td><code>rank_similar(..., top_k=None)</code></td><td>TF‑IDF cosine similarity over <strong>every</strong> corpus document (not only top‑k).</td></tr>
+        <tr><td><code>_resource_listing_corpus_text()</code></td><td>Rich text per listing: title, description, tags, eligibility, cost, languages, hours, resource type, provider name/subname, address, city, state, zip.</td></tr>
+        <tr><td><code>pgvector_similar()</code></td><td>Nearest neighbors in Postgres using <code>resource_embeddings</code> + join to <code>resource_listings</code> / <code>providers</code>.</td></tr>
+        <tr><td><code>rank_similar_smart()</code></td><td>Loads all <code>ResourceListing</code> rows, TF‑IDF scores each, fetches pgvector scores for embedded rows, min–max normalizes, blends: if both signals → <code>0.35 × lexical + 0.65 × vector</code>; else <code>max(lexical, vector)</code>. Returns <code>{rid, title, score}</code>.</td></tr>
+      </table>
+      <p><strong>Call sites:</strong> <code>moderation_detail</code>, <code>public_submit</code>, <code>similar_search</code> — all use <code>rank_similar_smart(query, top_k=…)</code>.</p>
+      <p><strong>Submissions:</strong> Approved/merged rows are normal listings in the full scan. Pending items match via query text from the form/moderation.</p>
+      <p><strong>Ops:</strong> Teammates can run <code>python manage.py reembed</code> in the web container to backfill embeddings; lexical search works without it.</p>
+
+      <h4>2. Backend hygiene &amp; bug fixes (<code>recommendation/views.py</code>)</h4>
+      <table>
+        <tr><th>Fix</th><th>Detail</th></tr>
+        <tr><td>Dead/orphan block</td><td>Removed stray code after <code>thanks()</code> (broken references / invalid syntax).</td></tr>
+        <tr><td>Invalid literals</td><td>Replaced mistaken <code>{{ … }}</code> patterns with valid Python <code>{ … }</code> in Twilio/JSON and embedding views.</td></tr>
+        <tr><td>Email webhook</td><td>Corrected f-string for subject/from/body.</td></tr>
+        <tr><td><code>dir_embedding_search</code></td><td>Uses <code>emb.resourcelisting</code> (and provider via FK).</td></tr>
+        <tr><td><code>public_submit</code></td><td>Removed unused corpus build and debug <code>print</code> before <code>rank_similar_smart</code>.</td></tr>
+        <tr><td>Imports</td><td>Dropped unused <code>rank_similar</code> import.</td></tr>
+      </table>
+
+      <h4>3. Schema / teammate runbook (<code>resource_listings.title</code>)</h4>
+      <p><strong>Symptom:</strong> <code>ProgrammingError: column resource_listings.title does not exist</code> on <code>/manage/public_submit/</code> (POST).</p>
+      <p><strong>Cause:</strong> Older SQL dumps; Django expects <code>title</code>. Initial migration does not patch existing tables.</p>
+      <p><strong>Fix (Postgres):</strong></p>
+      <pre style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; overflow-x: auto; font-size: 13px;"><code>docker compose -f docker-compose.yml -f docker-compose.local.yml exec postgis \
+  psql -U carebot -d carebot -c \
+  "ALTER TABLE resource_listings ADD COLUMN IF NOT EXISTS title varchar(255) NOT NULL DEFAULT '';"</code></pre>
+      <p>Or reset volumes / restore a dump that matches current schema (local data loss).</p>
+
+      <h4>4. Docker &amp; local run</h4>
+      <p>From <code>carebot-deployable-crowdsourcing/root</code>:</p>
+      <pre style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; overflow-x: auto; font-size: 13px;"><code>docker compose -f docker-compose.yml -f docker-compose.local.yml up --build</code></pre>
+      <ul>
+        <li>App: <code>http://localhost:8000/</code></li>
+        <li>Crowdsourcing: <code>/manage/public_submit/</code>, <code>/manage/moderate/</code>, <code>/manage/similar/</code></li>
+        <li>After Python changes, use <code>up --build</code> or restart <code>web</code>.</li>
+        <li>Superuser: <code>docker compose … exec web python manage.py createsuperuser</code> from <strong>root</strong>, not parent folder.</li>
+      </ul>
+
+      <h4>5. Documentation in CareBot repo</h4>
+      <table>
+        <tr><th>Artifact</th><th>Location</th></tr>
+        <tr><td>Similarity / embeddings notes</td><td><code>root/README_similarity_sheala.md</code></td></tr>
+        <tr><td>Sprint 2 actions log</td><td><code>carebot-deployable-crowdsourcing/docs/sprint2 doc/README.md</code></td></tr>
+      </table>
+
+      <h4>6. Cloud / GCP demo (course requirement)</h4>
+      <p><strong>Status: working.</strong> The team brought up CareBot on <strong>Google Compute Engine</strong> with appropriate <strong>firewall</strong> rules and <strong>Docker</strong> (compose or container run) so the app is demonstrable outside local machines. Document any static IP, ports, and how to start/stop the VM in your CareBot repo or team notes for handoff.</p>
+
+      <h4>7. Backlog mapping</h4>
+      <ul>
+        <li><strong>B4 / S2.1</strong> — Full-catalog similarity + pgvector merge; public + moderator flows aligned.</li>
+        <li><strong>B9 / S2.2</strong> — Parameterized SQL for vector search; safer logging in embeddings.</li>
+        <li><strong>S2.5</strong> — Login, home, and base layout; <strong>user/staff authentication working</strong>.</li>
+        <li><strong>S2.11</strong> — GCP VM + Docker + firewall; cloud demo operational for Sprint 2.</li>
+        <li><strong>S2.8 / docs</strong> — This page on the project website.</li>
+      </ul>
+      <p style="color: var(--muted); font-size: 14px; margin-bottom: 0;">Last updated March 2026 — keep in sync with CareBot <code>main</code>. Course presentation outline: <a href="sprint2_presentation.html">Sprint 2 — Presentation &amp; submission guide</a>.</p>
+    </section>
+
+    <!-- Project Backlog Snapshot -->
+    <section class="card" id="project-backlog-snapshot">
+      <h2>Project Backlog Snapshot</h2>
+      <p><strong>Captured:</strong> March 2026 · <strong>Sprint:</strong> 2 (Mar 3 – Mar 24, 2026)</p>
+      <h3>Functional Items</h3>
+      <table>
+        <tr><th>ID</th><th>Item</th><th>Priority</th></tr>
+        <tr><td>B1</td><td>Resource submission form + moderation queue</td><td>P0</td></tr>
+        <tr><td>B2</td><td>Approve, merge, and reject actions</td><td>P0</td></tr>
+        <tr><td>B3</td><td>Smart merge with deduplication (field-level)</td><td>P0</td></tr>
+        <tr><td>B4</td><td>Similarity search for matching submissions to existing resources</td><td>P0</td></tr>
+        <tr><td>B5</td><td>Fuzzy matching improvements</td><td>P2</td></tr>
+        <tr><td>B6</td><td>Bulk moderation (multi-select)</td><td>P2</td></tr>
+      </table>
+      <h3>Non-Functional Items</h3>
+      <table>
+        <tr><th>ID</th><th>Item</th><th>Priority</th></tr>
+        <tr><td>B8</td><td>Docker compatibility (Mac + Windows)</td><td>P1</td></tr>
+        <tr><td>B9</td><td>Security configuration improvements</td><td>P1</td></tr>
+        <tr><td>B10</td><td>Comprehensive end-to-end testing</td><td>P1</td></tr>
+        <tr><td>B11</td><td>Unit tests for submission &amp; merge flows</td><td>P1</td></tr>
+        <tr><td>B12</td><td>HTTPS Enforcement</td><td>P1</td></tr>
+        <tr><td>B13</td><td>Setup guides and documentation</td><td>P2</td></tr>
+        <tr><td>B14</td><td>Non-root Docker</td><td>P2</td></tr>
+      </table>
+      <h3>Completed in Sprint 2</h3>
+      <ul>
+        <li>B4 — Similarity / deduplication: <code>rank_similar_smart</code> (full-catalog TF‑IDF + pgvector); public submit, moderation, <code>/manage/similar/</code> (see <a href="#technical-deliverables">Technical &amp; engineering deliverables</a> · CareBot <code>README_similarity_sheala.md</code>)</li>
+        <li>B4 — Related: merge tooling, similar-search grouping, parameterized pgvector SQL</li>
+        <li>B13 — Documentation: runbook (Docker, <code>createsuperuser</code>, <code>resource_listings.title</code>)</li>
+        <li>B9 — Security merges (CSRF, migrations, etc.) — ongoing</li>
+        <li>S2.11 / cloud — <strong>GCP demo operational:</strong> Compute Engine VM, firewall, Docker-based app (course cloud requirement)</li>
+        <li>B1 / UI — <strong>User/staff login working</strong> (Django auth + styled login / home / base); public submit &amp; moderation UI — Carlos / Cole (see S2.4–S2.5)</li>
+      </ul>
+      <h3>Carried to Sprint 3 / Later</h3>
+      <ul>
+        <li>Bulk moderation (approve/reject multiple)</li>
+        <li>Fuzzy matching improvements</li>
+        <li>Full HTTPS + non-root production hardening (if not finished in Sprint 2)</li>
+      </ul>
+    </section>
+
+    <!-- Sprint Backlog -->
+    <section class="card" id="sprint-backlog">
+      <h2>Sprint Backlog</h2>
+      <p><strong>Sprint Goal:</strong> <strong>Grandma-friendly</strong> crowdsourcing UI (large targets, readable text, right control types), <strong>vector-embedding similarity</strong> per sponsor, a <strong>working cloud demo on GCP</strong>, and <strong>tests/docs</strong> — building on Sprint 1.</p>
+      <table>
+        <tr><th>ID</th><th>Item</th><th>Priority</th><th>Status</th></tr>
+        <tr><td>S2.1</td><td>Vector similarity (pgvector + full-catalog TF‑IDF) &amp; moderator dedup UX</td><td>P0</td><td>Done</td></tr>
+        <tr><td>S2.2</td><td>Security: embedding logs, parameterized SQL, security PRs</td><td>P1</td><td>In progress</td></tr>
+        <tr><td>S2.3</td><td>UI/UX design — layout, buttons vs. checks vs. dropdowns; no owl / out-of-scope chrome</td><td>P0</td><td>In progress</td></tr>
+        <tr><td>S2.4</td><td>Frontend — submission form &amp; moderation queue HTML/CSS per UX spec</td><td>P0</td><td>In progress / merged</td></tr>
+        <tr><td>S2.5</td><td>Base + home + <strong>login</strong> (accessible patterns) — <strong>user/staff login working</strong></td><td>P0</td><td>Done</td></tr>
+        <tr><td>S2.6</td><td>Django views, forms, logic for new UI &amp; merge/submit</td><td>P0</td><td>In progress</td></tr>
+        <tr><td>S2.7</td><td>PR review &amp; merge — integration checkpoint</td><td>P0</td><td>In progress</td></tr>
+        <tr><td>S2.8</td><td>Unit / integration tests — similarity &amp; submission/moderation</td><td>P1</td><td>Update</td></tr>
+        <tr><td>S2.9</td><td>E2E, accessibility testing, QA</td><td>P1</td><td>Update</td></tr>
+        <tr><td>S2.10</td><td>Documentation — README, sprint docs, runbooks</td><td>P2</td><td>Updated</td></tr>
+        <tr><td>S2.11</td><td>GCP VM / cloud demo — Docker, firewall, secrets</td><td>P1</td><td>Done</td></tr>
+        <tr><td>S2.12</td><td>Scrum &amp; stakeholder updates (embeddings + UX direction)</td><td>P2</td><td>In progress</td></tr>
+      </table>
+      <h3>Not completed (moved to Sprint 3)</h3>
+      <table>
+        <tr><th>ID</th><th>Item</th><th>Reason</th></tr>
+        <tr><td>S2.13</td><td>Bulk moderation (multi-select)</td><td>Scope</td></tr>
+        <tr><td>S2.14</td><td>Full production HTTPS + hardening</td><td>Scope</td></tr>
+      </table>
+    </section>
+
+    <!-- Sprint Retrospective -->
+    <section class="card" id="retrospective">
+      <h2>Sprint 2 Retrospective</h2>
+      <h3>What Went Well</h3>
+      <ul>
+        <li>Combined pgvector with TF‑IDF over the entire <code>resource_listings</code> table so imported CMS data and moderated submissions participate in similarity ranking.</li>
+        <li>Runbooks for Docker (<code>root</code> compose), superuser creation, and <code>resource_listings.title</code> schema fixes for teammates.</li>
+        <li>Code health: removed orphan view code; fixed webhook / embedding API issues.</li>
+        <li>Technical deliverables documented under <a href="#technical-deliverables">Technical &amp; engineering deliverables</a> in the planning document.</li>
+      </ul>
+      <h3>What Didn't Go Well</h3>
+      <ul>
+        <li>TF‑IDF over very large tables may need optimization in Sprint 3.</li>
+        <li>Schema drift between SQL dumps and Django migrations caused local errors until documented.</li>
+      </ul>
+      <h3>Challenges</h3>
+      <table>
+        <tr><th>Challenge</th><th>Impact</th></tr>
+        <tr><td>Local DB schema out of sync (e.g. missing <code>title</code> column)</td><td><code>ProgrammingError</code> on submit until <code>ALTER TABLE</code> or fresh volume</td></tr>
+        <tr><td>Embeddings not backfilled for all listings</td><td>Weaker vector leg until <code>manage.py reembed</code>; lexical search still works</td></tr>
+      </table>
+      <h3>What could be improved</h3>
+      <ul>
+        <li><strong>Performance / ops:</strong> Optional caching or batch re-embed after bulk import; automated migration checks in README.</li>
+        <li><strong>Sprint 3 carryover:</strong> Bulk moderation, fuzzy match, HTTPS hardening, full test DB for Django tests, reembed automation — see <a href="#project-backlog-snapshot">Carried to Sprint 3 / Later</a>.</li>
+      </ul>
+    </section>
+
+    <a class="btn" href="deliverables.html">Back to Deliverables</a>
+  </div>
+</body>
+</html>

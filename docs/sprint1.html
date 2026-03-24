@@ -98,8 +98,9 @@
     <p class="subtitle">January 20, 2026 — February 24, 2026 · Sheala Miller, Jarl Evanson, Carlos Marquez, Jaylon Sanders, Cole Segura</p>
 
     <!-- Project Planning Document -->
-    <section class="card">
+    <section class="card" id="planning">
       <h2>Project Planning Document</h2>
+      <p><strong>Sprint dates:</strong> January 20, 2026 — February 24, 2026</p>
       <h3>Project Mission</h3>
       <p>CareBot is committed to providing an AI-powered platform that helps caregivers, social workers, and families quickly find reliable local resources before they reach a crisis. We crowdsource resource recommendations, moderate submissions, and maintain a high-quality database of Alabama healthcare and social services.</p>
       <h3>Problems We Are Solving</h3>
@@ -108,6 +109,11 @@
         <li><strong>Data quality:</strong> Community-submitted resources need validation, deduplication, and structured merge.</li>
         <li><strong>Rural access:</strong> Gaps exist in counties with limited or scattered services.</li>
         <li><strong>Trust & moderation:</strong> Submissions must be reviewed and integrated in a controlled, auditable way.</li>
+      </ul>
+      <h3>High-level features (CareBot)</h3>
+      <ul>
+        <li><strong>Django</strong> (PostgreSQL, PostGIS, pgvector): AI chatbot (Gemini), public resource submission, moderation queue with similarity, approve / merge / reject, semantic search for deduplication.</li>
+        <li><strong>Dev &amp; ops:</strong> Docker Compose (Mac + Windows), security (rate limiting, COOP, headers, sanitized errors), docs (CHANGES.md, build guide).</li>
       </ul>
       <h3>Sprint 1 Goals</h3>
       <p>Sprint 1 focused on rebuilding the resource submission and moderation system. A significant portion of the sprint was spent researching and familiarizing with Docker, which the team used for local development and deployment. We prioritized fixing the public submission form, implementing merge functionality with field-level deduplication, improving Docker portability across Mac and Windows, and applying initial security hardening. The team also produced documentation and setup guides to support onboarding.</p>
@@ -123,15 +129,16 @@
     </section>
 
     <!-- Project Backlog Snapshot -->
-    <section class="card">
+    <section class="card" id="project-backlog-snapshot">
       <h2>Project Backlog Snapshot</h2>
+      <p><strong>Captured:</strong> February 24, 2026 · <strong>Sprint:</strong> 1 (Jan 20 – Feb 24, 2026)</p>
       <h3>Functional Items</h3>
       <table>
         <tr><th>ID</th><th>Item</th><th>Priority</th></tr>
         <tr><td>B1</td><td>Resource submission form + moderation queue</td><td>P0</td></tr>
         <tr><td>B2</td><td>Approve, merge, and reject actions</td><td>P0</td></tr>
-        <tr><td>B3</td><td>Smart merge with deduplication</td><td>P0</td></tr>
-        <tr><td>B4</td><td>Similarity search for matching</td><td>P0</td></tr>
+        <tr><td>B3</td><td>Smart merge with deduplication (field-level)</td><td>P0</td></tr>
+        <tr><td>B4</td><td>Similarity search for matching submissions to existing resources</td><td>P0</td></tr>
         <tr><td>B5</td><td>Fuzzy matching improvements</td><td>P2</td></tr>
         <tr><td>B6</td><td>Bulk moderation (multi-select)</td><td>P2</td></tr>
       </table>
@@ -141,11 +148,23 @@
         <tr><td>B8</td><td>Docker compatibility (Mac + Windows)</td><td>P1</td></tr>
         <tr><td>B9</td><td>Security configuration improvements</td><td>P1</td></tr>
         <tr><td>B10</td><td>Comprehensive end-to-end testing</td><td>P1</td></tr>
-        <tr><td>B11</td><td>Unit tests for submission & merge</td><td>P1</td></tr>
+        <tr><td>B11</td><td>Unit tests for submission &amp; merge flows</td><td>P1</td></tr>
         <tr><td>B12</td><td>HTTPS Enforcement</td><td>P1</td></tr>
         <tr><td>B13</td><td>Setup guides and documentation</td><td>P2</td></tr>
         <tr><td>B14</td><td>Non-root Docker</td><td>P2</td></tr>
       </table>
+      <h3>Completed in Sprint 1</h3>
+      <ul>
+        <li>B1 — Resource submission form + moderation queue</li>
+        <li>B2 — Approve, merge, and reject actions</li>
+        <li>B3 — Smart merge with deduplication</li>
+        <li>B4 — Similarity search integration</li>
+        <li>B8 — Docker compatibility (Mac + Windows)</li>
+        <li>B9 — Initial security (rate limiting, COOP, headers, error sanitization)</li>
+        <li>B12 — Non-root Docker + HTTPS enforcement</li>
+        <li>B13 — Setup guides and documentation</li>
+        <li>B14 — Non-root Docker</li>
+      </ul>
       <h3>Carried to Sprint 2/3</h3>
       <ul>
         <li>Comprehensive end-to-end testing</li>
@@ -156,7 +175,7 @@
     </section>
 
     <!-- Sprint Backlog -->
-    <section class="card">
+    <section class="card" id="sprint-backlog">
       <h2>Sprint Backlog</h2>
       <p><strong>Sprint Goal:</strong> Rebuild the resource submission and moderation system so community submissions flow into a moderation queue and moderators can approve, merge, or reject with proper deduplication.</p>
       <table>
@@ -172,15 +191,22 @@
         <tr><td>S1.9</td><td>Rate limiting on public endpoints</td><td>P1</td><td>Done</td></tr>
         <tr><td>S1.10</td><td>COOP policy + security headers</td><td>P1</td><td>Done</td></tr>
         <tr><td>S1.11</td><td>Sanitize SQL error messages</td><td>P1</td><td>Done</td></tr>
-        <tr><td>S1.12</td><td>Fix submission flow bug</td><td>P1</td><td>Done</td></tr>
+        <tr><td>S1.12</td><td>Fix “too many values to unpack” in submission flow</td><td>P1</td><td>Done</td></tr>
         <tr><td>S1.13</td><td>CHANGES.md and BUILD_AND_TEST.md</td><td>P2</td><td>Done</td></tr>
         <tr><td>S1.14</td><td>Project website updates</td><td>P2</td><td>Done</td></tr>
         <tr><td>S1.18</td><td>Non-root Docker + HTTPS</td><td>P1</td><td>Done</td></tr>
       </table>
+      <h3>Not completed (moved to Sprint 2)</h3>
+      <table>
+        <tr><th>ID</th><th>Item</th><th>Reason</th></tr>
+        <tr><td>S1.15</td><td>Comprehensive end-to-end testing</td><td>Scope / time</td></tr>
+        <tr><td>S1.16</td><td>Unit tests for submission &amp; merge</td><td>Scope / time</td></tr>
+        <tr><td>S1.17</td><td>Bulk moderation (multi-select)</td><td>Deferred</td></tr>
+      </table>
     </section>
 
     <!-- Sprint Retrospective -->
-    <section class="card">
+    <section class="card" id="retrospective">
       <h2>Sprint 1 Retrospective</h2>
       <h3>What Went Well</h3>
       <ul>
@@ -205,8 +231,15 @@
         <tr><td>Write access to GitHub</td><td>Blocked some contributions</td></tr>
         <tr><td>Understanding inherited codebase</td><td>Slower ramp-up</td></tr>
         <tr><td>Mac vs Windows Docker behavior</td><td>Required platform-specific fixes</td></tr>
-        <tr><td>DB schema mismatch</td><td>Required workarounds in merge flow</td></tr>
+        <tr><td>DB schema mismatch (e.g. matched_resource FK)</td><td>Required workarounds in merge flow</td></tr>
       </table>
+      <h3>What could be improved</h3>
+      <ul>
+        <li><strong>Cross-platform testing:</strong> Exercise Docker on Mac and Windows earlier.</li>
+        <li><strong>Architecture review:</strong> Review inherited code before large changes to limit rework.</li>
+        <li><strong>Onboarding:</strong> Clearer setup checklists so everyone can build quickly.</li>
+        <li><strong>Sponsor alignment:</strong> Repo access and sponsor feedback as early as possible.</li>
+      </ul>
     </section>
 
     <a class="btn" href="deliverables.html">Back to Deliverables</a>
