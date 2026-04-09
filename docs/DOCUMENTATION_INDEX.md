@@ -10,11 +10,13 @@
 
 | Section | Owner | Where it lives (suggested) |
 |--------|--------|----------------------------|
-| **Run / deploy** — Docker, API keys, OAuth workflow (if any) | *assign* | `carebot-deployable-crowdsourcing/root/README.md` + `docs/DEPLOY.md` |
-| **Sponsor user guide** — screenshots, how to use features | *assign* | [`SPONSOR_USER_GUIDE.md`](SPONSOR_USER_GUIDE.md) *(stub — add images)* |
-| **Development environment** — dependencies, OS, first build | *assign* | `root/README.md`, `development.md` |
-| **FAQs** — APIs, OAuth, external services, gotchas | *assign* | `docs/FAQ.md` |
-| **Test plan** — cases + scripts | *assign* | `docs/TEST_PLAN.md` + `root/scripts/retest-local.sh` |
+| **Run / deploy** — Docker, API keys, OAuth workflow (if any) | *assign* | **[Placeholder — website](deploy-run.html)** · `carebot-deployable-crowdsourcing/root/README.md` |
+| **Sponsor user guide** — screenshots, how to use features | *assign* | **[Placeholder — website](sponsor-user-guide.html)** · app repo `SPONSOR_USER_GUIDE.md` |
+| **Development environment** — dependencies, OS, first build | *assign* | **[Placeholder — website](development-environment.html)** · `root/README.md` |
+| **FAQs** — APIs, OAuth, component services | *Sheala Miller (edit if different)* | **[Live — website](faq-component-services.html)** · [`carebot-deployable-crowdsourcing/docs/FAQ-component-services.md`](https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing/blob/main/docs/FAQ-component-services.md) |
+| **Test plan** — cases + scripts | *assign* | **[Placeholder — website](test-plan.html)** · `docs/TEST_PLAN.md` + `scripts/retest-local.sh` |
+| **Final cybersecurity assessment** | *assign* | **[Placeholder — website](cybersecurity-assessment.html)** |
+| **Remaining backlog** | team | **[website](remaining-backlog.html)** |
 
 ---
 

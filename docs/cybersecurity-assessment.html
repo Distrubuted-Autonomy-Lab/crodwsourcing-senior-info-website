@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Final cybersecurity assessment</title>
+  <link rel="stylesheet" href="assets/doc-page.css" />
+</head>
+<body>
+  <div class="page">
+    <h1><span>Final cybersecurity assessment</span></h1>
+    <p class="subtitle">CS 495 final deliverable — <strong>placeholder narrative</strong>. Replace this section with the team’s written assessment before submission (due April 16, 2026).</p>
+
+    <section class="card">
+      <div class="placeholder">
+        <strong>Assigned team member:</strong> <em>— assign in <a href="DOCUMENTATION_INDEX.md">DOCUMENTATION_INDEX.md</a> or team notes —</em><br /><br />
+        Add: threat model summary, controls in place (auth, CSRF, secrets, TLS, network), third-party/API risks (Gemini, DB exposure), gaps and mitigations, and sponsor-appropriate language on data handling.
+      </div>
+      <h2>Draft outline (fill in)</h2>
+      <ol>
+        <li><strong>Scope:</strong> What was assessed (web app, DB, cloud VM, integrations).</li>
+        <li><strong>Assets &amp; threats:</strong> User data, moderator actions, API keys, public chat.</li>
+        <li><strong>Controls:</strong> Django defaults, parameterized SQL for vectors, rate limits, env-based secrets.</li>
+        <li><strong>Residual risk:</strong> What remains acceptable vs. needs Sprint+ work.</li>
+        <li><strong>Recommendations:</strong> HTTPS everywhere, key rotation, OAuth if required, logging/monitoring.</li>
+      </ol>
+    </section>
+
+    <section class="card" id="checklist">
+      <h2>Periodic cybersecurity review checklist</h2>
+      <p>Use this list for ongoing reviews (quarterly or after major releases).</p>
+      <table>
+        <tr><th>Area</th><th>Review item</th></tr>
+        <tr><td>Secrets</td><td>No API keys, DB passwords, or <span class="mono">SECRET_KEY</span> in Git; rotate after incidents or staff turnover.</td></tr>
+        <tr><td>Transport</td><td>HTTPS enforced in production; HSTS where applicable; valid certs.</td></tr>
+        <tr><td>Auth</td><td>Strong staff passwords; session timeout; review unused accounts.</td></tr>
+        <tr><td>OAuth (if added)</td><td>Redirect URI allowlist; minimal scopes; secure storage of client secret; token refresh and logout tested.</td></tr>
+        <tr><td>App config</td><td><span class="mono">DEBUG=False</span> in prod; <span class="mono">ALLOWED_HOSTS</span> and <span class="mono">CSRF_TRUSTED_ORIGINS</span> match real hosts.</td></tr>
+        <tr><td>Database</td><td>Network isolation; least-privilege DB users; backups encrypted/restorable.</td></tr>
+        <tr><td>Dependencies</td><td>Review <span class="mono">requirements.txt</span> / image bases for CVEs; patch cadence.</td></tr>
+        <tr><td>Public endpoints</td><td>Rate limiting on chat/submit; webhook secrets where used (e.g. Twilio).</td></tr>
+        <tr><td>Third-party AI</td><td>Gemini/OpenAI: data sent to vendor documented; quotas and logging; sponsor approval for sensitive topics.</td></tr>
+        <tr><td>Containers</td><td>Non-root users in prod images where feasible; minimal image attack surface.</td></tr>
+        <tr><td>Logging</td><td>No PII in logs; access logs for moderation actions where required.</td></tr>
+        <tr><td>Incident</td><td>Contact path and basic response steps (revoke keys, rotate secrets).</td></tr>
+      </table>
+    </section>
+
+    <p class="subtitle">API-specific review items also appear under <a href="faq-component-services.html#review">FAQs — periodic review</a>.</p>
+
+    <a class="btn" href="deliverables.html">Back to Deliverables</a>
+  </div>
+</body>
+</html>

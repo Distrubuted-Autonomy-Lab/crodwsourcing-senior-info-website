@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Remaining backlog</title>
+  <link rel="stylesheet" href="assets/doc-page.css" />
+</head>
+<body>
+  <div class="page">
+    <h1><span>Remaining backlog</span></h1>
+    <p class="subtitle">Carryover and stretch items after Sprint 2 (March 2026). Aligns with <a href="sprint2.html#project-backlog-snapshot">Sprint 2 — project backlog snapshot</a> and retrospective.</p>
+
+    <section class="card">
+      <h2>Functional</h2>
+      <ul>
+        <li><strong>Bulk moderation</strong> — multi-select approve/reject (was S2.13 / deferred).</li>
+        <li><strong>Fuzzy matching improvements</strong> — beyond current TF‑IDF + embedding merge (B5).</li>
+        <li><strong>HTTPS + production hardening</strong> — full enforcement and non-root containers where not yet complete (B12, B14).</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Non-functional</h2>
+      <ul>
+        <li><strong>Performance</strong> — TF‑IDF over very large catalogs may need caching, indexing, or batching.</li>
+        <li><strong>Embeddings ops</strong> — automated <span class="mono">reembed</span> after bulk import; optional HF token for model download rate limits.</li>
+        <li><strong>Testing</strong> — full test database for Django tests; expanded E2E and accessibility QA (B10, B11).</li>
+        <li><strong>Schema hygiene</strong> — migration checks / CI so local dumps stay aligned with Django models.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Nice-to-have / sponsor-driven</h2>
+      <ul>
+        <li>OAuth / SSO for staff (see <a href="faq-component-services.html#oauth">FAQs — OAuth</a>).</li>
+        <li>Additional documentation in the application repository as features land.</li>
+      </ul>
+    </section>
+
+    <a class="btn" href="deliverables.html">Back to Deliverables</a>
+  </div>
+</body>
+</html>

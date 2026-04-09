@@ -1,142 +1,91 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Deliverables</title>
+  <link rel="stylesheet" href="assets/doc-page.css" />
   <style>
-    :root {
-      color-scheme: light dark;
-      --bg: #0f172a;
-      --card: #111827;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --accent: #38bdf8;
-    }
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #f8fafc;
-        --card: #ffffff;
-        --text: #0f172a;
-        --muted: #475569;
-        --accent: #0ea5e9;
-      }
-    }
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      text-align: center;
-    }
-    .page {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 48px 20px 70px;
-    }
-    h1 {
-      margin: 0 0 10px;
-      font-size: 30px;
-    }
-    h1 span {
-      position: relative;
-      display: inline-block;
-    }
-    h1 span::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 100%;
-      height: 2px;
-      background: var(--accent);
-      border-radius: 999px;
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
-    }
-    .subtitle {
-      margin: 14px 0 24px;
-      color: var(--muted);
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 16px;
-    }
-    .card h3 {
-      margin-top: 0;
-    }
-    .card a {
-      color: var(--accent);
-      font-weight: 600;
-      text-decoration: none;
-    }
-    .btn {
-      display: inline-block;
-      padding: 10px 18px;
-      border-radius: 999px;
-      background: var(--accent);
-      color: var(--card);
-      text-decoration: none;
-      font-weight: 600;
-      transition: transform 0.1s ease, box-shadow 0.1s ease;
-    }
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 15px rgba(56, 189, 248, 0.35);
-    }
-    .footer-link {
-      margin-top: 32px;
-    }
+    .deliverables-hero { text-align: center; margin-bottom: 28px; }
+    .deliverables-hero h1 { margin-top: 0; }
+    .page-wide { max-width: 920px; }
   </style>
 </head>
 <body>
-  <div class="page">
-    <h1><span>Project Deliverables</span></h1>
-    <p class="subtitle">This page collects presentations and project documents.</p>
-
-    <div class="card">
-      <h3>Deliverable 1</h3>
-      <p>
-        <a href="https://drive.google.com/file/d/100pQ6e5aIblLDGGjIU67OHELe7lxGKhB/view?usp=sharing">
-          Preliminary Presentation
-        </a>
-      </p>
+  <div class="page page-wide">
+    <div class="deliverables-hero">
+      <h1><span>Project deliverables</span></h1>
+      <p class="subtitle" style="margin-bottom: 8px;">Spring 2026 · Crowdsourcing Senior Info (CareBot)</p>
+      <p class="subtitle" style="font-size: 15px;">Final project website due <strong>April 16, 2026</strong>. This page links sprint docs, backlog, demo video, security materials, completed features, and team documentation assignments.</p>
     </div>
 
-    <div class="card">
-      <h3>Deliverable 2</h3>
-      <p>This project website (project overview, team bios, and deliverables).</p>
-    </div>
+    <section class="card" id="sprints">
+      <h2>Sprint documentation</h2>
+      <p>Planning, backlogs, and retrospectives for each sprint:</p>
+      <ul>
+        <li><a href="sprint1.html">Sprint 1</a> — Jan 20 – Feb 24, 2026 · <a href="assets/deliverables/Sprint1_Presentation.pdf">Sprint 1 presentation (PDF)</a></li>
+        <li><a href="sprint2.html">Sprint 2</a> — Mar 3 – Mar 24, 2026 · <a href="sprint2_presentation.html">Presentation guide</a> · <a href="assets/deliverables/Sprint2_Presentation_CS495.pdf">Sprint 2 presentation (PDF)</a></li>
+      </ul>
+    </section>
 
-    <div class="card">
-      <h3>Sprint 1</h3>
-      <p>
-        <a href="sprint1.html">Sprint 1 — Project planning, backlog snapshot, sprint backlog, and retrospective</a>
-      </p>
-      <p style="margin-top: 8px; color: var(--muted); font-size: 14px;">
-        Planning document, project backlog snapshot, sprint backlog, and sprint retrospective (Jan 20 – Feb 24, 2026).
-      </p>
-      <p style="margin-top: 12px;">
-        <a href="assets/deliverables/Sprint1_Presentation.pdf">Sprint 1 Presentation</a>
-      </p>
-    </div>
+    <section class="card" id="backlog">
+      <h2>Remaining backlog</h2>
+      <p>Carryover and stretch work after Sprint 2 (bulk moderation, fuzzy match, HTTPS hardening, tests, performance).</p>
+      <p style="margin-bottom:0;"><a href="remaining-backlog.html">Remaining backlog (detail)</a></p>
+    </section>
 
-    <div class="card">
-      <h3>Sprint 2</h3>
-      <p>
-        <a href="sprint2.html">Sprint 2 — Project planning, backlog snapshot, sprint backlog, and retrospective</a>
-      </p>
-      <p style="margin-top: 8px; color: var(--muted); font-size: 14px;">
-        Planning, project &amp; sprint backlogs, retrospective, technical/engineering notes (Mar 3 – Mar 24, 2026). Presentation outline &amp; submission checklist: <a href="sprint2_presentation.html">Sprint 2 presentation guide</a>.
-      </p>
-      <p style="margin-top: 12px;">
-        <a href="assets/deliverables/Sprint2_Presentation_CS495.pdf">Sprint 2 Presentation</a>
-      </p>
-    </div>
+    <section class="card" id="video">
+      <h2>Project demonstration video</h2>
+      <p>Video walkthrough of <strong>all completed functionality</strong> (submit, moderate, merge, similarity, chat, deploy as applicable).</p>
+      <div class="placeholder" style="text-align: left;">
+        <strong>Placeholder — add link before submission.</strong> Replace with your hosted video (e.g. YouTube unlisted, Google Drive, or UA-approved host).<br /><br />
+        Example: <span class="mono">&lt;a href="https://..."&gt;Watch demo&lt;/a&gt;</span>
+      </div>
+    </section>
 
-    <div class="footer-link">
+    <section class="card" id="features">
+      <h2>Completed functionality (features)</h2>
+      <ul>
+        <li><strong>Public crowdsourcing:</strong> Resource recommendation / submission flow toward moderation.</li>
+        <li><strong>Moderation:</strong> Queue with approve, merge, and reject; audit-oriented workflow.</li>
+        <li><strong>Similarity &amp; deduplication:</strong> Lexical (TF‑IDF) and embedding-backed search to surface likely duplicates (see Sprint 2 technical notes).</li>
+        <li><strong>Staff access:</strong> Django authentication for moderation paths (session-based; not OAuth by default).</li>
+        <li><strong>Data platform:</strong> PostgreSQL with PostGIS / pgvector; Docker-based local and cloud-shaped deployment (e.g. GCP demo).</li>
+        <li><strong>AI chat (where configured):</strong> Google Gemini for conversational assistance — requires <span class="mono">GOOGLE_API_KEY</span> (see FAQs).</li>
+      </ul>
+      <p style="margin-bottom:0; color: var(--muted); font-size: 14px;">Adjust bullets to match your final demo scope.</p>
+    </section>
+
+    <section class="card" id="security">
+      <h2>Cybersecurity</h2>
+      <ul>
+        <li><a href="cybersecurity-assessment.html"><strong>Final cybersecurity assessment</strong></a> — narrative placeholder for the team-written assessment (assign owner).</li>
+        <li>Same page includes a <strong>periodic review checklist</strong> (secrets, TLS, auth, OAuth if added, DB, dependencies, third-party AI, containers, logging).</li>
+      </ul>
+      <p style="margin-bottom:0;">API- and OAuth-related FAQs: <a href="faq-component-services.html">FAQs on component services</a>.</p>
+    </section>
+
+    <section class="card" id="course-docs">
+      <h2>GitHub / course documentation (one owner each)</h2>
+      <p>Per course requirements, the <strong>application repository</strong> must document runbooks, sponsor guide, dev setup, FAQs, and testing. This site links web copies; canonical long-form docs may also live under <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing">carebot-deployable-crowdsourcing</a>.</p>
+      <table>
+        <tr><th>Topic</th><th>Status</th><th>Link</th></tr>
+        <tr><td>Run / deploy (API keys, OAuth workflow if any)</td><td>Placeholder</td><td><a href="deploy-run.html">deploy-run.html</a></td></tr>
+        <tr><td>Sponsor user guide (with images)</td><td>Placeholder</td><td><a href="sponsor-user-guide.html">sponsor-user-guide.html</a></td></tr>
+        <tr><td>Development environment &amp; dependencies</td><td>Placeholder</td><td><a href="development-environment.html">development-environment.html</a></td></tr>
+        <tr><td>FAQs — APIs, OAuth, component services</td><td><strong>Complete (web)</strong></td><td><a href="faq-component-services.html">faq-component-services.html</a> · <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing/blob/main/docs/FAQ-component-services.md">Markdown in app repo</a></td></tr>
+        <tr><td>Test plan &amp; testing script</td><td>Placeholder</td><td><a href="test-plan.html">test-plan.html</a></td></tr>
+      </table>
+      <p style="margin-bottom:0; font-size: 14px; color: var(--muted);">Assign names in <a href="DOCUMENTATION_INDEX.md">DOCUMENTATION_INDEX.md</a> (repo root <span class="mono">docs/</span>).</p>
+    </section>
+
+    <section class="card" id="legacy">
+      <h2>Earlier deliverables</h2>
+      <p><strong>Deliverable 1:</strong> <a href="https://drive.google.com/file/d/100pQ6e5aIblLDGGjIU67OHELe7lxGKhB/view?usp=sharing">Preliminary presentation</a></p>
+      <p style="margin-bottom:0;"><strong>Deliverable 2:</strong> This project website (overview, team bios, deliverables).</p>
+    </section>
+
+    <div style="text-align: center; margin-top: 32px;">
       <a class="btn" href="index.html">Back to Home</a>
     </div>
   </div>

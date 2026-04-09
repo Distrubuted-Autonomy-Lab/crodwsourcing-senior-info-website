@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQs — APIs, OAuth &amp; component services</title>
+  <link rel="stylesheet" href="assets/doc-page.css" />
+</head>
+<body>
+  <div class="page">
+    <h1><span>FAQs: Component services (APIs, OAuth)</span></h1>
+    <p class="subtitle">Selection, setup, and operational considerations for <strong>Crowdsourcing Senior Info (CareBot)</strong>. Mirrors the technical reference in the application repo: <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing/blob/main/docs/FAQ-component-services.md"><code>carebot-deployable-crowdsourcing/docs/FAQ-component-services.md</code></a>.</p>
+
+    <section class="card" id="components">
+      <h2>1. What major components make up the system?</h2>
+      <table>
+        <tr><th>Area</th><th>Technology</th><th>Role</th></tr>
+        <tr><td>Web app</td><td>Django 5</td><td>HTTP UI, business logic, staff authentication</td></tr>
+        <tr><td>Database</td><td>PostgreSQL + PostGIS + pgvector</td><td>Relational data, geospatial queries, vector similarity</td></tr>
+        <tr><td>LLM (chat)</td><td>Google Gemini (Generative Language API)</td><td>Natural-language understanding and answers for the public chat</td></tr>
+        <tr><td>Containers</td><td>Docker Compose</td><td>Local and deployment-shaped runs (web + database, optional broker)</td></tr>
+        <tr><td>Message broker (optional)</td><td>RabbitMQ</td><td>Intended for Celery; broker URL in settings</td></tr>
+        <tr><td>Reverse proxy (production)</td><td>NGINX</td><td>TLS termination and static/front-end patterns in cloud images</td></tr>
+      </table>
+      <p style="margin-bottom:0;">See the CareBot <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing/tree/main/root">repository <code>root/</code></a> for compose files and run commands.</p>
+    </section>
+
+    <section class="card" id="keys">
+      <h2>2. Which APIs and keys does the app require?</h2>
+
+      <h3>Google Gemini (<span class="mono">GOOGLE_API_KEY</span>)</h3>
+      <ul>
+        <li><strong>Used for:</strong> The public chat flow calls the Gemini API (via <span class="mono">google.generativeai</span>) to interpret questions and produce responses grounded in query logic and database results.</li>
+        <li><strong>Configuration:</strong> Set <span class="mono">GOOGLE_API_KEY</span> in the environment (e.g. <span class="mono">.env-local</span> — never commit). Optionally set <span class="mono">GEMINI_MODEL</span> (default in code: <span class="mono">models/gemini-2.5-flash</span>).</li>
+        <li><strong>How to obtain a key:</strong> In <a href="https://aistudio.google.com/">Google AI Studio</a> or Google Cloud, create an API key with access to the Generative Language API. Restrict the key by HTTP referrer or IP where possible.</li>
+        <li><strong>Considerations:</strong> <em>Cost and quotas</em> — monitor usage; set budgets and alerts. <em>Privacy</em> — user queries and model context may leave your server; align with sponsor policy and any HIPAA/FERPA constraints before sending sensitive data. <em>Availability</em> — outages or rate limits degrade chat; fail gracefully in the UI. <em>Model changes</em> — changing <span class="mono">GEMINI_MODEL</span> can change behavior, latency, and pricing — test after upgrades.</li>
+      </ul>
+
+      <h3>OpenAI (<span class="mono">OPENAI_API_KEY</span>)</h3>
+      <ul>
+        <li><strong>Used for:</strong> Optional paths (e.g. embedding backends in settings). The codebase reads <span class="mono">OPENAI_API_KEY</span>; not every deployment needs it, depending on <span class="mono">EMBEDDING_BACKEND</span> and active code paths.</li>
+        <li><strong>Configuration:</strong> Set the key if you enable OpenAI-backed embeddings or related features.</li>
+        <li><strong>Considerations:</strong> Same themes as Gemini — billing, data handling, key rotation.</li>
+      </ul>
+
+      <h3>Django <span class="mono">SECRET_KEY</span></h3>
+      <ul>
+        <li><strong>Used for:</strong> Signing sessions and CSRF tokens.</li>
+        <li><strong>Configuration:</strong> Long random string via environment. Never commit real values or reuse keys across untrusted environments.</li>
+      </ul>
+
+      <h3>Database credentials</h3>
+      <ul>
+        <li><strong>Used for:</strong> Django database settings (<span class="mono">DATABASE_NAME</span>, <span class="mono">DATABASE_USER</span>, <span class="mono">DATABASE_PASSWORD</span>, host, port).</li>
+        <li><strong>Considerations:</strong> Strong passwords in production; restrict network access; prefer secrets managers or platform env injection over plain files on servers.</li>
+      </ul>
+
+      <h3>Optional integrations</h3>
+      <ul>
+        <li>Settings may define secrets such as <span class="mono">TWILIO_WEBHOOK_SECRET</span> for webhooks — set only if those endpoints are implemented and exposed.</li>
+        <li><strong>Hugging Face:</strong> If embeddings download models from Hugging Face, an optional <span class="mono">HF_TOKEN</span> can raise rate limits; document in deploy runbook.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="oauth">
+      <h2>3. OAuth: does CareBot use it?</h2>
+      <p><strong>Current approach:</strong> Staff and moderation flows use <strong>Django’s built-in authentication</strong> (username/password, sessions, <span class="mono">django.contrib.auth</span>), typically with <span class="mono">LOGIN_URL</span> at <span class="mono">/accounts/login/</span>. This is <strong>not</strong> OAuth 2.0 / OpenID Connect against Google, Microsoft, or similar in the default course deployment.</p>
+      <p><strong>Implications:</strong></p>
+      <ul>
+        <li>No OAuth client ID/secret or authorization-code flow for end users in the default setup.</li>
+        <li>Session cookies and CSRF protection are the primary browser security mechanisms for logged-in users.</li>
+      </ul>
+      <p><strong>If the sponsor adds “Sign in with Google” (or similar):</strong></p>
+      <ul>
+        <li>Add an OAuth/OIDC provider (e.g. <span class="mono">django-allauth</span>, or a cloud IdP) and register redirect URIs, client ID, and client secret.</li>
+        <li>Document provider console steps, scopes, token storage, refresh, logout, and account linking (mapping OAuth identity to existing <span class="mono">User</span> rows).</li>
+      </ul>
+    </section>
+
+    <section class="card" id="postgis">
+      <h2>4. Why PostGIS and pgvector?</h2>
+      <ul>
+        <li><strong>PostGIS:</strong> Resource and location data use geospatial types and queries (distance, containment).</li>
+        <li><strong>pgvector:</strong> Embeddings live in Postgres for similarity search without a separate vector-only database.</li>
+        <li><strong>Tradeoff:</strong> Slightly heavier ops than “Postgres only,” but fewer moving parts than an external vector service.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="celery">
+      <h2>5. RabbitMQ and Celery</h2>
+      <ul>
+        <li>RabbitMQ may appear in local Compose for development.</li>
+        <li>Full async worker integration may be partial; <span class="mono">CELERY_BROKER_URL</span> must match the environment (container hostname <span class="mono">rabbitmq</span> vs <span class="mono">localhost</span>).</li>
+        <li><strong>Production:</strong> Secure broker credentials; do not expose the management UI publicly without auth and network controls.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="selection">
+      <h2>6. Selection criteria (summary)</h2>
+      <ol>
+        <li><strong>Fit:</strong> Gemini for conversational UX; Postgres for relational + geo + vectors.</li>
+        <li><strong>Cost:</strong> Managed API pricing vs. self-hosted LLM.</li>
+        <li><strong>Security &amp; compliance:</strong> Data flows, key custody, audit needs.</li>
+        <li><strong>Team familiarity:</strong> Django + Docker.</li>
+        <li><strong>Flexibility:</strong> Pluggable embedding backend and Celery for future jobs.</li>
+      </ol>
+    </section>
+
+    <section class="card" id="review">
+      <h2>7. Periodic review checklist (APIs and auth)</h2>
+      <ul>
+        <li>API keys rotated after personnel changes or suspected leak.</li>
+        <li>Key restrictions (IP, referrer, API surface) reviewed in cloud consoles.</li>
+        <li><span class="mono">DEBUG=False</span>, <span class="mono">SECRET_KEY</span>, <span class="mono">ALLOWED_HOSTS</span>, and <span class="mono">CSRF_TRUSTED_ORIGINS</span> correct per environment.</li>
+        <li>No secrets in Git history or public READMEs (placeholders only in examples).</li>
+        <li>Rate limiting and abuse monitoring for public chat endpoints remain appropriate.</li>
+        <li>Third-party subprocessors (Google, OpenAI, etc.) still acceptable under sponsor agreements.</li>
+        <li>If OAuth is added: token lifetimes, refresh, and logout documented and tested.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="codebase">
+      <h2>8. Where to look in the codebase</h2>
+      <ul>
+        <li>API keys and model name: <span class="mono">root/app/carebot/settings.py</span> (<span class="mono">GOOGLE_API_KEY</span>, <span class="mono">OPENAI_API_KEY</span>, <span class="mono">GEMINI_MODEL</span>).</li>
+        <li>Gemini usage: <span class="mono">root/app/chat/views.py</span> (<span class="mono">genai.configure</span>, <span class="mono">GenerativeModel</span>).</li>
+        <li>Auth URLs: <span class="mono">root/app/carebot/urls.py</span> (<span class="mono">django.contrib.auth.urls</span>).</li>
+        <li>Environment template: <span class="mono">root/.env-local.example</span> (if present).</li>
+      </ul>
+      <p style="margin-bottom:0;">For run/deploy, dev setup, sponsor guide, and tests, see the <a href="deliverables.html">Project Deliverables</a> page and linked team docs.</p>
+    </section>
+
+    <a class="btn" href="deliverables.html">Back to Deliverables</a>
+  </div>
+</body>
+</html>

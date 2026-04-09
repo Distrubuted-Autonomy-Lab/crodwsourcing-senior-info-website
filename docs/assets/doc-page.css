@@ -1,0 +1,108 @@
+:root {
+  color-scheme: light dark;
+  --bg: #0f172a;
+  --card: #111827;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --accent: #38bdf8;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --accent: #0ea5e9;
+  }
+}
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+.page {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 48px 20px 70px;
+  text-align: left;
+}
+h1, h2, h3 {
+  margin-top: 28px;
+  margin-bottom: 12px;
+}
+h1 { font-size: 28px; }
+h2 { font-size: 22px; }
+h3 { font-size: 18px; }
+h4 { font-size: 16px; margin-top: 20px; margin-bottom: 8px; }
+h1 span, h2 span {
+  position: relative;
+  display: inline-block;
+}
+h1 span::after, h2 span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 999px;
+}
+p, li {
+  line-height: 1.6;
+  color: var(--text);
+}
+.subtitle { color: var(--muted); margin-bottom: 24px; }
+.card {
+  background: var(--card);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px 0;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+th, td {
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+th { background: rgba(56, 189, 248, 0.15); }
+ul { padding-left: 20px; }
+.mono {
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  background: rgba(148, 163, 184, 0.12);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.placeholder {
+  border-left: 3px solid var(--accent);
+  padding: 12px 16px;
+  margin: 16px 0;
+  background: rgba(56, 189, 248, 0.08);
+  color: var(--muted);
+  font-size: 14px;
+}
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--card);
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 24px;
+}
+.btn:hover { opacity: 0.9; }
+.card a, .page a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+.card a:hover, .page a:hover { text-decoration: underline; }
