@@ -3,90 +3,240 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Deliverables</title>
-  <link rel="stylesheet" href="assets/doc-page.css" />
-  <style>
-    .deliverables-hero { text-align: center; margin-bottom: 28px; }
-    .deliverables-hero h1 { margin-top: 0; }
-    .page-wide { max-width: 920px; }
-  </style>
+  <title>Project deliverables — Crowdsourcing Senior Info</title>
+  <link rel="stylesheet" href="assets/deliverables.css" />
 </head>
-<body>
-  <div class="page page-wide">
-    <div class="deliverables-hero">
-      <h1><span>Project deliverables</span></h1>
-      <p class="subtitle" style="margin-bottom: 8px;">Spring 2026 · Crowdsourcing Senior Info (CareBot)</p>
-      <p class="subtitle" style="font-size: 15px;">Final project website due <strong>April 16, 2026</strong>. This page links sprint docs, backlog, demo video, security materials, completed features, and team documentation assignments.</p>
+<body class="deliverables-body">
+  <div class="wrap">
+    <header class="hero">
+      <div class="hero-inner">
+        <h1><span>Project deliverables</span></h1>
+        <p class="tagline">
+          <strong>Crowdsourcing Senior Info (CareBot)</strong> — documentation and sprint artifacts for someone with <strong>basic CS knowledge</strong> who does not know our project yet.
+          Everything here is <strong>versioned in GitHub</strong> next to (or linked from) source code.
+        </p>
+        <p class="due">Final project website due April 16, 2026</p>
+        <p class="repos">
+          <strong>App (Django + Docker):</strong>
+          <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing">carebot-deployable-crowdsourcing</a>
+          · <strong>This site:</strong>
+          <a href="https://github.com/Distrubuted-Autonomy-Lab/website-crowdsourcing">website-crowdsourcing</a>
+        </p>
+      </div>
+    </header>
+
+    <nav class="jump-nav" aria-label="Page sections">
+      <a href="#sprint-1">Sprint 1</a>
+      <a href="#sprint-2">Sprint 2</a>
+      <a href="#sprint-3">Sprint 3 / Final</a>
+      <a href="#documentation">Full documentation</a>
+    </nav>
+
+    <div class="sprint-grid">
+      <!-- Sprint 1 -->
+      <article class="sprint-panel sprint-1" id="sprint-1">
+        <div class="head">
+          <h2>Sprint 1</h2>
+          <p class="dates">Jan 20 – Feb 24, 2026</p>
+        </div>
+        <div class="body">
+          <p class="muted" style="margin:0 0 12px; font-size:0.88rem;">All Sprint 1 course artifacts:</p>
+          <ul>
+            <li><a href="https://drive.google.com/file/d/100pQ6e5aIblLDGGjIU67OHELe7lxGKhB/view?usp=sharing">Preliminary presentation</a> (Deliverable 1 — kickoff)</li>
+            <li><a href="sprint1.html">Sprint 1 planning document</a> — mission, goals, scope</li>
+            <li><a href="sprint1.html#project-backlog-snapshot">Project backlog snapshot</a></li>
+            <li><a href="sprint1.html#sprint-backlog">Sprint backlog</a></li>
+            <li><a href="sprint1.html#retrospective">Sprint retrospective</a></li>
+            <li><a href="assets/deliverables/Sprint1_Presentation.pdf">Sprint 1 presentation (PDF)</a></li>
+          </ul>
+          <p class="muted" style="margin:12px 0 0; font-size:0.85rem;"><strong>Shipped themes:</strong> submission flow fixes, approve/merge/reject, Docker (Mac + Windows), initial security, onboarding docs.</p>
+        </div>
+      </article>
+
+      <!-- Sprint 2 -->
+      <article class="sprint-panel sprint-2" id="sprint-2">
+        <div class="head">
+          <h2>Sprint 2</h2>
+          <p class="dates">Mar 3 – Mar 24, 2026</p>
+        </div>
+        <div class="body">
+          <p class="muted" style="margin:0 0 12px; font-size:0.88rem;">All Sprint 2 course artifacts:</p>
+          <ul>
+            <li><a href="sprint2.html">Sprint 2 planning document</a> — mission, goals, scope</li>
+            <li><a href="sprint2.html#project-backlog-snapshot">Project backlog snapshot</a></li>
+            <li><a href="sprint2.html#sprint-backlog">Sprint backlog</a></li>
+            <li><a href="sprint2.html#retrospective">Sprint retrospective</a></li>
+            <li><a href="sprint2.html#technical-deliverables">Technical &amp; engineering deliverables</a> (similarity, Docker, schema runbooks)</li>
+            <li><a href="sprint2_presentation.html">Sprint 2 presentation guide &amp; checklist</a></li>
+            <li><a href="assets/deliverables/Sprint2_Presentation_CS495.pdf">Sprint 2 presentation (PDF)</a></li>
+          </ul>
+          <p class="muted" style="margin:12px 0 0; font-size:0.85rem;"><strong>Shipped themes:</strong> full-catalog TF‑IDF + pgvector similarity, GCP demo, login/home/base, UX + security + docs.</p>
+        </div>
+      </article>
+
+      <!-- Sprint 3 / Final -->
+      <article class="sprint-panel sprint-3" id="sprint-3">
+        <div class="head">
+          <h2>Sprint 3 / Final</h2>
+          <p class="dates">Due Apr 16, 2026</p>
+        </div>
+        <div class="body">
+          <p class="muted" style="margin:0 0 12px; font-size:0.88rem;">Final submission artifacts:</p>
+          <ul>
+            <li><a href="sprint3-final.html">Sprint 3 / final checklist page</a></li>
+            <li><a href="remaining-backlog.html">Remaining backlog</a> (carryover after Sprint 2)</li>
+            <li><strong>Demo video</strong> — add URL below before turn-in</li>
+            <li><a href="cybersecurity-assessment.html">Final cybersecurity assessment</a> + review checklist</li>
+            <li><strong>Deliverable 2:</strong> this project website (<a href="index.html">home</a>, <a href="team.html">team</a>, deliverables)</li>
+          </ul>
+          <div class="placeholder">
+            <strong>Video placeholder:</strong> Replace with your link (YouTube unlisted, Drive, etc.)<br />
+            <span class="mono">&lt;!-- Edit deliverables.html or ask the team to add href --&gt;</span>
+          </div>
+          <div class="doc-block" style="margin-top:16px; padding-top:16px; border-top:1px dashed var(--border);">
+            <h3 style="margin:0 0 10px; font-size:1rem;">FAQs (Sprint 3 / Final)</h3>
+            <p class="muted" style="margin:0 0 10px; font-size:0.88rem;">End-user questions below. For <strong>APIs, OAuth, and service integration</strong> (selection, setup, keys, quotas), use the full technical FAQ page.</p>
+            <p style="margin:0;"><a href="faq-component-services.html" style="font-size:0.95rem;">→ FAQs on component services (APIs, OAuth) — full page</a></p>
+          </div>
+        </div>
+      </article>
     </div>
 
-    <section class="card" id="sprints">
-      <h2>Sprint documentation</h2>
-      <p>Planning, backlogs, and retrospectives for each sprint:</p>
-      <ul>
-        <li><a href="sprint1.html">Sprint 1</a> — Jan 20 – Feb 24, 2026 · <a href="assets/deliverables/Sprint1_Presentation.pdf">Sprint 1 presentation (PDF)</a></li>
-        <li><a href="sprint2.html">Sprint 2</a> — Mar 3 – Mar 24, 2026 · <a href="sprint2_presentation.html">Presentation guide</a> · <a href="assets/deliverables/Sprint2_Presentation_CS495.pdf">Sprint 2 presentation (PDF)</a></li>
-      </ul>
-    </section>
+    <!-- Full documentation hub (course rubric) -->
+    <section class="section-wide" id="documentation">
+      <div class="section-head">
+        <h2>Documentation for newcomers</h2>
+        <p>Read this if you are installing, deploying, extending, or testing the application. Deeper pages are linked; keep canonical technical detail in the <strong>application repository</strong> as your team fills placeholders.</p>
+      </div>
+      <div class="section-body">
 
-    <section class="card" id="backlog">
-      <h2>Remaining backlog</h2>
-      <p>Carryover and stretch work after Sprint 2 (bulk moderation, fuzzy match, HTTPS hardening, tests, performance).</p>
-      <p style="margin-bottom:0;"><a href="remaining-backlog.html">Remaining backlog (detail)</a></p>
-    </section>
+        <div class="doc-block">
+          <h3><span class="num">1</span> How to install software</h3>
+          <p>Install host tools first, then clone the repos.</p>
+          <div class="subgrid two">
+            <div class="mini-card">
+              <strong>What you need</strong>
+              <a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a> (recommended), <a href="https://git-scm.com/">Git</a>, and a modern browser. Optional: Python 3.x if you run tooling outside Docker.
+            </div>
+            <div class="mini-card">
+              <strong>Repositories</strong>
+              Clone <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing">carebot-deployable-crowdsourcing</a> for the app. This site lives in <a href="https://github.com/Distrubuted-Autonomy-Lab/website-crowdsourcing">website-crowdsourcing</a> (<span class="mono">docs/</span> for Pages).
+            </div>
+          </div>
+          <p class="muted">Detailed dependency versions and first-time setup: <a href="development-environment.html">Development environment</a> (placeholder — assign owner).</p>
+        </div>
 
-    <section class="card" id="video">
-      <h2>Project demonstration video</h2>
-      <p>Video walkthrough of <strong>all completed functionality</strong> (submit, moderate, merge, similarity, chat, deploy as applicable).</p>
-      <div class="placeholder" style="text-align: left;">
-        <strong>Placeholder — add link before submission.</strong> Replace with your hosted video (e.g. YouTube unlisted, Google Drive, or UA-approved host).<br /><br />
-        Example: <span class="mono">&lt;a href="https://..."&gt;Watch demo&lt;/a&gt;</span>
+        <div class="doc-block">
+          <h3><span class="num">2</span> How to install / deploy software</h3>
+          <p><strong>If someone deploys in their own environment, what should they do?</strong> Use Docker Compose from the app <span class="mono">root/</span> with the documented override files, provision PostgreSQL/PostGIS (and pgvector as required), inject secrets via environment (never commit real keys), and open only necessary ports.</p>
+          <ul>
+            <li><strong>Software stack:</strong> Containers orchestrate the Django app, database, and optional services (e.g. RabbitMQ). <strong>Docker</strong> is the primary path so builds are repeatable across macOS and Windows.</li>
+            <li><strong>Sources of configuration:</strong> <span class="mono">docker-compose.yml</span>, <span class="mono">docker-compose.local.yml</span>, <span class="mono">.env-local</span> (or equivalent), and <span class="mono">carebot/settings.py</span> reading environment variables.</li>
+            <li><strong>External resources &amp; tiers:</strong>
+              <ul>
+                <li><strong>PostgreSQL + PostGIS + pgvector</strong> — self-hosted in Compose or managed DB (cost depends on provider).</li>
+                <li><strong>Google Gemini</strong> (chat) — API key; usage-based billing / free tiers per <a href="https://ai.google.dev/pricing">Google’s current pricing</a>; monitor quotas.</li>
+                <li><strong>Optional:</strong> OpenAI embeddings, <strong>Hugging Face</strong> model download (<span class="mono">HF_TOKEN</span> can help rate limits), <strong>GCP</strong> (Compute Engine for class demos — VM + disk + egress costs).</li>
+              </ul>
+            </li>
+          </ul>
+          <p class="muted">Step-by-step deploy + API keys + OAuth (if you add it): <a href="deploy-run.html">Run &amp; deploy</a> (placeholder). Technical service FAQ: <a href="faq-component-services.html">Component services FAQ</a>.</p>
+        </div>
+
+        <div class="doc-block">
+          <h3><span class="num">3</span> How to use each completed feature</h3>
+          <p>Features grew across sprints; use the sprint pages for planning context and acceptance themes.</p>
+          <div class="subgrid two">
+            <div class="mini-card">
+              <strong>User types</strong>
+              <strong>Public</strong> visitors can submit resource recommendations (crowdsourcing flow). <strong>Staff / moderators</strong> (Django authenticated users) use the moderation queue, similarity tools, and merge/approve/reject actions.
+            </div>
+            <div class="mini-card">
+              <strong>Typical flow</strong>
+              A public submission lands in the <strong>moderation queue</strong>. Moderators review it, use <strong>similarity search</strong> to find duplicates, then <strong>approve</strong>, <strong>merge</strong> into an existing listing, or <strong>reject</strong>. Approved items live in the same catalog as imported data (full-catalog similarity in Sprint 2).
+            </div>
+          </div>
+          <p><strong>Sprint linkage:</strong> <a href="sprint1.html#planning">Sprint 1 — scope &amp; goals</a> (submission + merge foundation). <a href="sprint2.html#planning">Sprint 2 — scope &amp; goals</a> (similarity, login, GCP, UX). <a href="sprint2.html#technical-deliverables">Sprint 2 technical notes</a> for similarity and runbooks.</p>
+          <p><strong>Chat (optional):</strong> When <span class="mono">GOOGLE_API_KEY</span> is set, the public chat can call Gemini; behavior and limits are documented under <a href="faq-component-services.html">FAQs — APIs</a>.</p>
+          <p class="muted">Sponsor-facing steps with screenshots: <a href="sponsor-user-guide.html">Sponsor user guide</a> (placeholder).</p>
+        </div>
+
+        <div class="doc-block">
+          <h3><span class="num">4</span> How to modify / extend software</h3>
+          <ul>
+            <li><strong>Languages &amp; runtime:</strong> Python (Django 5), HTML/CSS/JS templates, SQL (Postgres). No separate “compiler”; the interpreter runs in the container or venv.</li>
+            <li><strong>Build &amp; dependencies:</strong> Declared in <span class="mono">requirements.txt</span> and Dockerfiles under the app repo. Rebuild images after dependency changes (<span class="mono">docker compose up --build</span>).</li>
+            <li><strong>Schema changes:</strong> Django migrations (<span class="mono">manage.py makemigrations</span> / <span class="mono">migrate</span>); coordinate with any legacy SQL dumps (see Sprint 2 <span class="mono">title</span> column runbook).</li>
+            <li><strong>Backlog &amp; bugs:</strong> GitHub Issues (recommended) or team docs. Major retrofits: Django major upgrades, swapping embedding providers, replacing Gemini, hardening OAuth if added.</li>
+            <li><strong>Style expectations:</strong> Follow team conventions (e.g. Black/flake8 if adopted) and document them in <span class="mono">CONTRIBUTING.md</span> in the app repo when finalized.</li>
+          </ul>
+        </div>
+
+        <div class="doc-block">
+          <h3><span class="num">5</span> FAQs</h3>
+          <p><strong>End users &amp; operators (quick answers)</strong></p>
+          <dl class="faq-enduser">
+            <dt>Why was my submission not visible in search immediately?</dt>
+            <dd>Submissions usually wait in the <strong>moderation queue</strong> until staff approve or merge them into the live catalog.</dd>
+            <dt>Why do similar results look weak for some listings?</dt>
+            <dd>Similarity blends text and (when present) embeddings. Bulk-imported rows need embeddings backfilled (e.g. <span class="mono">reembed</span>); lexical search still covers the catalog — see Sprint 2 technical notes.</dd>
+            <dt>Who can log into moderation?</dt>
+            <dd>Only <strong>Django user accounts</strong> your team creates (staff). There is no default “Sign in with Google” unless you add OAuth.</dd>
+            <dt>Where do I get an API key for chat?</dt>
+            <dd>Operators set <span class="mono">GOOGLE_API_KEY</span> in environment — see <a href="faq-component-services.html">component services FAQ</a>.</dd>
+          </dl>
+          <p style="margin-top:14px;"><strong>Install gotchas &amp; external services</strong></p>
+          <ul>
+            <li>Compose must be run from the correct <span class="mono">root/</span> directory; wrong cwd breaks paths and env files.</li>
+            <li>Schema drift (e.g. missing <span class="mono">title</span> on <span class="mono">resource_listings</span>) causes 500s until DB matches migrations — see <a href="sprint2.html#technical-deliverables">Sprint 2 runbook</a>.</li>
+            <li>Gemini/OpenAI rate limits, billing, and data-handling policies affect production — monitor cloud consoles.</li>
+          </ul>
+          <p style="margin-top:14px;"><strong>APIs, OAuth, selection &amp; setup (full detail)</strong></p>
+          <p style="margin:6px 0 0;"><a href="faq-component-services.html">Open FAQs on component services (APIs, OAuth) — dedicated page</a> · also in app repo as Markdown.</p>
+        </div>
+
+        <div class="doc-block">
+          <h3><span class="num">6</span> Testing</h3>
+          <ul>
+            <li><strong>Components / services to test:</strong> Web UI (submit, moderation, similarity), Postgres/PostGIS, embedding + pgvector paths, auth boundaries, optional chat integration.</li>
+            <li><strong>Significant cases:</strong> Submit → queue visibility; approve/merge/reject; similarity returns expected neighbors; login required on <span class="mono">/manage/</span> routes; chat graceful failure without API key.</li>
+            <li><strong>Automation:</strong> <span class="mono">python manage.py test</span> (see repo for coverage limits, e.g. unmanaged GIS tables).</li>
+            <li><strong>Scripts:</strong> Team shell scripts under the app repo when published.</li>
+          </ul>
+          <p class="muted">Formal test matrix: <a href="test-plan.html">Test plan</a> (placeholder).</p>
+        </div>
+
+        <div class="rtd-callout">
+          <strong>Publishing richer docs (optional):</strong>
+          Import this or the app repo into
+          <a href="https://docs.readthedocs.io/en/stable/tutorial/index.html">Read the Docs</a>
+          (<a href="https://about.readthedocs.com/pricing/#/community">community tier</a>) or use
+          <a href="https://www.mkdocs.org/getting-started/">MkDocs</a>.
+          Writing references:
+          <a href="https://blog.hubspot.com/website/api-documentation">HubSpot API docs</a>,
+          <a href="https://www.freecodecamp.org/news/how-to-write-api-documentation-like-a-pro/">FreeCodeCamp</a>,
+          <a href="https://www.altexsoft.com/blog/api-documentation/">AltexSoft</a>.
+        </div>
+
+        <div class="doc-block">
+          <h3 style="font-size:1rem;">Team documentation pages (GitHub + this site)</h3>
+          <div class="table-wrap">
+            <table class="doc-table">
+              <tr><th>Topic</th><th>Link</th><th>Note</th></tr>
+              <tr><td>Run / deploy</td><td><a href="deploy-run.html">deploy-run.html</a></td><td>Placeholder — assign owner</td></tr>
+              <tr><td>Sponsor user guide (images)</td><td><a href="sponsor-user-guide.html">sponsor-user-guide.html</a></td><td>Placeholder</td></tr>
+              <tr><td>Development environment</td><td><a href="development-environment.html">development-environment.html</a></td><td>Placeholder</td></tr>
+              <tr><td>FAQs — APIs &amp; OAuth</td><td><a href="faq-component-services.html">faq-component-services.html</a></td><td>Complete</td></tr>
+              <tr><td>Test plan</td><td><a href="test-plan.html">test-plan.html</a></td><td>Placeholder</td></tr>
+              <tr><td>Doc owners</td><td colspan="2"><a href="DOCUMENTATION_INDEX.md">DOCUMENTATION_INDEX.md</a></td></tr>
+            </table>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="card" id="features">
-      <h2>Completed functionality (features)</h2>
-      <ul>
-        <li><strong>Public crowdsourcing:</strong> Resource recommendation / submission flow toward moderation.</li>
-        <li><strong>Moderation:</strong> Queue with approve, merge, and reject; audit-oriented workflow.</li>
-        <li><strong>Similarity &amp; deduplication:</strong> Lexical (TF‑IDF) and embedding-backed search to surface likely duplicates (see Sprint 2 technical notes).</li>
-        <li><strong>Staff access:</strong> Django authentication for moderation paths (session-based; not OAuth by default).</li>
-        <li><strong>Data platform:</strong> PostgreSQL with PostGIS / pgvector; Docker-based local and cloud-shaped deployment (e.g. GCP demo).</li>
-        <li><strong>AI chat (where configured):</strong> Google Gemini for conversational assistance — requires <span class="mono">GOOGLE_API_KEY</span> (see FAQs).</li>
-      </ul>
-      <p style="margin-bottom:0; color: var(--muted); font-size: 14px;">Adjust bullets to match your final demo scope.</p>
-    </section>
-
-    <section class="card" id="security">
-      <h2>Cybersecurity</h2>
-      <ul>
-        <li><a href="cybersecurity-assessment.html"><strong>Final cybersecurity assessment</strong></a> — narrative placeholder for the team-written assessment (assign owner).</li>
-        <li>Same page includes a <strong>periodic review checklist</strong> (secrets, TLS, auth, OAuth if added, DB, dependencies, third-party AI, containers, logging).</li>
-      </ul>
-      <p style="margin-bottom:0;">API- and OAuth-related FAQs: <a href="faq-component-services.html">FAQs on component services</a>.</p>
-    </section>
-
-    <section class="card" id="course-docs">
-      <h2>GitHub / course documentation (one owner each)</h2>
-      <p>Per course requirements, the <strong>application repository</strong> must document runbooks, sponsor guide, dev setup, FAQs, and testing. This site links web copies; canonical long-form docs may also live under <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing">carebot-deployable-crowdsourcing</a>.</p>
-      <table>
-        <tr><th>Topic</th><th>Status</th><th>Link</th></tr>
-        <tr><td>Run / deploy (API keys, OAuth workflow if any)</td><td>Placeholder</td><td><a href="deploy-run.html">deploy-run.html</a></td></tr>
-        <tr><td>Sponsor user guide (with images)</td><td>Placeholder</td><td><a href="sponsor-user-guide.html">sponsor-user-guide.html</a></td></tr>
-        <tr><td>Development environment &amp; dependencies</td><td>Placeholder</td><td><a href="development-environment.html">development-environment.html</a></td></tr>
-        <tr><td>FAQs — APIs, OAuth, component services</td><td><strong>Complete (web)</strong></td><td><a href="faq-component-services.html">faq-component-services.html</a> · <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing/blob/main/docs/FAQ-component-services.md">Markdown in app repo</a></td></tr>
-        <tr><td>Test plan &amp; testing script</td><td>Placeholder</td><td><a href="test-plan.html">test-plan.html</a></td></tr>
-      </table>
-      <p style="margin-bottom:0; font-size: 14px; color: var(--muted);">Assign names in <a href="DOCUMENTATION_INDEX.md">DOCUMENTATION_INDEX.md</a> (repo root <span class="mono">docs/</span>).</p>
-    </section>
-
-    <section class="card" id="legacy">
-      <h2>Earlier deliverables</h2>
-      <p><strong>Deliverable 1:</strong> <a href="https://drive.google.com/file/d/100pQ6e5aIblLDGGjIU67OHELe7lxGKhB/view?usp=sharing">Preliminary presentation</a></p>
-      <p style="margin-bottom:0;"><strong>Deliverable 2:</strong> This project website (overview, team bios, deliverables).</p>
-    </section>
-
-    <div style="text-align: center; margin-top: 32px;">
-      <a class="btn" href="index.html">Back to Home</a>
+    <div class="footer-actions">
+      <a class="btn-home" href="index.html">Back to Home</a>
     </div>
   </div>
 </body>

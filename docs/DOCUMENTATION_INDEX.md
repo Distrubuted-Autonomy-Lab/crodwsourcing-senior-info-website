@@ -17,6 +17,7 @@
 | **Test plan** — cases + scripts | *assign* | **[Placeholder — website](test-plan.html)** · `docs/TEST_PLAN.md` + `scripts/retest-local.sh` |
 | **Final cybersecurity assessment** | *assign* | **[Placeholder — website](cybersecurity-assessment.html)** |
 | **Remaining backlog** | team | **[website](remaining-backlog.html)** |
+| **Sprint 3 / Final hub** | team | **[website](sprint3-final.html)** · **[Deliverables layout](deliverables.html)** |
 
 ---
 
