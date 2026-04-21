@@ -9,90 +9,28 @@
 <body>
   <div class="page">
     <h1><span>Test plan</span></h1>
-    <p class="subtitle">This page documents manual test cases and a lightweight testing script for the core CareBot flows.</p>
+    <p class="subtitle">Sprint 3 test cases and how to run them. Markdown source: <a href="sprint-3/TEST-CASES.md">sprint-3/TEST-CASES.md</a>.</p>
 
     <section class="card">
-      <h2>Scope</h2>
-      <ul>
-        <li><strong>Public flows:</strong> browse, submit a resource recommendation (crowdsourcing)</li>
-        <li><strong>Staff flows:</strong> login, view moderation queue, approve, merge, reject</li>
-        <li><strong>Similarity:</strong> “find duplicates” behavior for moderation and submission review</li>
-        <li><strong>Optional AI chat:</strong> graceful behavior with and without API key</li>
-      </ul>
+      <h2>General Description</h2>
+      <p>Testing is conducted with Playwright installed with Node.js. The tests themselves can be located in the <strong>root/tests</strong> folder and are installed independently of the docker containers to allow for testing of the program locally and when it is enabled on the cloud. You can adjust this by changing the <strong>BASE_URL</strong> field when the tests are run (including local host for running the tests locally). The tests currently do not thoroughly examine the moderator or similarity reports, but test cases for these should be created as well. Additionally, the tests are not currently automated, but can be by installing Playwright within the docker container in the future.</p>
     </section>
 
     <section class="card">
-      <h2>How to run automated tests</h2>
-      <p>From inside the running app container (or a local venv if supported in your setup):</p>
-      <pre><code>python manage.py test</code></pre>
-      <p class="subtitle" style="margin: 10px 0 0;">If your local DB uses unmanaged GIS tables, document limitations and rely on the manual cases below for end-to-end confidence.</p>
-    </section>
+      <h2>Running the Tests</h2>
+      <p>Once you ensure the Node modules are up-to-date, ensure you are in the <strong>root</strong> folder before running any of the following commands.</p>
 
-    <section class="card">
-      <h2>Manual test cases (critical paths)</h2>
-      <table>
-        <tr><th>ID</th><th>Scenario</th><th>Steps</th><th>Expected result</th></tr>
+      <p><strong>To run all tests:</strong></p>
+      <pre><code>BASE_URL=http://exampleurl.com npx playwright test</code></pre>
 
-        <tr>
-          <td>TC-001</td>
-          <td>Public submission creates a queued item</td>
-          <td>Open the public submit page → fill required fields → submit</td>
-          <td>Success message shown; item appears in moderation queue for staff</td>
-        </tr>
+      <p><strong>To run a specific test:</strong></p>
+      <pre><code>BASE_URL=http://exampleurl.com npx playwright test [test_name_file.js]</code></pre>
 
-        <tr>
-          <td>TC-002</td>
-          <td>Staff login required</td>
-          <td>Try to open moderation routes while logged out</td>
-          <td>Redirected to login; no sensitive moderation data is shown</td>
-        </tr>
+      <h3>manage.spec.ts</h3>
+      <p>This file tests the website's navigation from the home screen to the manage page where you can submit a resource. It also tests the button to ensure it works correctly.</p>
 
-        <tr>
-          <td>TC-003</td>
-          <td>Approve submission</td>
-          <td>Login → open moderation detail → approve</td>
-          <td>Submission leaves queue; new listing is created/visible in catalog (or referenced as approved)</td>
-        </tr>
-
-        <tr>
-          <td>TC-004</td>
-          <td>Reject submission</td>
-          <td>Login → open moderation detail → reject with reason (if supported)</td>
-          <td>Submission marked rejected; it does not appear in public catalog</td>
-        </tr>
-
-        <tr>
-          <td>TC-005</td>
-          <td>Merge submission into existing listing</td>
-          <td>Login → open moderation detail → choose an existing resource → merge</td>
-          <td>Existing listing updated according to “smart merge” rules; submission closed</td>
-        </tr>
-
-        <tr>
-          <td>TC-006</td>
-          <td>Similarity search returns plausible duplicates</td>
-          <td>On submission or moderation, run similarity for a known listing name / address</td>
-          <td>Top results include the known listing(s); scores decrease with relevance</td>
-        </tr>
-
-        <tr>
-          <td>TC-007</td>
-          <td>Chat behavior without API key (if chat is exposed)</td>
-          <td>Unset <span class="mono">GOOGLE_API_KEY</span> → open chat → send a message</td>
-          <td>User sees a safe error / disabled state; server does not crash</td>
-        </tr>
-      </table>
-    </section>
-
-    <section class="card">
-      <h2>Testing script (repeatable checklist)</h2>
-      <ol>
-        <li>Bring up the stack: <span class="mono">docker compose … up --build</span></li>
-        <li>Verify homepage loads</li>
-        <li>Run TC-001 through TC-006</li>
-        <li>Run <span class="mono">python manage.py test</span></li>
-      </ol>
-      <p class="subtitle" style="margin: 10px 0 0;">If your team adds a shell script (example: <span class="mono">scripts/retest-local.sh</span>) in the app repo, link it here.</p>
+      <h3>public_submit.spec.ts</h3>
+      <p>This file tests to make sure the form loads correctly and that input validation works correctly.</p>
     </section>
 
     <div class="footer-actions">
