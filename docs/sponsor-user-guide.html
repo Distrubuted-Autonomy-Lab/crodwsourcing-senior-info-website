@@ -3,94 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sponsor user guide</title>
-  <link rel="stylesheet" href="assets/doc-page.css" />
+  <title>Redirect — User guide</title>
+  <link rel="canonical" href="user-guide.html#staff" />
+  <meta http-equiv="refresh" content="0; url=user-guide.html#staff" />
 </head>
 <body>
-  <div class="page">
-    <h1><span>Sponsor user guide</span></h1>
-    <p class="subtitle">Step-by-step guide for non-technical stakeholders to use the completed CareBot functionality. For a plain-language guide aimed at caregivers submitting a resource, see the <a href="user-guide.html">User guide</a> (<a href="userguide.md">userguide.md</a>).</p>
-
-    <section class="card">
-      <h2>Who this guide is for</h2>
-      <ul>
-        <li><strong>Public users:</strong> submit resource recommendations</li>
-        <li><strong>Staff / moderators:</strong> review submissions and maintain data quality</li>
-      </ul>
-    </section>
-
-    <section class="card">
-      <h2>Public: submit a resource recommendation</h2>
-      <ol>
-        <li>Open the public submission page (linked from the site navigation, if enabled).</li>
-        <li>Fill out the resource information (name/title, location, description, eligibility, etc.).</li>
-        <li>Submit the form.</li>
-      </ol>
-      <p><strong>What happens next:</strong> submissions do not immediately appear publicly. They go to the <strong>moderation queue</strong> for review.</p>
-      <figure style="margin:16px 0 0;">
-        <img src="assets/screenshots/02-submit-form.png" alt="Full submission form with four sections" style="width:100%;height:auto;border-radius:12px;border:1px solid rgba(148, 163, 184, 0.3);" />
-        <figcaption style="margin-top:10px;font-weight:600;">Public submission form</figcaption>
-      </figure>
-      <figure style="margin:16px 0 0;">
-        <img src="assets/screenshots/04-thanks.png" alt="Thank-you page after submission" style="width:100%;height:auto;border-radius:12px;border:1px solid rgba(148, 163, 184, 0.3);" />
-        <figcaption style="margin-top:10px;font-weight:600;">Confirmation after submission</figcaption>
-      </figure>
-    </section>
-
-    <section class="card">
-      <h2>Staff: log in</h2>
-      <ol>
-        <li>Open the staff login page.</li>
-        <li>Sign in with the staff credentials created by the team (Django user accounts).</li>
-      </ol>
-      <p class="subtitle" style="margin: 10px 0 0;">There is no “Sign in with Google” unless OAuth is added later.</p>
-    </section>
-
-    <section class="card">
-      <h2>Staff: review the moderation queue</h2>
-      <ol>
-        <li>Navigate to the moderation queue page (typically under <span class="mono">/manage/…</span>).</li>
-        <li>Select a submission to review details.</li>
-        <li>Use similarity suggestions to detect duplicates.</li>
-      </ol>
-      <p><strong>Goal:</strong> maintain a clean catalog by avoiding duplicate listings and merging data where appropriate.</p>
-      <figure style="margin:16px 0 0;">
-        <img src="assets/screenshots/05-similar-search.png" alt="Similarity search with example results" style="width:100%;height:auto;border-radius:12px;border:1px solid rgba(148, 163, 184, 0.3);" />
-        <figcaption style="margin-top:10px;font-weight:600;">Similarity search results (used to detect duplicates)</figcaption>
-      </figure>
-    </section>
-
-    <section class="card">
-      <h2>Staff actions: approve, merge, reject</h2>
-      <ul>
-        <li><strong>Approve:</strong> accept the submission as a new resource listing.</li>
-        <li><strong>Merge:</strong> combine submission info into an existing listing (preferred when the submission is a duplicate).</li>
-        <li><strong>Reject:</strong> decline submissions that are inappropriate or invalid.</li>
-      </ul>
-      <p class="subtitle" style="margin: 10px 0 0;">Tip: use merge when the same organization/resource already exists, even if the submission adds extra details.</p>
-    </section>
-
-    <section class="card">
-      <h2>Optional: AI chat feature</h2>
-      <p>If chat is enabled for your deployment, it requires an operator-provided API key (see <a href="deploy-run.html">Run &amp; deploy</a> and <a href="faq-component-services.html">FAQs</a>).</p>
-      <p class="subtitle" style="margin: 10px 0 0;">If no key is configured, the system should fail gracefully (disabled state or safe error message).</p>
-    </section>
-
-    <section class="card">
-      <h2>Accessibility &amp; inclusive design notes</h2>
-      <ul>
-        <li><strong>Readable layout:</strong> clear typography and spacing to support low-vision users.</li>
-        <li><strong>Large targets:</strong> controls designed for users with limited dexterity (“shaky hands” goal).</li>
-        <li><strong>Clear control intent:</strong> buttons vs. checkboxes vs. dropdowns used consistently.</li>
-      </ul>
-      <p class="subtitle" style="margin: 14px 0 0;">Full Sprint 3 write-up (research, WCAG mapping, gaps, future work): <a href="accessibility-research.html">Accessibility design and research</a> · <a href="AccessibilityResearch.md">AccessibilityResearch.md</a></p>
-    </section>
-
-    <div class="footer-actions">
-      <a class="btn-home" href="finalproject.html#deliverables">Final project — deliverables</a>
-      <a class="btn-home" href="backlog-tables.html" style="margin-left:10px;">Full backlog tables</a>
-      <a class="btn-home btn-home-secondary" href="index.html" style="margin-left:10px;">Home</a>
-    </div>
-  </div>
+  <body style="font-family: system-ui, sans-serif; padding: 2rem;">
+    <p>Staff/sponsor guide moved to the <a href="user-guide.html#staff">User guide</a>.</p>
+  </body>
 </body>
 </html>

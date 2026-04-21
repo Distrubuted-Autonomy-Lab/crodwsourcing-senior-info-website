@@ -16,7 +16,7 @@
 | **Course documentation hub** — sprint map, install, deploy, rubric sections | team | **[website](documentation-hub.html)** |
 | **Run / deploy** — Docker, API keys, OAuth workflow (if any) | *assign* | **[Placeholder — website](deploy-run.html)** · `carebot-deployable-crowdsourcing/root/README.md` |
 | **User guide (caregivers)** — submit flow, plain language | *assign* | **[website](user-guide.html)** · **[Markdown](userguide.md)** |
-| **Sponsor user guide** — screenshots, how to use features | *assign* | **[Placeholder — website](sponsor-user-guide.html)** · app repo `SPONSOR_USER_GUIDE.md` |
+| **User guide (staff/sponsor section)** — screenshots, how to use features | *assign* | **[website](user-guide.html#staff)** |
 | **Accessibility design & research** — Sprint 3 artifact (WCAG, caregivers, gaps) | Cole Segura | **[website](accessibility-research.html)** · **[Markdown](AccessibilityResearch.md)** |
 | **Development environment** — dependencies, OS, first build | *assign* | **[Placeholder — website](development-environment.html)** · `root/README.md` |
 | **Development guide** — full technical onboarding (stack, structure, workflows) | team | **[website](development-guide.html)** · **[Markdown](DevelopmentGuide.md)** |
@@ -42,7 +42,7 @@
 
 ### How to use each completed feature
 - **Caregiver-facing:** [`user-guide.html`](user-guide.html) · [`userguide.md`](userguide.md) — submit flow in plain language.
-- **Sponsor / stakeholder:** [`sponsor-user-guide.html`](sponsor-user-guide.html).
+- **Sponsor / stakeholder:** [`user-guide.html#staff`](user-guide.html#staff).
 - Link features to **Sprint 1** ([`sprint1.html`](sprint1.html)) and **Sprint 2** ([`sprint2.html`](sprint2.html)) deliverables (submit, moderate, merge, similar search, directory).
 - User types (public vs staff/moderator) if applicable.
 - How flows connect (e.g. submit → queue → approve/merge).

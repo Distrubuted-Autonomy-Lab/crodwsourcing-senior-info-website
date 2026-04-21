@@ -19,6 +19,7 @@
         <li><a href="#submit">How to submit a resource</a></li>
         <li><a href="#next">What happens next</a></li>
         <li><a href="#check">Checking if a resource is already listed</a></li>
+        <li><a href="#staff">Staff / sponsor guide</a></li>
         <li><a href="#faq">Common questions</a></li>
         <li><a href="#trouble">If something goes wrong</a></li>
         <li><a href="#a11y">A note on accessibility</a></li>
@@ -123,6 +124,46 @@
       </figure>
     </section>
 
+    <section class="card" id="staff">
+      <h2><span>Staff / sponsor guide</span></h2>
+      <p>This section is for non-technical sponsors and staff moderators. Public users can submit recommendations without logging in.</p>
+
+      <h3>Public: submit a resource recommendation</h3>
+      <ol>
+        <li>Open the public submission page (linked from the app home page).</li>
+        <li>Fill out the resource information (name/title, location, description, eligibility, etc.).</li>
+        <li>Submit the form.</li>
+      </ol>
+      <p><strong>What happens next:</strong> submissions do not immediately appear publicly. They go to the <strong>moderation queue</strong> for review.</p>
+
+      <h3>Staff: log in</h3>
+      <ol>
+        <li>Open the staff login page.</li>
+        <li>Sign in with the staff credentials created by the team (Django user accounts).</li>
+      </ol>
+      <p class="subtitle" style="margin: 10px 0 0;">There is no “Sign in with Google” unless OAuth is added later.</p>
+
+      <h3>Staff: review the moderation queue</h3>
+      <ol>
+        <li>Navigate to the moderation queue page (typically under <span class="mono">/manage/…</span>).</li>
+        <li>Select a submission to review details.</li>
+        <li>Use similarity suggestions to detect duplicates.</li>
+      </ol>
+      <p><strong>Goal:</strong> maintain a clean catalog by avoiding duplicate listings and merging data where appropriate.</p>
+
+      <h3>Staff actions: approve, merge, reject</h3>
+      <ul>
+        <li><strong>Approve:</strong> accept the submission as a new resource listing.</li>
+        <li><strong>Merge:</strong> combine submission info into an existing listing (preferred when the submission is a duplicate).</li>
+        <li><strong>Reject:</strong> decline submissions that are inappropriate or invalid.</li>
+      </ul>
+      <p class="subtitle" style="margin: 10px 0 0;">Tip: use merge when the same organization/resource already exists, even if the submission adds extra details.</p>
+
+      <h3>Optional: AI chat feature</h3>
+      <p>If chat is enabled for your deployment, it requires an operator-provided API key (see <a href="deploy-run.html">Run &amp; deploy</a> and <a href="faq-component-services.html">FAQ</a>).</p>
+      <p class="subtitle" style="margin: 10px 0 0;">If no key is configured, the system should fail gracefully (disabled state or safe error message).</p>
+    </section>
+
     <section class="card" id="faq">
       <h2><span>Common questions</span></h2>
       <p><strong>What if I only know the name of the provider and nothing else?</strong></p>
@@ -163,7 +204,7 @@
       <p class="subtitle" style="margin:12px 0 0;"><strong>AI disclosure:</strong> For this assignment's preparation, the author has utilized Claude (Claude Code), a large language model created by Anthropic. Within this assignment, Claude was used for drafting assistance, outlining, and wording. All content was reviewed and verified against the Carebot crowdsourcing templates by the author before submission.</p>
     </section>
 
-    <p class="related-links"><strong>Related:</strong> <a href="sponsor-user-guide.html">Sponsor user guide</a> (stakeholder view) · <a href="finalproject.html">Final project</a></p>
+    <p class="related-links"><strong>Related:</strong> <a href="#staff">User guide (staff/sponsor)</a> · <a href="finalproject.html">Final project</a></p>
     <div class="footer-actions">
       <a class="btn-home" href="finalproject.html#deliverables">Final project — deliverables</a>
       <a class="btn-home" href="backlog-tables.html" style="margin-left:10px;">Full backlog tables</a>

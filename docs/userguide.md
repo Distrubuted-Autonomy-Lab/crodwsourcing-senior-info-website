@@ -153,4 +153,4 @@ If you run into a part of the site that is hard to use, we want to know. You can
 
 ---
 
-**Also on this site:** [User guide (HTML)](user-guide.html) · [Sponsor-facing guide](sponsor-user-guide.html) · [Accessibility research](accessibility-research.html)
+**Also on this site:** [User guide (HTML)](user-guide.html) · [User guide (staff/sponsor section)](user-guide.html#staff) · [Accessibility research](accessibility-research.html)

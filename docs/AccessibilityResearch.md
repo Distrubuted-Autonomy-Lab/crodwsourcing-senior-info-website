@@ -115,4 +115,4 @@ Accessibility work is unglamorous. It does not ship as a screenshot. Most of the
 
 ---
 
-**Also on this site:** [Accessibility design and research (HTML)](accessibility-research.html) · [Sponsor user guide](sponsor-user-guide.html)
+**Also on this site:** [Accessibility design and research (HTML)](accessibility-research.html) · [User guide (staff/sponsor section)](user-guide.html#staff)
