@@ -55,6 +55,17 @@
         <li><strong>Document AI data handling</strong> for the sponsor: what data is sent, why, and how it is limited.</li>
         <li><strong>Review dependencies quarterly</strong> and update base images and Python packages as needed.</li>
       </ol>
+
+      <h2>7) Security-related features we implemented</h2>
+      <p>This is the “what we fixed / how we reduced risk” portion of the cybersecurity deliverable. The sponsor does not complete this for us; it documents our team’s implementation choices.</p>
+      <ul>
+        <li><strong>Abuse resistance on public endpoints:</strong> keep rate limiting enabled for public-facing routes (submission, and chat if exposed).</li>
+        <li><strong>Secrets kept out of Git:</strong> keys and credentials live in environment files (see <a href="deploy-run.html">Run &amp; deploy</a> and env templates in the app repo), not committed.</li>
+        <li><strong>Session-based staff auth:</strong> moderation routes require Django login (no anonymous moderation actions).</li>
+        <li><strong>CSRF protections:</strong> Django CSRF with environment-specific trusted origins for real deployments.</li>
+        <li><strong>SQL hygiene:</strong> parameterized queries where raw SQL is used for similarity/pgvector paths.</li>
+        <li><strong>Safer error handling:</strong> avoid leaking stack traces/secrets in public error surfaces; use “safe failure” behavior for optional third-party services.</li>
+      </ul>
     </section>
 
     <section class="card" id="checklist">
