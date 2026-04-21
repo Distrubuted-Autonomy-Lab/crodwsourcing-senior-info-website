@@ -3,17 +3,99 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Test plan — placeholder</title>
+  <title>Test plan</title>
   <link rel="stylesheet" href="assets/doc-page.css" />
 </head>
 <body>
   <div class="page">
     <h1><span>Test plan</span></h1>
-    <div class="placeholder">
-      <strong>Team documentation (GitHub required)</strong> — <em>assign one group member.</em><br /><br />
-      Intended content: <strong>test cases</strong> (IDs, steps, expected results) for critical paths — e.g. public submit, moderation approve/merge/reject, similarity search, login, chat; <strong>automated</strong> tests (<span class="mono">manage.py test</span>) and limitations; <strong>testing script</strong> reference (e.g. <span class="mono">scripts/retest-local.sh</span> in app repo if applicable).
-    </div>
-    <a class="btn" href="deliverables.html">Back to Deliverables</a>
+    <p class="subtitle">This page documents manual test cases and a lightweight testing script for the core CareBot flows.</p>
+
+    <section class="card">
+      <h2>Scope</h2>
+      <ul>
+        <li><strong>Public flows:</strong> browse, submit a resource recommendation (crowdsourcing)</li>
+        <li><strong>Staff flows:</strong> login, view moderation queue, approve, merge, reject</li>
+        <li><strong>Similarity:</strong> “find duplicates” behavior for moderation and submission review</li>
+        <li><strong>Optional AI chat:</strong> graceful behavior with and without API key</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>How to run automated tests</h2>
+      <p>From inside the running app container (or a local venv if supported in your setup):</p>
+      <pre><code>python manage.py test</code></pre>
+      <p class="subtitle" style="margin: 10px 0 0;">If your local DB uses unmanaged GIS tables, document limitations and rely on the manual cases below for end-to-end confidence.</p>
+    </section>
+
+    <section class="card">
+      <h2>Manual test cases (critical paths)</h2>
+      <table>
+        <tr><th>ID</th><th>Scenario</th><th>Steps</th><th>Expected result</th></tr>
+
+        <tr>
+          <td>TC-001</td>
+          <td>Public submission creates a queued item</td>
+          <td>Open the public submit page → fill required fields → submit</td>
+          <td>Success message shown; item appears in moderation queue for staff</td>
+        </tr>
+
+        <tr>
+          <td>TC-002</td>
+          <td>Staff login required</td>
+          <td>Try to open moderation routes while logged out</td>
+          <td>Redirected to login; no sensitive moderation data is shown</td>
+        </tr>
+
+        <tr>
+          <td>TC-003</td>
+          <td>Approve submission</td>
+          <td>Login → open moderation detail → approve</td>
+          <td>Submission leaves queue; new listing is created/visible in catalog (or referenced as approved)</td>
+        </tr>
+
+        <tr>
+          <td>TC-004</td>
+          <td>Reject submission</td>
+          <td>Login → open moderation detail → reject with reason (if supported)</td>
+          <td>Submission marked rejected; it does not appear in public catalog</td>
+        </tr>
+
+        <tr>
+          <td>TC-005</td>
+          <td>Merge submission into existing listing</td>
+          <td>Login → open moderation detail → choose an existing resource → merge</td>
+          <td>Existing listing updated according to “smart merge” rules; submission closed</td>
+        </tr>
+
+        <tr>
+          <td>TC-006</td>
+          <td>Similarity search returns plausible duplicates</td>
+          <td>On submission or moderation, run similarity for a known listing name / address</td>
+          <td>Top results include the known listing(s); scores decrease with relevance</td>
+        </tr>
+
+        <tr>
+          <td>TC-007</td>
+          <td>Chat behavior without API key (if chat is exposed)</td>
+          <td>Unset <span class="mono">GOOGLE_API_KEY</span> → open chat → send a message</td>
+          <td>User sees a safe error / disabled state; server does not crash</td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Testing script (repeatable checklist)</h2>
+      <ol>
+        <li>Bring up the stack: <span class="mono">docker compose … up --build</span></li>
+        <li>Verify homepage loads</li>
+        <li>Run TC-001 through TC-006</li>
+        <li>Run <span class="mono">python manage.py test</span></li>
+      </ol>
+      <p class="subtitle" style="margin: 10px 0 0;">If your team adds a shell script (example: <span class="mono">scripts/retest-local.sh</span>) in the app repo, link it here.</p>
+    </section>
+
+    <a class="btn" href="finalproject.html#deliverables">Final project — deliverables</a>
   </div>
 </body>
 </html>

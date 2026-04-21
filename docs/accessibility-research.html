@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Accessibility design and research — CareBot Crowdsourcing</title>
+  <link rel="stylesheet" href="assets/doc-page.css" />
+</head>
+<body>
+  <div class="page dev-guide-page accessibility-research-page">
+    <h1><span>Accessibility design and research</span></h1>
+    <p class="subtitle"><strong>Carebot Crowdsourcing Module, Sprint 3</strong> · Cole Segura · CS 495 Capstone, Spring 2026. Markdown: <a href="AccessibilityResearch.md">AccessibilityResearch.md</a>.</p>
+
+    <nav class="toc card" aria-label="Table of contents">
+      <h2 class="toc-title">Contents</h2>
+      <ol class="toc-list">
+        <li><a href="#purpose">Purpose</a></li>
+        <li><a href="#audience">Who we are actually designing for</a></li>
+        <li><a href="#load-bearing">Why accessibility is load-bearing here</a></li>
+        <li><a href="#wcag">WCAG 2.1 Level AA as the baseline</a></li>
+        <li><a href="#mapping">How our design decisions map to the research</a></li>
+        <li><a href="#gaps">Gaps in our current approach</a></li>
+        <li><a href="#future">Recommendations for future work</a></li>
+        <li><a href="#closing">Closing note</a></li>
+        <li><a href="#references">References</a></li>
+      </ol>
+    </nav>
+
+    <section class="card" id="purpose">
+      <h2><span>Purpose</span></h2>
+      <p>The Sprint 2 accessibility guide set the rules: minimum touch target sizes, minimum text sizes, contrast ratios, form labeling, and no color-alone status indicators. This document explains the research behind those rules and the users they serve. It is meant to be read alongside <span class="mono">ACCESSIBILITY-GUIDE.md</span> in the application repository, not in place of it.</p>
+      <p>Dr. Anderson's framing for this project was simple. If a grandmother who does not know much about technology can use the interface without frustration, we have done our job. That sentence is not casual. It is a design constraint that touches every decision on the page, and it is supported by a surprising amount of real research.</p>
+    </section>
+
+    <section class="card" id="audience">
+      <h2><span>Who we are actually designing for</span></h2>
+      <p>The people submitting caregiver resources to Carebot are not the same people who normally use modern web apps. The actual user base skews older, less technically fluent, and more likely to be dealing with stress, fatigue, or grief than the average software user.</p>
+      <p>According to the Alzheimer's Association 2024 report, more than 11 million Americans provide unpaid care for people living with Alzheimer's or another dementia. The majority of these caregivers are women, and about one in three are 65 or older themselves. Roughly 60 percent report high or very high emotional stress, and about 40 percent report high or very high physical stress [1]. In Alabama specifically, the report lists over 200,000 dementia caregivers.</p>
+      <p>This is the audience. They are not early adopters. Many of them use a phone for calls and text messages and little else. The Pew Research Center has tracked adoption of technology among older Americans for years. In their most recent reports, smartphone ownership among Americans 65 and older has climbed above 60 percent, but only around 45 percent say they feel very or somewhat confident using their devices to accomplish tasks they need to do [2]. That gap between ownership and confidence matters more than the adoption number itself.</p>
+      <p>For a caregiver who is tired, stressed, and not confident with technology, the difference between a form that takes two minutes and a form that takes twenty minutes is the difference between contributing a useful resource and giving up.</p>
+    </section>
+
+    <section class="card" id="load-bearing">
+      <h2><span>Why accessibility is load-bearing here</span></h2>
+      <p>Accessibility is sometimes treated as a compliance checkbox, a thing you do because a lawyer told you to. For this project it is the opposite. The interface is the product. If the form is hard to fill out, the directory gets no submissions. If the directory has no submissions, the chatbot has nothing to recommend. If the chatbot has nothing to recommend, Dr. Anderson's research question cannot be answered. Every feature downstream depends on the form being usable by the people who actually have the information we need.</p>
+      <p>Research on older adult usability supports the same design moves that WCAG 2.1 Level AA asks for, but for reasons that go beyond compliance.</p>
+      <ul>
+        <li><strong>Visual decline is nearly universal after 45.</strong> Presbyopia affects an estimated 1.8 billion people worldwide, and contrast sensitivity drops measurably in nearly every person over 60 even without disease [3]. Small text and low-contrast color combinations are not cosmetic decisions for this audience. They are barriers.</li>
+        <li><strong>Motor control decline is subtle but pervasive.</strong> Studies of pointing accuracy in older adults show longer selection times and higher error rates as target size shrinks, with a sharp falloff below about 44 pixels on touchscreens [4]. This is why the Sprint 2 guide sets a 48-pixel minimum. It is not an opinion.</li>
+        <li><strong>Cognitive load is the hidden cost.</strong> Older users are not slower at everything. They are specifically slower when a task requires holding several pieces of unrelated information in working memory at once. A form that forces a user to remember information from an earlier section while filling out a later one imposes exactly this kind of cost [5].</li>
+      </ul>
+      <p>These three findings, taken together, point at the same design: large targets, plain language, short visible sections, and no dependency on memory that the interface could store for the user.</p>
+    </section>
+
+    <section class="card" id="wcag">
+      <h2><span>WCAG 2.1 Level AA as the baseline</span></h2>
+      <p>WCAG 2.1 is the Web Content Accessibility Guidelines published by the W3C. Level AA is the conformance level most organizations target because it catches the accessibility issues that affect real users without requiring the stricter (and sometimes impractical) Level AAA rules [6]. Federal agencies are required to meet Level AA under Section 508. Most states follow the same standard.</p>
+      <p>For the Carebot crowdsourcing module, we chose Level AA as the floor, not the ceiling. Every rule in the Sprint 2 accessibility guide is at least Level AA, and several are stricter. Specifically:</p>
+      <ul>
+        <li><strong>Contrast ratio.</strong> WCAG 2.1 requires 4.5:1 for normal body text. Our palette exceeds this for every text-on-background combination used in the crowdsourcing pages.</li>
+        <li><strong>Touch target size.</strong> WCAG 2.1 Success Criterion 2.5.5 sets 44×44 CSS pixels as a minimum. Our rule is 48×48, and we specify 56 pixels of height for primary action buttons.</li>
+        <li><strong>Form labels.</strong> Every form input has a visible <code>&lt;label&gt;</code> element, not just a placeholder. Placeholders alone fail SC 3.3.2 because the label disappears as soon as the user starts typing, which is the exact moment older users need it most.</li>
+        <li><strong>Color alone is never used to convey meaning.</strong> Status badges carry both a color and a text label. This satisfies SC 1.4.1 and, more importantly, makes the badges legible to users with color vision deficiency, which affects around 8 percent of men [7].</li>
+      </ul>
+    </section>
+
+    <section class="card" id="mapping">
+      <h2><span>How our design decisions map to the research</span></h2>
+      <p>The Sprint 2 guide is the rulebook. The research below is the reason each rule is in the book.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Design rule</th>
+              <th scope="col">Research basis</th>
+              <th scope="col">What happens without it</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>48px minimum touch target</td>
+              <td>Studies of pointing accuracy in older adults [4], WCAG SC 2.5.5</td>
+              <td>Users misfire repeatedly, lose confidence, abandon the form</td>
+            </tr>
+            <tr>
+              <td>16px minimum body text</td>
+              <td>Contrast sensitivity and acuity decline with age [3], WCAG SC 1.4.4</td>
+              <td>Users have to zoom, which breaks layouts and disorients</td>
+            </tr>
+            <tr>
+              <td>4.5:1 contrast ratio</td>
+              <td>Same as above, plus WCAG SC 1.4.3</td>
+              <td>Text is legible in good light but invisible at a kitchen table</td>
+            </tr>
+            <tr>
+              <td>Visible labels on every input</td>
+              <td>Working memory findings in older users [5], WCAG SC 3.3.2</td>
+              <td>Users forget what a field was for once they start typing</td>
+            </tr>
+            <tr>
+              <td>Plain language, not jargon</td>
+              <td>Literature on health literacy in older adults</td>
+              <td>Users bounce at the first unfamiliar word</td>
+            </tr>
+            <tr>
+              <td>Short sections, one topic each</td>
+              <td>Cognitive load findings [5]</td>
+              <td>The form feels overwhelming and gets abandoned</td>
+            </tr>
+            <tr>
+              <td>No required timers or forced logouts</td>
+              <td>WCAG SC 2.2.1</td>
+              <td>Users lose work mid-session if interrupted</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="subtitle" style="margin-top:12px;">The table is not exhaustive. It is the set of rules that matter most for the population we are actually serving.</p>
+    </section>
+
+    <section class="card" id="gaps">
+      <h2><span>Gaps in our current approach</span></h2>
+      <p>The Sprint 2 guide and the Sprint 3 implementation are solid on the mechanical rules: sizes, contrast, labels, semantics. The gaps are in the areas that are harder to measure.</p>
+      <ul>
+        <li><strong>We have not done user testing with actual older adults.</strong> Everything in this document is grounded in published research, not in sessions we ran ourselves. That is a legitimate limitation. Research tells us what tends to be true for a population. It does not tell us what will be true for the specific people in Tuscaloosa County who open this form next week. A single round of testing with five caregivers would catch problems that research alone cannot predict.</li>
+        <li><strong>We have not tested with assistive technology beyond the developer's own screen reader.</strong> VoiceOver passes on the public submit form are useful. They are not a replacement for testing with a user who actually relies on a screen reader every day. The form fields are labeled correctly, but we do not know whether the overall flow makes sense when read top to bottom by someone who cannot see the visual structure.</li>
+        <li><strong>We have not addressed language.</strong> The form and the guide are English-only. A significant share of Alabama's caregiver population, including communities served by Carebot's intended users, speaks Spanish at home. The submit form has a Languages field for the provider but no Spanish-language version of itself. This is a known gap, not an oversight, and it is out of scope for the current sprint.</li>
+        <li><strong>We have not built in error recovery for browser crashes or timeouts.</strong> The form is a single long page with no draft saving. If a user closes the tab or loses their connection partway through, they lose everything they typed. This is a common failure mode for the exact user population we are designing for, and it is one of the bigger usability risks still in the product.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="future">
+      <h2><span>Recommendations for future work</span></h2>
+      <p>In order of impact, the things worth doing after this sprint:</p>
+      <ol>
+        <li>Run a short round of moderated usability sessions with three to five caregivers, ideally in the 55+ age range. Ask them to submit a real resource they know about. Watch where they stumble. Fix those things.</li>
+        <li>Add a Spanish translation of the submit form and the user guide. Django has solid internationalization support. This is a project that could be handed off to a student with translation skills.</li>
+        <li>Add draft auto-save to the submit form. Even a simple localStorage-based draft that restores what the user had typed if they come back is a huge usability win for a multi-section form.</li>
+        <li>Commission one professional accessibility audit of the live deployed site, not just the local build. Real axe-core or Deque audits on a production domain catch issues that local testing misses.</li>
+        <li>Write a short plain-language privacy statement specifically for the contact section of the submit form. The current form says the information is &quot;optional&quot; but does not explain what happens to it. Older users are rightly cautious about giving out personal information online.</li>
+      </ol>
+    </section>
+
+    <section class="card" id="closing">
+      <h2><span>Closing note</span></h2>
+      <p>Accessibility work is unglamorous. It does not ship as a screenshot. Most of the time, if it is done well, nobody notices it. The test of whether it worked is whether a caregiver in Prattville who has never used a web form before can finish this one without getting frustrated and closing the tab. We cannot test that from the computer lab. What we can do is follow the rules that published research and the W3C say will help the most people, and be honest about what we did not test.</p>
+    </section>
+
+    <section class="card" id="references">
+      <h2><span>References</span></h2>
+      <ol class="ref-list">
+        <li>Alzheimer's Association. <em>2024 Alzheimer's Disease Facts and Figures.</em> Alzheimer's &amp; Dementia, 2024. <a href="https://www.alz.org/alzheimers-dementia/facts-figures">https://www.alz.org/alzheimers-dementia/facts-figures</a></li>
+        <li>Pew Research Center. Mobile Fact Sheet and related reports on technology adoption among older Americans. <a href="https://www.pewresearch.org/internet/fact-sheet/mobile/">https://www.pewresearch.org/internet/fact-sheet/mobile/</a></li>
+        <li>Owsley, C. &quot;Aging and vision.&quot; <em>Vision Research</em>, vol. 51, no. 13, 2011, pp. 1610–1622. Peer-reviewed overview of age-related vision change.</li>
+        <li>Findlater, L., Froehlich, J. E., Fattal, K., Wobbrock, J. O., and Dastyar, T. &quot;Age-related differences in performance with touchscreens compared to traditional mouse input.&quot; <em>Proceedings of the ACM CHI Conference on Human Factors in Computing Systems</em>, 2013.</li>
+        <li>Fisk, A. D., Rogers, W. A., Charness, N., Czaja, S. J., and Sharit, J. <em>Designing for Older Adults: Principles and Creative Human Factors Approaches.</em> CRC Press, 2009. Standard reference on age-inclusive design.</li>
+        <li>World Wide Web Consortium. <em>Web Content Accessibility Guidelines (WCAG) 2.1.</em> W3C Recommendation, 2018. <a href="https://www.w3.org/TR/WCAG21/">https://www.w3.org/TR/WCAG21/</a></li>
+        <li>National Eye Institute. Color blindness: Facts and statistics. <a href="https://www.nei.nih.gov/learn-about-eye-health/eye-conditions-and-diseases/color-blindness">https://www.nei.nih.gov/learn-about-eye-health/eye-conditions-and-diseases/color-blindness</a></li>
+      </ol>
+    </section>
+
+    <section class="card" id="ai-disclosure">
+      <h2><span>AI disclosure</span></h2>
+      <p class="subtitle" style="margin:0;">For this assignment's preparation, the author has utilized Claude (Claude Code), a large language model created by Anthropic. Within this assignment, Claude was used for drafting assistance, outlining, and formatting. All research claims and citations were verified by the author against primary sources before submission.</p>
+    </section>
+
+    <p class="related-links"><strong>Related:</strong> <a href="sponsor-user-guide.html">Sponsor user guide</a> · <a href="finalproject.html">Final project</a></p>
+    <a class="btn" href="finalproject.html">Back to final project</a>
+  </div>
+</body>
+</html>

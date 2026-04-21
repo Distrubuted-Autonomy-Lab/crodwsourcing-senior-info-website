@@ -1,5 +1,7 @@
 # Project documentation index (GitHub + optional Read the Docs)
 
+**Start here (course rubric):** **[Final project](finalproject.html)** — sprint deliverable panels (syllabus expectations are summarized in the **Documentation** panel, **documentation hub**, and sprint pages). **Rubric narrative** (sprint map, install, deploy, features, extend, FAQs summary, testing, security, accessibility): **[documentation hub](documentation-hub.html)**. **Backlog tables** (B1–B14 + sprint rows): **[backlog-tables.html](backlog-tables.html)**.
+
 **Course expectation:** Documentation should live **in GitHub** (versioned, next to source) for someone with basic CS knowledge who does not know your project. Optional: publish with **[Read the Docs](https://docs.readthedocs.io/en/stable/tutorial/index.html)** (community tier is free) or **[MkDocs](https://www.mkdocs.org/getting-started/)** — import this repo.
 
 **Collaborators:** Add **Dr. Anderson** (`monicadelaine`) and the **TA** (`robello2@crimson.ua.edu`) to the GitHub repo. Submit the repo URL via the course assignment link.
@@ -10,14 +12,19 @@
 
 | Section | Owner | Where it lives (suggested) |
 |--------|--------|----------------------------|
+| **Final project** — sprint deliverable panels | team | **[website](finalproject.html)** (start here) |
+| **Course documentation hub** — sprint map, install, deploy, rubric sections | team | **[website](documentation-hub.html)** |
 | **Run / deploy** — Docker, API keys, OAuth workflow (if any) | *assign* | **[Placeholder — website](deploy-run.html)** · `carebot-deployable-crowdsourcing/root/README.md` |
+| **User guide (caregivers)** — submit flow, plain language | *assign* | **[website](user-guide.html)** · **[Markdown](userguide.md)** |
 | **Sponsor user guide** — screenshots, how to use features | *assign* | **[Placeholder — website](sponsor-user-guide.html)** · app repo `SPONSOR_USER_GUIDE.md` |
+| **Accessibility design & research** — Sprint 3 artifact (WCAG, caregivers, gaps) | Cole Segura | **[website](accessibility-research.html)** · **[Markdown](AccessibilityResearch.md)** |
 | **Development environment** — dependencies, OS, first build | *assign* | **[Placeholder — website](development-environment.html)** · `root/README.md` |
+| **Development guide** — full technical onboarding (stack, structure, workflows) | team | **[website](development-guide.html)** · **[Markdown](DevelopmentGuide.md)** |
 | **FAQs** — APIs, OAuth, component services | *Sheala Miller (edit if different)* | **[Live — website](faq-component-services.html)** · [`carebot-deployable-crowdsourcing/docs/FAQ-component-services.md`](https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing/blob/main/docs/FAQ-component-services.md) |
 | **Test plan** — cases + scripts | *assign* | **[Placeholder — website](test-plan.html)** · `docs/TEST_PLAN.md` + `scripts/retest-local.sh` |
 | **Final cybersecurity assessment** | *assign* | **[Placeholder — website](cybersecurity-assessment.html)** |
-| **Remaining backlog** | team | **[website](remaining-backlog.html)** |
-| **Sprint 3 / Final hub** | team | **[website](sprint3-final.html)** · **[Deliverables layout](deliverables.html)** |
+| **Full project backlog** (B1–B14 + sprint rows) | team | **[website — Backlog tables](backlog-tables.html#full-project-backlog)** |
+| **Sprint planning** | team | **[Sprint 1](sprint1.html)** · **[Sprint 2](sprint2.html)** · **[Sprint 3](sprint3.html)** (includes final checklist) |
 
 ---
 
@@ -33,6 +40,8 @@
 - **External resources:** Postgres, optional RabbitMQ, **Hugging Face** / embedding model (rate limits; **HF_TOKEN** optional), **Google APIs** if used (tier: free/paid note).
 
 ### How to use each completed feature
+- **Caregiver-facing:** [`user-guide.html`](user-guide.html) · [`userguide.md`](userguide.md) — submit flow in plain language.
+- **Sponsor / stakeholder:** [`sponsor-user-guide.html`](sponsor-user-guide.html).
 - Link features to **Sprint 1** ([`sprint1.html`](sprint1.html)) and **Sprint 2** ([`sprint2.html`](sprint2.html)) deliverables (submit, moderate, merge, similar search, directory).
 - User types (public vs staff/moderator) if applicable.
 - How flows connect (e.g. submit → queue → approve/merge).

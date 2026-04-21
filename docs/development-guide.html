@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Development guide — CareBot Crowdsourcing Platform</title>
+  <link rel="stylesheet" href="assets/doc-page.css" />
+</head>
+<body>
+  <div class="page dev-guide-page">
+    <h1><span>Development guide</span></h1>
+    <p class="subtitle">CareBot Crowdsourcing Platform — technical onboarding for developers who set up, run, maintain, and contribute to the project. A Markdown version is also available: <a href="DevelopmentGuide.md">DevelopmentGuide.md</a>.</p>
+
+    <nav class="toc card" aria-label="Table of contents">
+      <h2 class="toc-title">Contents</h2>
+      <ol class="toc-list">
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#purpose">Project purpose and scope</a></li>
+        <li><a href="#audience">Intended audience</a></li>
+        <li><a href="#overview">High-level system overview</a></li>
+        <li><a href="#stack">Technology stack</a></li>
+        <li><a href="#structure">Repository and project structure</a></li>
+        <li><a href="#setup">Development environment setup</a></li>
+        <li><a href="#database">Database setup and migrations</a></li>
+        <li><a href="#running">Running in development</a></li>
+        <li><a href="#components">Key functional components</a></li>
+        <li><a href="#workflow">Developer workflow</a></li>
+        <li><a href="#quality">Code quality and contribution expectations</a></li>
+        <li><a href="#summary">Summary</a></li>
+      </ol>
+    </nav>
+
+    <section class="card" id="intro">
+      <h2><span>1. Introduction</span></h2>
+      <p>This document serves as the Development Guide for the CareBot Crowdsourcing Platform. It is intended for developers who need to understand, set up, run, maintain, and contribute to the project. Unlike a user guide, which focuses on how end users interact with the application, this development guide focuses on the technical side of the system.</p>
+      <p>The CareBot Crowdsourcing Platform is a web-based application designed to help caregivers, family members, and social workers locate useful local resources for seniors. The system supports crowdsourced resource collection and management, and it is designed to make resource discovery easier by combining structured data, search, and recommendation functionality. Because the project deals with location-aware and service-based information, the system also uses geospatial database support through PostGIS. In addition, the project is structured for containerized deployment using Docker, making it easier to run across multiple environments.</p>
+      <p>This guide explains:</p>
+      <ul>
+        <li>what the project does,</li>
+        <li>how the codebase is organized,</li>
+        <li>what tools and frameworks are used,</li>
+        <li>how to set up the project locally,</li>
+        <li>how to run and test the application,</li>
+        <li>common issues developers may face,</li>
+        <li>and how new contributors should work within the repository.</li>
+      </ul>
+      <p>The goal of this document is to make onboarding easier for any future team member. A new developer should be able to read this guide and understand how to get the project running without needing to rely entirely on verbal instructions from the original team.</p>
+    </section>
+
+    <section class="card" id="purpose">
+      <h2><span>2. Project purpose and scope</span></h2>
+      <p>The CareBot platform was developed to address the difficulty many people face when trying to locate trustworthy senior support resources. In many communities, especially underserved or rural communities, important information about healthcare assistance, social support, housing resources, transportation, and legal or financial aid may be scattered across many different organizations. This creates a barrier for caregivers and family members who may already be under stress.</p>
+      <p>The system addresses this problem by providing a centralized platform where resource information can be submitted, stored, managed, and searched. Rather than depending only on a static list of services, the project uses a crowdsourcing model so that new resources can be added and updated over time. This allows the platform to grow as more information becomes available.</p>
+      <p>From a software perspective, the project includes several important ideas:</p>
+      <ul>
+        <li>a web application frontend that allows interaction with the system,</li>
+        <li>a backend application layer that processes requests and manages business logic,</li>
+        <li>a database layer for storing resource and user-related data,</li>
+        <li>a recommendation or search component that helps return relevant results,</li>
+        <li>and an infrastructure layer that supports deployment and scaling.</li>
+      </ul>
+      <p>Because the system is intended to be maintainable and deployable beyond a classroom demonstration, the project uses development practices and technologies that are common in real-world software systems.</p>
+    </section>
+
+    <section class="card" id="audience">
+      <h2><span>3. Intended audience</span></h2>
+      <p>This guide is written for:</p>
+      <ul>
+        <li>current team members working on the project,</li>
+        <li>future student developers who may inherit the project,</li>
+        <li>instructors or evaluators who want to understand the system from a technical perspective,</li>
+        <li>and contributors who need a quick but thorough explanation of how the system is built.</li>
+      </ul>
+      <p>A reader is not expected to already know the internal structure of the project, but they should have basic familiarity with software development concepts such as Git, Python, command line usage, and Docker.</p>
+    </section>
+
+    <section class="card" id="overview">
+      <h2><span>4. High-level system overview</span></h2>
+      <p>At a high level, the CareBot Crowdsourcing Platform consists of several major parts working together:</p>
+      <h3>Frontend / web interface</h3>
+      <p>This is the part of the system users interact with in the browser. It is responsible for displaying pages, forms, and results.</p>
+      <h3>Backend application</h3>
+      <p>The backend handles routing, business logic, database operations, request processing, and integration with other services. In this project, Django serves as the core backend framework.</p>
+      <h3>Database</h3>
+      <p>The database stores system data such as submitted resources, user data, and location-aware information. PostgreSQL is used as the primary relational database, and PostGIS extends it with spatial capabilities.</p>
+      <h3>Recommendation / search logic</h3>
+      <p>A recommendation component helps match user queries to relevant resources. Depending on the implementation, this may involve embeddings, similarity matching, filtering, or ranking logic.</p>
+      <h3>Background / messaging services</h3>
+      <p>RabbitMQ support is included for message passing or asynchronous task handling.</p>
+      <h3>Web server / reverse proxy</h3>
+      <p>Nginx is used to support request routing and static file handling in deployment contexts.</p>
+      <h3>Containerized environment</h3>
+      <p>Docker and Docker Compose make it possible to run the different services together in a reproducible way across different machines.</p>
+      <p>This separation is useful because each major part of the system has a defined responsibility. It also improves maintainability, since changes to one part of the project can often be made without rewriting the entire system.</p>
+    </section>
+
+    <section class="card" id="stack">
+      <h2><span>5. Technology stack</span></h2>
+      <p>The project uses a combination of frameworks, services, and developer tools. Understanding why each technology is used helps future developers know where to make changes and how the pieces fit together.</p>
+      <h3>5.1 Backend framework — Django</h3>
+      <p>Django is the main web framework used for the backend. It provides URL routing, models, views, templates, admin functionality, and database interaction. Django was a strong choice for this project because it allows rapid development while still supporting scalable and maintainable architecture.</p>
+      <h3>5.2 Programming language — Python</h3>
+      <p>Python is the primary language used throughout the backend. It is used because of its readability, strong ecosystem, and compatibility with Django and AI-related tools.</p>
+      <h3>5.3 Database — PostgreSQL and PostGIS</h3>
+      <p><strong>PostgreSQL</strong> is the main relational database used by the system. It is responsible for storing persistent application data. <strong>PostGIS</strong> adds geospatial support to PostgreSQL. This is important for resource systems where proximity, region, or location-based search may matter.</p>
+      <h3>5.4 Containerization and infrastructure</h3>
+      <p><strong>Docker</strong> packages services into containers so the project can run consistently on different machines. <strong>Docker Compose</strong> makes it easier to start multiple related services together, such as the application server, database, RabbitMQ, and nginx.</p>
+      <h3>5.5 Messaging / background services — RabbitMQ</h3>
+      <p>RabbitMQ is included to support asynchronous communication or task processing. This is useful in systems where some work should not block user requests.</p>
+      <h3>5.6 Web serving — Nginx</h3>
+      <p>Nginx is used as a web server and reverse proxy. It can manage traffic, serve static files, and forward requests to application containers.</p>
+      <h3>5.7 Version control — Git / GitHub</h3>
+      <p>Git is used for version control. GitHub is used to host the repository and support collaboration among team members.</p>
+    </section>
+
+    <section class="card" id="structure">
+      <h2><span>6. Repository and project structure</span></h2>
+      <p>A developer should understand the directory layout before making changes. While the exact structure may change over time, the repository contains several major folders and configuration files that indicate how the project is organized.</p>
+      <h3>6.1 Root-level structure</h3>
+      <ul>
+        <li><span class="mono">app/</span> — main application code and service-related files</li>
+        <li><span class="mono">carebot/</span> — main Django project configuration and application logic</li>
+        <li><span class="mono">chat/</span> — chat or conversation-based interactions, if enabled</li>
+        <li><span class="mono">recommendation/</span> — recommendation, matching, or AI-powered search behavior</li>
+        <li><span class="mono">nginx/</span> — configuration files for the nginx service</li>
+        <li><span class="mono">rmq/</span> — RabbitMQ configuration or support</li>
+        <li><span class="mono">scripts/</span> — helper scripts for setup, automation, or maintenance</li>
+        <li><span class="mono">imports/</span> — imported data files (CSV, etc.) used to populate the system</li>
+        <li><span class="mono">images/</span> — project diagrams, architecture images, or documentation assets</li>
+        <li><span class="mono">pgisvector/</span> — PostGIS vector or spatial database configuration support</li>
+      </ul>
+      <h3>6.2 Important configuration files</h3>
+      <ul>
+        <li><span class="mono">manage.py</span> — Django entry point for migrations, runserver, testing, and admin commands</li>
+        <li><span class="mono">requirements.txt</span> — Python dependencies</li>
+        <li><span class="mono">Dockerfile</span> — how the application Docker image is built</li>
+        <li><span class="mono">docker-compose.yml</span> — default multi-container configuration</li>
+        <li><span class="mono">docker-compose.local.yml</span> — local development container setup</li>
+        <li><span class="mono">docker-compose.gcloud.yml</span> — cloud deployment configuration</li>
+        <li><span class="mono">.env-local-example</span> or <span class="mono">.env-local.example</span> — example environment template for local setup</li>
+        <li><span class="mono">.env-local</span> — developer-specific environment file (create from the example; do not commit secrets)</li>
+        <li><span class="mono">database_dump.sql</span> / <span class="mono">carebot.sql</span> — SQL dumps for initialization or restore</li>
+      </ul>
+      <h3>6.3 Why structure matters</h3>
+      <p>The project structure reflects separation of concerns. A developer working on backend logic will spend most of their time in the Django-related folders. A developer working on deployment or configuration will spend more time in Docker, nginx, and environment configuration files. Someone working on search or recommendation behavior will likely spend more time in the <span class="mono">recommendation/</span> directory. This separation improves readability and makes it easier to divide work among team members.</p>
+    </section>
+
+    <section class="card" id="setup">
+      <h2><span>7. Development environment setup</span></h2>
+      <h3>7.1 Prerequisites</h3>
+      <ul>
+        <li><strong>Git</strong> — clone and manage the repository</li>
+        <li><strong>Docker</strong> — run the application and supporting services in containers</li>
+        <li><strong>Docker Compose</strong> — bring up multi-container configurations</li>
+        <li><strong>Python 3.x</strong> (optional but useful) — run local commands outside Docker or inspect dependencies</li>
+        <li><strong>A code editor or IDE</strong> — VS Code, PyCharm, or another editor with Python support</li>
+      </ul>
+      <h3>7.2 Clone the repository</h3>
+      <p>Clone the application repository, then open the directory that contains <span class="mono">manage.py</span> and the Compose files (in this project, typically <span class="mono">carebot-deployable-crowdsourcing/root</span>):</p>
+      <pre><code>git clone https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing.git
+cd carebot-deployable-crowdsourcing/root</code></pre>
+      <h3>7.3 Review project files</h3>
+      <p>Confirm that expected directories and configuration files are present: <span class="mono">app/</span>, <span class="mono">carebot/</span>, <span class="mono">chat/</span>, <span class="mono">recommendation/</span>, <span class="mono">nginx/</span>, <span class="mono">rmq/</span>, <span class="mono">scripts/</span>, <span class="mono">imports/</span>, <span class="mono">images/</span>, <span class="mono">pgisvector/</span>, <span class="mono">manage.py</span>, <span class="mono">requirements.txt</span>, <span class="mono">Dockerfile</span>, <span class="mono">docker-compose.yml</span>, <span class="mono">docker-compose.local.yml</span>, <span class="mono">docker-compose.gcloud.yml</span>, and an env example file.</p>
+      <h3>7.4 Create the local environment file</h3>
+      <pre><code>cp .env-local-example .env-local
+# or: cp .env-local.example .env-local</code></pre>
+      <p>Open <span class="mono">.env-local</span> and review variables (database host/port, credentials, secret keys, debug flags, service URLs, ports). Many startup issues come from a missing variable, a typo, or a value pointing at the wrong service.</p>
+      <h3>7.5 Build and start the application</h3>
+      <p>From the directory that contains the Compose files, this repository typically uses the base file plus the local override:</p>
+      <pre><code>docker compose -f docker-compose.yml -f docker-compose.local.yml up --build</code></pre>
+      <p>Alternative documentation sometimes uses <span class="mono">docker-compose -f docker-compose.local.yml up --build</span>; use the form that matches your checked-in Compose files. The <span class="mono">--build</span> flag ensures recent Dockerfile and dependency changes are included.</p>
+      <h3>7.6 Confirm services are running</h3>
+      <pre><code>docker ps</code></pre>
+      <p>Verify the application, database, and supporting services (RabbitMQ, nginx, if required) are running. If a container exits immediately, inspect Compose logs for errors.</p>
+      <h3>7.7 Access the application</h3>
+      <p>For this team’s local setup, the app is usually at <strong>http://localhost:8000/</strong>. If the page does not load, check port mapping, migrations, database connectivity, and nginx configuration. See also <a href="development-environment.html">Development environment setup</a> and <a href="deploy-run.html">Run &amp; deploy</a>.</p>
+      <h3>7.8 Stop the development environment</h3>
+      <pre><code>docker compose -f docker-compose.yml -f docker-compose.local.yml down</code></pre>
+      <p>Stopping cleanly is preferable to closing the terminal abruptly; it ensures containers shut down in an organized way.</p>
+    </section>
+
+    <section class="card" id="database">
+      <h2><span>8. Database setup and migrations</span></h2>
+      <h3>8.1 Running migrations</h3>
+      <p>Apply migrations inside the application container (replace the container name with your web/app service, often <span class="mono">web</span>):</p>
+      <pre><code>docker exec -it &lt;app_container_name&gt; python manage.py migrate</code></pre>
+      <h3>8.2 Loading initial data</h3>
+      <p>If the system requires preloaded data, SQL dumps such as <span class="mono">database_dump.sql</span> or <span class="mono">carebot.sql</span> may be imported into PostgreSQL. The exact method depends on how the database container is configured.</p>
+      <h3>8.3 Importance of PostGIS</h3>
+      <p>PostGIS supports coordinates, region or distance search, and location-aware recommendations. If geographic queries fail unexpectedly, verify PostGIS and schema setup.</p>
+    </section>
+
+    <section class="card" id="running">
+      <h2><span>9. Running the application in development</span></h2>
+      <p>A successful run usually means containers are up, the database is connected, migrations are applied, the application is reachable in a browser, and main functionality loads without major errors.</p>
+      <p>Useful log commands:</p>
+      <pre><code>docker compose -f docker-compose.yml -f docker-compose.local.yml logs
+docker compose -f docker-compose.yml -f docker-compose.local.yml logs -f</code></pre>
+      <p>These help surface missing dependencies, broken routes, failed queries, unhandled exceptions, or service communication errors.</p>
+    </section>
+
+    <section class="card" id="components">
+      <h2><span>10. Key functional components</span></h2>
+      <h3>10.1 Crowdsourcing functionality</h3>
+      <p>Submission forms, validation, database storage, update workflows, and moderation support the crowdsourcing model so the catalog can grow over time.</p>
+      <h3>10.2 Search and recommendation system</h3>
+      <p>Semantic matching, ranking, query interpretation, filtering, or AI-powered strategies may live in <span class="mono">recommendation/</span> and related code paths.</p>
+      <h3>10.3 Chat or conversational support</h3>
+      <p>The <span class="mono">chat/</span> area may connect user input to recommendation logic and formatted responses. Change carefully because it can span multiple subsystems.</p>
+      <h3>10.4 Geospatial resource handling</h3>
+      <p>Understand how location is stored, queried, and displayed when working on proximity or regional features.</p>
+      <h3>10.5 Background processing and messaging</h3>
+      <p>RabbitMQ may handle asynchronous tasks; ensure the broker and app are connected when developing those features.</p>
+    </section>
+
+    <section class="card" id="workflow">
+      <h2><span>11. Developer workflow</span></h2>
+      <h3>11.1 Pull the latest changes</h3>
+      <pre><code>git pull origin main</code></pre>
+      <p class="subtitle" style="margin-top:8px;">Use your team’s default branch name if it differs.</p>
+      <h3>11.2 Create a separate branch</h3>
+      <p>Avoid committing directly on <span class="mono">main</span>. Examples: <span class="mono">feature/improve-resource-search</span>, <span class="mono">bugfix/fix-db-connection</span>, <span class="mono">docs/update-development-guide</span>.</p>
+      <h3>11.3 Make and verify changes</h3>
+      <p>Run locally, check the browser, and review logs so you do not introduce regressions.</p>
+      <h3>11.4 Commit clearly</h3>
+      <p>Good messages describe what changed and why (for example: “Add validation for resource submission”, “Fix Docker configuration for local environment”).</p>
+      <h3>11.5 Push and open a pull request</h3>
+      <pre><code>git push origin &lt;branch-name&gt;</code></pre>
+      <p>Include a summary, testing notes, and context for reviewers.</p>
+    </section>
+
+    <section class="card" id="quality">
+      <h2><span>12. Code quality and contribution expectations</span></h2>
+      <ul>
+        <li><strong>Readable code:</strong> clear names, descriptive variables, manageable function sizes.</li>
+        <li><strong>Follow existing patterns:</strong> review similar features before introducing new structure.</li>
+        <li><strong>Focused changes:</strong> each branch and PR should address a specific issue or improvement.</li>
+        <li><strong>Update documentation:</strong> when setup, structure, or major workflows change, update the relevant docs.</li>
+        <li><strong>Review before merge:</strong> when possible, have another team member review changes.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="summary">
+      <h2><span>13. Summary</span></h2>
+      <p>The CareBot Crowdsourcing Platform is a multi-service web application built to help users discover senior support resources. From a development perspective, the project combines a Django backend, PostgreSQL/PostGIS, recommendation features, Docker-based infrastructure, and service-oriented configuration.</p>
+      <p>For onboarding, the most important steps are: clone the repository, review project files, create <span class="mono">.env-local</span>, launch the local environment with Docker Compose, verify services, apply migrations if needed, confirm the application in the browser, and use logs to debug issues.</p>
+      <p>The repository layout separates backend logic, recommendation features, messaging, web serving, and infrastructure. This organization helps make development work clearer and easier to divide among team members.</p>
+      <p>Overall, this guide is intended to reduce onboarding difficulty, improve maintainability, and provide future developers with a clear path for understanding and contributing to the project.</p>
+    </section>
+
+    <p class="related-links"><strong>Related:</strong> <a href="development-environment.html">Quick development environment</a> · <a href="deploy-run.html">Run &amp; deploy</a> · <a href="faq-component-services.html">FAQs</a></p>
+    <a class="btn" href="finalproject.html">Back to final project</a>
+  </div>
+</body>
+</html>

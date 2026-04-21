@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Full project backlog — CareBot Crowdsourcing</title>
+  <link rel="stylesheet" href="assets/deliverables.css" />
+</head>
+<body class="deliverables-body">
+  <div class="wrap">
+    <header class="hero">
+      <div class="hero-inner">
+        <h1><span>Full project backlog</span></h1>
+        <p class="tagline">Product backlog (B1–B14), completed sprint rows, and deferred themes for <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing">carebot-deployable-crowdsourcing</a>.</p>
+        <p class="repos"><a class="btn-home" href="finalproject.html#deliverables" style="display:inline-block;margin-top:8px;text-decoration:none;">← Final project</a>
+        · <a class="btn-home" href="documentation-hub.html" style="display:inline-block;margin-top:8px;text-decoration:none;">Documentation hub</a></p>
+      </div>
+    </header>
+    <nav class="jump-nav" aria-label="Backlog sections">
+      <a href="#full-project-backlog">Product backlog</a>
+      <a href="#completed-sprint-items">Sprint items done</a>
+      <a href="#remaining-backlog">Deferred</a>
+    </nav>
+
+    <section class="section-wide" id="backlog-section">
+      <div class="section-head">
+        <h2>Full project backlog &amp; remaining work</h2>
+        <p>Application backlog for <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing">carebot-deployable-crowdsourcing</a>. Aligns with <a href="sprint2.html#project-backlog-snapshot">Sprint 2 snapshot</a> and <a href="sprint3.html#final-checklist">Sprint 3 final checklist</a>.</p>
+      </div>
+      <div class="section-body">
+        <div class="doc-block" id="full-project-backlog">
+          <h3>Product backlog (B1–B14)</h3>
+          <p class="muted">Status reflects final Sprint 3 closure for the course.</p>
+          <div class="table-wrap">
+            <table class="doc-table">
+              <thead><tr><th>ID</th><th>Item</th><th>Priority</th><th>Completed / updated (sprint)</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>B1</td><td>Resource submission form + moderation queue</td><td>P0</td><td>Sprint 1 (core flows); Sprint 2 (UI, login paths)</td><td>Done</td></tr>
+                <tr><td>B2</td><td>Approve, merge, and reject actions</td><td>P0</td><td>Sprint 1</td><td>Done</td></tr>
+                <tr><td>B3</td><td>Smart merge with deduplication (field-level)</td><td>P0</td><td>Sprint 1</td><td>Done</td></tr>
+                <tr><td>B4</td><td>Similarity search for matching submissions to existing resources</td><td>P0</td><td>Sprint 1 (initial similarity); Sprint 2 (full-catalog TF‑IDF + pgvector, <code>rank_similar_smart</code>)</td><td>Done</td></tr>
+                <tr><td>B5</td><td>Fuzzy matching improvements</td><td>P2</td><td>—</td><td>Not done</td></tr>
+                <tr><td>B6</td><td>Bulk moderation (multi-select)</td><td>P2</td><td>—</td><td>Not done</td></tr>
+                <tr><td>B8</td><td>Docker compatibility (Mac + Windows)</td><td>P1</td><td>Sprint 1</td><td>Done</td></tr>
+                <tr><td>B9</td><td>Security configuration improvements</td><td>P1</td><td>Sprint 1 (rate limit, headers, errors); Sprint 2 (CSRF, migrations, SQL hygiene); Sprint 3 (deployment env examples + hardening cleanup) — ongoing</td><td>Ongoing</td></tr>
+                <tr><td>B10</td><td>Comprehensive end-to-end testing</td><td>P1</td><td>Sprint 2 (paths, retest script); Sprint 3 (test plan + manual/E2E coverage closed for course)</td><td>Done</td></tr>
+                <tr><td>B11</td><td>Unit tests for submission &amp; merge flows</td><td>P1</td><td>Sprint 2–3 (<code>manage.py test</code>, recommendation tests; documented limits in test plan)</td><td>Done</td></tr>
+                <tr><td>B12</td><td>HTTPS enforcement</td><td>P1</td><td>Sprint 1 (baseline); Sprint 2–3 (reverse-proxy / deployment docs + <code>CSRF_TRUSTED_ORIGINS</code> / prod checklist)</td><td>Done</td></tr>
+                <tr><td>B13</td><td>Setup guides and documentation (in app repo)</td><td>P2</td><td>Sprint 1 (CHANGES, build notes); Sprint 2 (README + runbooks + schema/similarity docs); Sprint 3 (additional deployment/doc artifacts)</td><td>Done / updated</td></tr>
+                <tr><td>B14</td><td>Non-root Docker</td><td>P2</td><td>Sprint 1</td><td>Done (further prod hardening may continue)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="muted" style="margin-top:12px;">Open in this table: <strong>B5</strong>, <strong>B6</strong>, plus <strong>B9</strong> ongoing. Everything else is <strong>Done</strong> for the capstone.</p>
+        </div>
+
+        <div class="doc-block" id="completed-sprint-items">
+          <h3>Sprint items completed (S1 / S2 / S3)</h3>
+          <p class="muted">Sprint-backlog rows that reached <strong>Done</strong> in the application repository.</p>
+          <h4 style="margin:16px 0 8px;font-size:1rem;">Sprint 1</h4>
+          <div class="table-wrap"><table class="doc-table"><thead><tr><th>ID</th><th>Item</th><th>Priority</th><th>Sprint</th></tr></thead><tbody>
+            <tr><td>S1.1</td><td>Fix public submission form</td><td>P0</td><td>Sprint 1</td></tr>
+            <tr><td>S1.2</td><td>Compute similarity candidates</td><td>P0</td><td>Sprint 1</td></tr>
+            <tr><td>S1.3</td><td>Moderation queue listing</td><td>P0</td><td>Sprint 1</td></tr>
+            <tr><td>S1.4</td><td>Approve as new resource</td><td>P0</td><td>Sprint 1</td></tr>
+            <tr><td>S1.5</td><td>Merge into existing (field-level)</td><td>P0</td><td>Sprint 1</td></tr>
+            <tr><td>S1.6</td><td>Reject submission</td><td>P0</td><td>Sprint 1</td></tr>
+            <tr><td>S1.7</td><td>Docker compatibility on Mac</td><td>P1</td><td>Sprint 1</td></tr>
+            <tr><td>S1.8</td><td>Docker compatibility on Windows</td><td>P1</td><td>Sprint 1</td></tr>
+            <tr><td>S1.9</td><td>Rate limiting on public endpoints</td><td>P1</td><td>Sprint 1</td></tr>
+            <tr><td>S1.10</td><td>COOP policy + security headers</td><td>P1</td><td>Sprint 1</td></tr>
+            <tr><td>S1.11</td><td>Sanitize SQL error messages</td><td>P1</td><td>Sprint 1</td></tr>
+            <tr><td>S1.12</td><td>Fix “too many values to unpack” in submission flow</td><td>P1</td><td>Sprint 1</td></tr>
+            <tr><td>S1.13</td><td>CHANGES.md and BUILD_AND_TEST.md</td><td>P2</td><td>Sprint 1</td></tr>
+            <tr><td>S1.18</td><td>Non-root Docker + HTTPS</td><td>P1</td><td>Sprint 1</td></tr>
+          </tbody></table></div>
+          <h4 style="margin:16px 0 8px;font-size:1rem;">Sprint 2</h4>
+          <div class="table-wrap"><table class="doc-table"><thead><tr><th>ID</th><th>Item</th><th>Priority</th><th>Sprint</th></tr></thead><tbody>
+            <tr><td>S2.1</td><td>Vector similarity (pgvector + full-catalog TF‑IDF) &amp; moderator dedup UX</td><td>P0</td><td>Sprint 2</td></tr>
+            <tr><td>S2.5</td><td>Base + home + login (accessible patterns) — user/staff login working</td><td>P0</td><td>Sprint 2</td></tr>
+            <tr><td>S2.10</td><td>Documentation — README, sprint docs, runbooks</td><td>P2</td><td>Sprint 2 (updated)</td></tr>
+            <tr><td>S2.11</td><td>GCP VM / cloud demo — Docker, firewall, secrets</td><td>P1</td><td>Sprint 2</td></tr>
+          </tbody></table></div>
+          <h4 style="margin:16px 0 8px;font-size:1rem;">Sprint 3 / Final</h4>
+          <div class="table-wrap"><table class="doc-table"><thead><tr><th>ID</th><th>Item</th><th>Priority</th><th>Sprint</th></tr></thead><tbody>
+            <tr><td>S3.2</td><td>Accessibility + UI polish in the Django app templates (layout, navigation)</td><td>P0</td><td>Sprint 3</td></tr>
+            <tr><td>S3.3</td><td>Admin / moderation dashboard improvements (charts + reporting JS)</td><td>P1</td><td>Sprint 3</td></tr>
+            <tr><td>S3.4</td><td>Restore TTS panel after regression</td><td>P1</td><td>Sprint 3</td></tr>
+            <tr><td>S3.5</td><td>Deployment hardening: add cloud env template (<code>.env-gcloud.example</code>)</td><td>P1</td><td>Sprint 3</td></tr>
+            <tr><td>S3.6</td><td>Cleanup: remove obsolete templates/styles inside the app repo</td><td>P2</td><td>Sprint 3</td></tr>
+            <tr><td>S3.7</td><td>B10 — E2E / integration testing (course scope closed)</td><td>P1</td><td>Sprint 3</td></tr>
+            <tr><td>S3.8</td><td>B11 — Unit tests for submission &amp; merge (course scope closed)</td><td>P1</td><td>Sprint 3</td></tr>
+            <tr><td>S3.9</td><td>B12 — HTTPS / secure deployment baseline (course scope closed)</td><td>P1</td><td>Sprint 3</td></tr>
+          </tbody></table></div>
+          <h4 style="margin:16px 0 8px;font-size:1rem;">Sprint 2 carry (closed in Sprint 3)</h4>
+          <p class="muted" style="margin-bottom:8px;">Status at end of Sprint 2 for long-running rows.</p>
+          <div class="table-wrap"><table class="doc-table"><thead><tr><th>ID</th><th>Item</th><th>Priority</th><th>Status @ end S2</th></tr></thead><tbody>
+            <tr><td>S2.2</td><td>Security: embedding logs, parameterized SQL, security PRs</td><td>P1</td><td>In progress</td></tr>
+            <tr><td>S2.3</td><td>UI/UX design — layout, controls</td><td>P0</td><td>In progress</td></tr>
+            <tr><td>S2.4</td><td>Frontend — submission form &amp; moderation queue HTML/CSS</td><td>P0</td><td>In progress / merged</td></tr>
+            <tr><td>S2.6</td><td>Django views, forms, logic for new UI &amp; merge/submit</td><td>P0</td><td>In progress</td></tr>
+            <tr><td>S2.7</td><td>PR review &amp; merge — integration checkpoint</td><td>P0</td><td>In progress</td></tr>
+            <tr><td>S2.8</td><td>Unit / integration tests — similarity &amp; submission/moderation</td><td>P1</td><td>Done (Sprint 3 — see B11)</td></tr>
+            <tr><td>S2.9</td><td>E2E, accessibility testing, QA</td><td>P1</td><td>Done (Sprint 3 — see B10)</td></tr>
+            <tr><td>S2.12</td><td>Scrum &amp; stakeholder updates</td><td>P2</td><td>In progress</td></tr>
+          </tbody></table></div>
+        </div>
+
+        <div class="doc-block" id="remaining-backlog">
+          <h3>Deferred &amp; optional themes</h3>
+          <div class="table-wrap"><table class="doc-table"><thead><tr><th>ID</th><th>Item</th><th>Reason</th></tr></thead><tbody>
+            <tr><td>S3.1</td><td>Bulk moderation (multi-select) for moderation queue</td><td>Not implemented; single-item moderation only</td></tr>
+            <tr><td>S2.13</td><td>Bulk moderation (multi-select)</td><td>Still deferred</td></tr>
+            <tr><td>S1.17</td><td>Bulk moderation (multi-select)</td><td>Still deferred</td></tr>
+          </tbody></table></div>
+          <p class="muted" style="margin-top:8px;"><strong>S1.15 / S1.16</strong> (E2E and unit tests) closed under <strong>B10 / B11</strong> in Sprint 3.</p>
+          <ul style="margin-top:12px;">
+            <li><strong>Post–Sprint 3 ideas:</strong> notifications (email/SMS), provider verification, richer admin analytics, chatbot–directory integration, live older-adult accessibility QA — see <a href="sprint3.html#deferred-beyond-s3">Sprint 3 — Deferred beyond Sprint 3</a>.</li>
+            <li><strong>B5 / fuzzy match:</strong> Stronger fuzzy matching beyond current TF‑IDF + embedding merge.</li>
+            <li><strong>Optional hardening:</strong> stricter HSTS, monitoring — beyond <strong>B12</strong> baseline.</li>
+            <li><strong>Testing:</strong> optional CI test DB expansion — baseline <strong>B10 / B11</strong> closed for the course.</li>
+            <li><strong>OAuth / SSO for staff:</strong> <a href="faq-component-services.html#oauth">FAQs — OAuth</a>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-actions">
+      <a class="btn-home" href="finalproject.html#deliverables">Final project — deliverables</a>
+      <a class="btn-home" href="documentation-hub.html" style="margin-left:10px;">Documentation hub</a>
+      <a class="btn-home" href="index.html" style="background:linear-gradient(90deg,#64748b,#475569);box-shadow:none;margin-left:10px;">Home</a>
+    </div>
+  </div>
+</body>
+</html>

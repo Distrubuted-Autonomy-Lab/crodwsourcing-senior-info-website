@@ -1,209 +1,53 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Spring 2026 Capstone</title>
-  <style>
-  :root {
-    color-scheme: light dark;
-    --bg: #0f172a;
-    --card: #111827;
-    --text: #e5e7eb;
-    --muted: #9ca3af;
-    --accent: #38bdf8;
-  }
-  @media (prefers-color-scheme: light) {
-    :root {
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --text: #0f172a;
-      --muted: #475569;
-      --accent: #0ea5e9;
-    }
-  }
-  body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    text-align: center;
-  }
-  .page {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 48px 20px 70px;
-  }
-  .hero {
-    background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(15, 23, 42, 0.2));
-    border: 1px solid rgba(148, 163, 184, 0.2);
-    border-radius: 16px;
-    padding: 28px;
-    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
-  }
-  h1 {
-    margin: 0 0 10px;
-    font-size: 34px;
-  }
-  .lead {
-    margin: 0;
-    color: var(--muted);
-    font-size: 16px;
-    line-height: 1.6;
-  }
-  .section {
-    margin-top: 28px;
-  }
-  .links {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-    justify-content: center;
-  }
-  .links a {
-    color: var(--card);
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  /* NEW: header-style list */
-  .focus-list {
-    margin-top: 14px;
-    display: grid;
-    justify-content: center;
-    gap: 16px;
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-    justify-items: center;
-    grid-auto-columns: max-content;
-  }
-  .focus-item {
-    background: var(--card);
-    border: 1px solid rgba(148, 163, 184, 0.2);
-    border-radius: 12px;
-    padding: 14px 16px;
-    text-align: center;
-    width: 100%;
-    justify-content: center;
-  }
-  .focus-accent {
-    width: 6px;
-    border-radius: 999px;
-    background: var(--accent);
-    opacity: 0.9;
-    flex: 0 0 6px;
-    margin-top: 4px;
-  }
-  .focus-title {
-    margin: 0;
-    font-size: 18px;
-    line-height: 1.2;
-  }
-  .focus-desc {
-    margin: 6px 0 0;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  .btn {
-  display: inline-block;
-  padding: 10px 18px;
-  border-radius: 999px;
-  background: var(--accent);
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
-}
-.btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 15px rgba(56, 189, 248, 0.35);
-}
-h1 span,
-h2 span {
-  position: relative;
-  display: inline-block;
-}
-h1 span::after,
-h2 span::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 100%;
-  height: 2px;
-  background: var(--accent);
-  border-radius: 999px;
-  box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
-}
-
-</style>
+  <meta name="description" content="Crowdsourcing Senior Info (CareBot) — moderated caregiver resource directory for Alabama." />
+  <title>Crowdsourcing Senior Info — CS 495</title>
+  <link rel="stylesheet" href="assets/home.css" />
 </head>
 <body>
   <div class="page">
-    <section class="hero">
-      <h1><span>Crowdsourcing Senior Info</span></h1>
-      <p class="lead">
-        We are building an AI-powered platform that helps caregivers, social workers, and families
-        quickly find reliable local resources before they reach a crisis.
-      </p>
-      <div class="links">
-        <a class="btn" href="deliverables.html">Project Deliverables</a>
-        <a class="btn" href="team.html">Team Bios</a>
+    <header class="hero">
+      <p class="kicker">CS 495 · Alabama caregivers</p>
+      <h1><span class="title-line">Crowdsourcing Senior Info</span></h1>
+      <span class="badge" aria-label="Product name">CareBot</span>
+      <p class="tag">An Alabama-focused tool to crowdsource and vet caregiver resources—submissions are moderated before they appear in the directory.</p>
+      <div class="actions btn-row-3">
+        <a class="btn" href="finalproject.html#deliverables">Project deliverables</a>
+        <a class="btn btn-ghost" href="finalproject.html">Final project</a>
+        <a class="btn btn-ghost" href="team.html">Team bios</a>
       </div>
-    </section>
+    </header>
 
-    <section class="section" style="max-width: 720px; margin-left: auto; margin-right: auto; text-align: left;">
-      <h2 style="text-align: center;"><span>Project goals</span></h2>
-      <p class="lead" style="text-align: left; color: var(--text);">
-        <strong>Crowdsourcing Senior Info (CareBot)</strong> helps caregivers and professionals find vetted Alabama health and social resources.
-        The project goals are to: (1) let the public <strong>recommend resources</strong> through a simple, accessible form;
-        (2) give moderators a <strong>queue</strong> to approve, merge, or reject submissions with <strong>auditability</strong>;
-        (3) use <strong>similarity search</strong> (lexical + embeddings) to reduce duplicates; (4) keep data in a
-        <strong>PostgreSQL / PostGIS</strong> database with <strong>Docker</strong>-based deployment for repeatable demos;
-        (5) harden <strong>security</strong> and document <strong>runbooks</strong> for sponsors and developers.
-      </p>
-    </section>
+    <div class="grid">
+      <section class="card" aria-labelledby="goals-heading">
+        <h2 id="goals-heading"><span>Project goals</span></h2>
+        <p class="lead"><strong>Crowdsourcing Senior Info</strong> connects families and professionals with reliable local services. The team is working toward these outcomes:</p>
+        <ol class="goals-list">
+          <li><strong>Public recommendations</strong> — simple, accessible submission of resource suggestions.</li>
+          <li><strong>Moderation</strong> — staff review (approve, merge, reject) with traceability.</li>
+          <li><strong>Similarity search</strong> — lexical and embedding-based tools to reduce duplicate entries.</li>
+          <li><strong>Data &amp; deployment</strong> — PostgreSQL / PostGIS storage and Docker-based environments for demos.</li>
+          <li><strong>Security &amp; documentation</strong> — hardening guidance and runbooks for sponsors and developers.</li>
+        </ol>
+      </section>
 
-    <section class="section">
-  <h2><span>Focus Areas</span></h2>
-
-  <div class="focus-list">
-    <div class="focus-item">
-      <div class="focus-accent"></div>
-      <div>
-        <h3 class="focus-title">Caregiver Support</h3>
-        <p class="focus-desc">Resource discovery for Alzheimer’s and dementia caregiving needs.</p>
-      </div>
+      <section class="card focus-card" aria-labelledby="focus-heading">
+        <h2 id="focus-heading"><span>Emphasis areas</span></h2>
+        <ul class="focus-list">
+          <li>Caregiver support (e.g. dementia-related needs)</li>
+          <li>Rural and underserved communities</li>
+          <li>Data quality through moderation and deduplication</li>
+          <li>Programs spanning health, legal, housing, nutrition, and social support</li>
+        </ul>
+      </section>
     </div>
 
-    <div class="focus-item">
-      <div class="focus-accent"></div>
-      <div>
-        <h3 class="focus-title">Rural Access</h3>
-        <p class="focus-desc">Close gaps in counties with limited, scattered services.</p>
-      </div>
-    </div>
-
-    <div class="focus-item">
-      <div class="focus-accent"></div>
-      <div>
-        <h3 class="focus-title">Data Quality</h3>
-        <p class="focus-desc">AI-assisted moderation and duplicate detection for trustworthy results.</p>
-      </div>
-    </div>
-
-    <div class="focus-item">
-      <div class="focus-accent"></div>
-      <div>
-        <h3 class="focus-title">Local Programs</h3>
-        <p class="focus-desc">Medicare/Medicaid, legal planning, housing, utilities, and nonprofits.</p>
-      </div>
-    </div>
+    <p class="footer-note">
+      Application repo: <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing">carebot-deployable-crowdsourcing</a>
+    </p>
   </div>
-</section>
-</div>
 </body>
 </html>

@@ -3,18 +3,60 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Development environment — placeholder</title>
+  <title>Development environment</title>
   <link rel="stylesheet" href="assets/doc-page.css" />
 </head>
 <body>
   <div class="page">
     <h1><span>Development environment setup</span></h1>
-    <div class="placeholder">
-      <strong>Team documentation (GitHub required)</strong> — <em>assign one group member.</em><br /><br />
-      Intended content: OS prerequisites (Docker Desktop, Git, Python version if native tools used), cloning the app repo, <strong>dependencies</strong> (<span class="mono">requirements.txt</span>, Compose services), first-time <span class="mono">docker compose up --build</span>, migrations/superuser, and common pitfalls (schema drift, wrong compose working directory).
-    </div>
-    <p>Application repo: <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing">carebot-deployable-crowdsourcing</a></p>
-    <a class="btn" href="deliverables.html">Back to Deliverables</a>
+    <p class="subtitle">Quick-start setup for developers new to CareBot. Primary goal: get a working local instance using Docker.</p>
+
+    <section class="card">
+      <h2>Prerequisites</h2>
+      <ul>
+        <li><strong>Docker Desktop</strong> (recommended for macOS/Windows)</li>
+        <li><strong>Git</strong></li>
+        <li><strong>Browser</strong> (Chrome/Firefox/Safari)</li>
+        <li><strong>Optional:</strong> Python 3.x locally (only if you run tools outside containers)</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Clone the repositories</h2>
+      <ul>
+        <li><strong>Application:</strong> <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing">carebot-deployable-crowdsourcing</a></li>
+        <li><strong>Project website:</strong> <a href="https://github.com/Distrubuted-Autonomy-Lab/website-crowdsourcing">website-crowdsourcing</a></li>
+      </ul>
+      <p class="subtitle" style="margin: 10px 0 0;">The website is static HTML under <span class="mono">website-crowdsourcing/docs/</span> (GitHub Pages).</p>
+    </section>
+
+    <section class="card">
+      <h2>First run (Docker Compose)</h2>
+      <p>From the app repo’s <span class="mono">root/</span> directory:</p>
+      <pre><code>docker compose -f docker-compose.yml -f docker-compose.local.yml up --build</code></pre>
+      <p>Then open <span class="mono">http://localhost:8000/</span>.</p>
+    </section>
+
+    <section class="card">
+      <h2>First-time admin user (staff login)</h2>
+      <p>Create a staff user from the running containers (command names can vary by Compose setup):</p>
+      <pre><code>docker compose -f docker-compose.yml -f docker-compose.local.yml exec web \
+  python manage.py createsuperuser</code></pre>
+      <p class="subtitle" style="margin: 10px 0 0;">If <span class="mono">web</span> is a different service name in your Compose file, use that instead.</p>
+    </section>
+
+    <section class="card">
+      <h2>Common setup issues (and fixes)</h2>
+      <ul>
+        <li><strong>Compose run from the wrong directory:</strong> run from <span class="mono">root/</span> to ensure Compose can locate override files and env.</li>
+        <li><strong>Missing schema columns from older DB dumps:</strong> if you see errors like a missing <span class="mono">resource_listings.title</span> column, your local DB is out of sync with current Django models. Fix by applying the documented <span class="mono">ALTER TABLE</span> from <a href="sprint2.html#technical-deliverables">Sprint 2 technical notes</a>, or recreate local volumes.</li>
+        <li><strong>AI chat not working:</strong> ensure <span class="mono">GOOGLE_API_KEY</span> is set (see <a href="deploy-run.html">Run &amp; deploy</a> and <a href="faq-component-services.html">FAQs</a>).</li>
+      </ul>
+    </section>
+
+    <p class="subtitle" style="margin-top: 8px;">For architecture, repository layout, and contributor workflow, see the full <a href="development-guide.html">Development guide</a> or <a href="DevelopmentGuide.md">DevelopmentGuide.md</a>.</p>
+
+    <a class="btn" href="finalproject.html#deliverables">Final project — deliverables</a>
   </div>
 </body>
 </html>

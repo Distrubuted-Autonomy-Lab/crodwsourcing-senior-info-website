@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sprint 3 — Crowdsourcing Senior Info</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f172a;
+      --card: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #38bdf8;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --card: #ffffff;
+        --text: #0f172a;
+        --muted: #475569;
+        --accent: #0ea5e9;
+      }
+    }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 20px 70px;
+      text-align: left;
+    }
+    h1, h2, h3 {
+      margin-top: 28px;
+      margin-bottom: 12px;
+    }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; }
+    h3 { font-size: 18px; }
+    h4 { font-size: 16px; margin-top: 20px; margin-bottom: 8px; }
+    h1 span, h2 span {
+      position: relative;
+      display: inline-block;
+    }
+    h1 span::after, h2 span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 999px;
+    }
+    p, li {
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .subtitle { color: var(--muted); margin-bottom: 24px; }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 16px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 8px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: rgba(56, 189, 248, 0.15); }
+    ul { padding-left: 20px; }
+    .btn {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--card);
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 24px;
+    }
+    .btn:hover { opacity: 0.9; }
+    .card a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .card a:hover { text-decoration: underline; }
+    code {
+      font-size: 12px;
+      background: rgba(148, 163, 184, 0.15);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1><span>Sprint 3 — Crowdsourcing Senior Info</span></h1>
+    <p class="subtitle">March 25, 2026 — April 21, 2026</p>
+
+    <!-- Project Planning Document -->
+    <section class="card" id="planning">
+      <h2>Project Planning Document</h2>
+      <p><strong>Sprint dates:</strong> March 25, 2026 — April 21, 2026</p>
+
+      <h3>Project Mission</h3>
+      <p>CareBot is committed to providing an AI-powered platform that helps caregivers, social workers, and families quickly find reliable local resources before they reach a crisis. We crowdsource resource recommendations, moderate submissions, and maintain a high-quality database of Alabama healthcare and social services.</p>
+
+      <h3>Sprint 3 Goals</h3>
+      <p><strong>Most Sprint 3 effort went into two themes:</strong> (1) <strong>documentation</strong> for the course final (install/deploy, dev setup, user-facing guides, FAQs, test plan, development guide, accessibility research) and (2) <strong>accessibility and UI</strong> work on public and moderator-facing templates. Application hardening, deployment templates, and final demo artifacts (video, cybersecurity write-up) sit alongside those themes. Bulk moderation (multi-select) was a stretch goal and was not shipped.</p>
+
+      <h3>Documentation by focus area (Sprint 3)</h3>
+      <p>Final docs were divided by <strong>focus area</strong> (not by person). Each row is a primary artifact or theme for handoff.</p>
+      <table>
+        <tr><th>Focus area</th><th>Primary documentation / outcome</th></tr>
+        <tr><td>Accessibility design &amp; research</td><td>Caregiver <a href="user-guide.html">user guide</a>, <a href="accessibility-research.html">accessibility research</a> (Sprint 3)</td></tr>
+        <tr><td>Frontend implementation</td><td>Accessible UI in Django templates; <a href="development-guide.html">development guide</a> for onboarding developers</td></tr>
+        <tr><td>Security &amp; process</td><td><a href="cybersecurity-assessment.html">Cybersecurity assessment</a>, deployment/run discipline; coordination with deployment docs</td></tr>
+        <tr><td>Backend &amp; deployment prep</td><td><a href="faq-component-services.html">FAQs</a> on APIs, OAuth, and operational gotchas; app/repo runbooks</td></tr>
+        <tr><td>Testing</td><td><a href="test-plan.html">Test plan</a> — cases and scripts</td></tr>
+        <tr><td>Deployment &amp; local setup</td><td><a href="deploy-run.html">Run &amp; deploy</a>, <a href="development-environment.html">development environment</a> (keys, Docker, env files)</td></tr>
+      </table>
+
+      <h3>Sprint 3 Scope (high level)</h3>
+      <table>
+        <tr><th>Priority</th><th>Goal</th><th>Status</th></tr>
+        <tr><td>P0</td><td>Course documentation pack (guides, FAQs, test plan, dev/deploy docs) + GitHub Pages site</td><td>Done / updated</td></tr>
+        <tr><td>P0</td><td>Accessibility &amp; inclusive UI in the web app (templates, contrast, targets, flows)</td><td>Done / updated</td></tr>
+        <tr><td>P0</td><td>Final deliverables: demo video + cybersecurity assessment</td><td>In progress / submit</td></tr>
+        <tr><td>P1</td><td>Deployment hardening, env templates, moderation/dashboard UX where time allowed</td><td>Done / partial</td></tr>
+        <tr><td>P2</td><td>Bulk moderation (multi-select)</td><td>Not shipped (deferred)</td></tr>
+      </table>
+
+      <h3 id="technical-deliverables">Technical &amp; engineering deliverables</h3>
+      <p>Sprint 3 combined <strong>documentation</strong> (website + app repo) with <strong>template/UI accessibility</strong> work. Engineering notes stay versioned next to source where possible.</p>
+      <ul>
+        <li><strong>Documentation hub:</strong> <a href="finalproject.html#deliverables">Final project — deliverables</a> (sprint artifact panels); rubric narrative on <a href="documentation-hub.html">documentation-hub.html</a>; backlog tables on <a href="backlog-tables.html">backlog-tables.html</a>.</li>
+        <li><strong>Accessibility/UI:</strong> improvements to Django templates and static assets for public submit and moderator flows (contrast, targets, labels, semantics)—see <a href="accessibility-research.html">accessibility research</a>.</li>
+        <li><strong>Deployment hardening:</strong> cloud env examples and run/deploy docs (e.g. <code>root/.env-gcloud.example</code> in app repo); <a href="deploy-run.html">Run &amp; deploy</a> on this site.</li>
+        <li><strong>Bulk moderation (multi-select):</strong> <strong>not implemented</strong>; single-item approve / merge / reject only. See <a href="backlog-tables.html#remaining-backlog">backlog (deferred)</a> on <a href="backlog-tables.html">backlog-tables.html</a>.</li>
+      </ul>
+    </section>
+
+    <!-- Project Backlog Snapshot -->
+    <section class="card" id="project-backlog-snapshot">
+      <h2>Project Backlog Snapshot</h2>
+      <p><strong>Captured:</strong> April 2026 · <strong>Sprint:</strong> 3 (Mar 25 – Apr 21, 2026)</p>
+      <table>
+        <tr><th>ID</th><th>Item</th><th>Priority</th><th>Status</th></tr>
+        <tr><td>B5</td><td>Fuzzy matching improvements</td><td>P2</td><td>Not done</td></tr>
+        <tr><td>B6</td><td>Bulk moderation (multi-select)</td><td>P2</td><td>Not done</td></tr>
+        <tr><td>B9</td><td>Security configuration improvements</td><td>P1</td><td>Ongoing</td></tr>
+        <tr><td>B10</td><td>Comprehensive end-to-end testing</td><td>P1</td><td>Done (Sprint 3)</td></tr>
+        <tr><td>B11</td><td>Unit tests for submission &amp; merge flows</td><td>P1</td><td>Done (Sprint 3)</td></tr>
+        <tr><td>B12</td><td>HTTPS enforcement</td><td>P1</td><td>Done (Sprint 3)</td></tr>
+      </table>
+      <p class="subtitle" style="margin: 10px 0 0;">Full shipped backlog: <a href="backlog-tables.html#full-project-backlog">backlog-tables.html — product backlog</a>.</p>
+    </section>
+
+    <!-- Sprint Backlog -->
+    <section class="card" id="sprint-backlog">
+      <h2>Sprint Backlog</h2>
+      <p><strong>Sprint goal:</strong> Ship the <strong>final documentation set</strong> and <strong>accessible UI</strong> required for course handoff, plus demo-ready application behavior. A large share of Sprint 3 capacity went into docs and accessibility—not into net-new backend features. Rows below are ordered with documentation and UI themes first.</p>
+      <table>
+        <tr><th>ID</th><th>Item</th><th>Priority</th><th>Status</th></tr>
+        <tr><td>S3.2</td><td>Accessibility &amp; inclusive UI — Django templates/static (public + moderator flows)</td><td>P0</td><td>Done / updated</td></tr>
+        <tr><td>S3.D1</td><td>Documentation — caregiver <a href="user-guide.html">user guide</a> + <a href="accessibility-research.html">accessibility research</a></td><td>P0</td><td>Done</td></tr>
+        <tr><td>S3.D2</td><td>Documentation — <a href="development-guide.html">development guide</a> (stack, repo, workflows)</td><td>P0</td><td>Done</td></tr>
+        <tr><td>S3.D3</td><td>Documentation — <a href="deploy-run.html">run &amp; deploy</a> + <a href="development-environment.html">development environment</a> (Docker, keys)</td><td>P0</td><td>Done / updated</td></tr>
+        <tr><td>S3.D4</td><td>Documentation — <a href="faq-component-services.html">FAQs</a> (APIs, OAuth, gotchas)</td><td>P0</td><td>Done</td></tr>
+        <tr><td>S3.D5</td><td>Documentation — <a href="test-plan.html">test plan</a> (cases + scripts)</td><td>P0</td><td>Done / updated</td></tr>
+        <tr><td>S3.D6</td><td>Documentation — <a href="sponsor-user-guide.html">sponsor user guide</a> (stakeholder flows)</td><td>P0</td><td>Done / updated</td></tr>
+        <tr><td>S3.3</td><td>Deployment hardening &amp; environment templates (app repo + cloud examples)</td><td>P1</td><td>Done / updated</td></tr>
+        <tr><td>S3.4</td><td>Final deliverables — demo video + <a href="cybersecurity-assessment.html">cybersecurity assessment</a></td><td>P0</td><td>In progress / submit</td></tr>
+        <tr><td>S3.5</td><td>Moderation/dashboard UX (layout, reporting) where merged in app</td><td>P1</td><td>Done / partial</td></tr>
+        <tr><td>S3.1</td><td>Bulk moderation (multi-select) for moderation queue</td><td>P2</td><td>Not done</td></tr>
+        <tr><td>S3.7</td><td>B10 — E2E / integration testing (course scope)</td><td>P1</td><td>Done</td></tr>
+        <tr><td>S3.8</td><td>B11 — Unit tests for submission &amp; merge (course scope)</td><td>P1</td><td>Done</td></tr>
+        <tr><td>S3.9</td><td>B12 — HTTPS / secure deployment baseline</td><td>P1</td><td>Done</td></tr>
+      </table>
+      <p class="subtitle" style="margin:12px 0 0;font-size:0.9rem;">IDs <strong>S3.D1–S3.D6</strong> are documentation deliverables on the project website (and linked app repo docs). <strong>S3.2</strong> and <strong>S3.5</strong> are application/UI work. <strong>S3.7–S3.9</strong> close product backlog B10–B12; see <a href="backlog-tables.html#full-project-backlog">full project backlog</a>.</p>
+    </section>
+
+    <!-- Sprint Retrospective -->
+    <section class="card" id="retrospective">
+      <h2>Sprint 3 Retrospective</h2>
+      <h3>What Went Well</h3>
+      <ul>
+        <li><strong>Documentation:</strong> the full course doc set (user guide, development guide, deploy/dev setup, FAQs, test plan, sponsor guide, final hub) came together on the GitHub Pages site and links back to the app repo.</li>
+        <li><strong>Accessibility &amp; UI:</strong> focused passes on templates and flows so public submit and moderation screens better match WCAG-oriented guidance documented in the accessibility research artifact.</li>
+        <li>Deployment examples and security assessment artifacts support a realistic handoff to the next team or sponsor.</li>
+      </ul>
+
+      <h3>What Didn’t Go Well</h3>
+      <ul>
+        <li><strong>Bulk moderation (multi-select)</strong> was planned as a Sprint 3 stretch item but was <strong>not implemented</strong>—moderators still work one submission at a time.</li>
+        <li>Automated test expansion is still limited by database/migration setup in CI; baseline E2E/unit scope for B10/B11 was closed with the <a href="test-plan.html">test plan</a> and shipped tests.</li>
+        <li>End-to-end polish required more iteration than expected late in the semester.</li>
+      </ul>
+
+      <h3 id="deferred-beyond-s3">Deferred beyond Sprint 3</h3>
+      <p>The following were <strong>not completed</strong> in Sprint 3 and are left for a future team, sponsor scope, or follow-on course work:</p>
+      <ul>
+        <li><strong>Bulk moderation</strong> — approve or reject <em>multiple</em> queue items at once (multi-select).</li>
+        <li><strong>Email and SMS notifications</strong> — notify submitters when submission status changes (approved, rejected, merged).</li>
+        <li><strong>Provider verification workflow</strong> — structured process to confirm provider legitimacy before or after publish.</li>
+        <li><strong>Admin dashboard with analytics</strong> — full reporting/analytics beyond the moderation views and charts shipped in-app (deeper metrics, trends, exports).</li>
+        <li><strong>Chatbot integration for approved submissions</strong> — tighter coupling between the directory and conversational search using only vetted/approved content (beyond optional chat configured today).</li>
+        <li><strong>Accessibility QA with real older-adult users</strong> — moderated usability sessions with caregivers (research-backed guidelines were followed; live user testing was out of scope).</li>
+      </ul>
+      <p class="subtitle" style="margin: 10px 0 0;">See also: <a href="backlog-tables.html#remaining-backlog">Deferred backlog</a> on <a href="backlog-tables.html">backlog-tables.html</a>.</p>
+
+      <h3 id="lessons-learned">Lessons learned</h3>
+      <ul>
+        <li><strong>Design-first work from Sprint 2</strong> made Sprint 3 documentation faster because the UI was already stable.</li>
+        <li><strong>Writing docs against shipped code</strong> catches drift between intention and implementation.</li>
+        <li><strong>Research-backed writing</strong> is slower but worth it for the final deliverable.</li>
+      </ul>
+
+      <h3>What We Would Do Differently</h3>
+      <ul>
+        <li>Start final deliverables earlier (video + assessment) to avoid end-of-sprint rush.</li>
+        <li>Invest earlier in a repeatable test DB strategy for Django tests.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="final-checklist">
+      <h2>Sprint 3 / Final submission checklist</h2>
+      <p class="subtitle">Course submission expectations consolidated here; sprint artifact links on <a href="finalproject.html#deliverables">finalproject.html</a>; rubric narrative on <a href="documentation-hub.html">documentation-hub.html</a>.</p>
+      <h3>Sprint goal</h3>
+      <p>Consolidate <strong>documentation</strong> for someone new to the project (basic CS background), complete <strong>final deliverables</strong> (video, cybersecurity assessment, sponsor guide, test plan), and close or hand off <strong>backlog</strong> items.</p>
+      <h3>Final website requirements (syllabus)</h3>
+      <ul>
+        <li><strong>Project goals on main page:</strong> <a href="index.html">Home</a></li>
+        <li><strong>Project deliverables:</strong> <a href="finalproject.html#deliverables">finalproject.html — Deliverables</a></li>
+        <li><strong>Full project backlog:</strong> <a href="backlog-tables.html#full-project-backlog">Product backlog</a> · <a href="backlog-tables.html#remaining-backlog">deferred themes</a></li>
+        <li><strong>Demo video:</strong> placeholder under <a href="finalproject.html#demo-video">Sprint 3 deliverables</a> on the same page</li>
+        <li><strong>Cybersecurity assessment:</strong> <a href="cybersecurity-assessment.html">Assessment</a> + <a href="cybersecurity-assessment.html#checklist">periodic review checklist</a></li>
+        <li><strong>Team bios:</strong> <a href="team.html">Team</a></li>
+        <li><strong>Required documentation (GitHub):</strong> <a href="deploy-run.html">Run / deploy</a>, <a href="user-guide.html">User guide</a>, <a href="sponsor-user-guide.html">Sponsor user guide</a>, <a href="accessibility-research.html">Accessibility research</a>, <a href="development-environment.html">Dev environment</a>, <a href="development-guide.html">Development guide</a>, <a href="faq-component-services.html">FAQs</a>, <a href="test-plan.html">Test plan</a></li>
+        <li><strong>Ownership:</strong> <a href="DOCUMENTATION_INDEX.md">Documentation index</a></li>
+      </ul>
+      <h3>Work completed in Sprint 3 (high level)</h3>
+      <ul>
+        <li><strong>Documentation pack:</strong> guides, FAQs, test plan, sponsor guide, accessibility research, <a href="finalproject.html#deliverables">final project</a> hub + <a href="documentation-hub.html">documentation hub</a></li>
+        <li><strong>Accessibility &amp; UI:</strong> templates and moderator/public flows</li>
+        <li><strong>Dashboard:</strong> staff views and reporting where merged</li>
+        <li><strong>Cleanup &amp; hardening:</strong> deployment env examples</li>
+        <li><strong>B10–B12 closure:</strong> rows <strong>S3.7–S3.9</strong> in the sprint backlog table above</li>
+      </ul>
+      <p class="subtitle" style="margin: 10px 0 0;">Completed sprint rows (all sprints): <a href="backlog-tables.html#completed-sprint-items">backlog-tables.html</a>.</p>
+      <h3>Deferred beyond Sprint 3</h3>
+      <p>See <a href="#deferred-beyond-s3">Deferred beyond Sprint 3</a> in the retrospective above. <strong>Bulk moderation:</strong> single-item only — <a href="backlog-tables.html#remaining-backlog">backlog</a>.</p>
+      <h3>Source repositories</h3>
+      <ul>
+        <li><strong>Application:</strong> <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing">carebot-deployable-crowdsourcing</a></li>
+        <li><strong>Project website:</strong> <a href="https://github.com/Distrubuted-Autonomy-Lab/website-crowdsourcing">website-crowdsourcing</a></li>
+      </ul>
+    </section>
+
+    <a class="btn" href="finalproject.html#deliverables">Final project — deliverables</a>
+  </div>
+</body>
+</html>
+

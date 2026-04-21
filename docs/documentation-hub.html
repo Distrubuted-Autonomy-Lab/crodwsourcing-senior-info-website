@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Course documentation hub — CareBot Crowdsourcing</title>
+  <link rel="stylesheet" href="assets/deliverables.css" />
+</head>
+<body class="deliverables-body">
+  <div class="wrap">
+    <header class="hero">
+      <div class="hero-inner">
+        <h1><span>Course documentation hub</span></h1>
+        <p class="tagline">Sprint map, install, deploy, features, extend, FAQs summary, testing, security, and accessibility—linked from <a href="finalproject.html#deliverables">Final project — deliverables</a>.</p>
+        <p class="repos"><a class="btn-home" href="finalproject.html#deliverables" style="display:inline-block;margin-top:8px;text-decoration:none;">← Back to final project</a></p>
+      </div>
+    </header>
+    <nav class="jump-nav" aria-label="Sections on this page">
+      <a href="#sprint-map">Sprint map</a>
+      <a href="#install">Install</a>
+      <a href="#deploy">Deploy</a>
+      <a href="#features">Features</a>
+      <a href="#extend">Extend</a>
+      <a href="#faqs">FAQs</a>
+      <a href="#testing">Testing</a>
+      <a href="#security">Security</a>
+      <a href="#a11y">Accessibility</a>
+      <a href="backlog-tables.html#full-project-backlog">Backlog tables</a>
+    </nav>
+
+    <section class="section-wide" id="sprint-map">
+      <div class="section-head">
+        <h2>Where work landed (Sprint 1 → 3)</h2>
+        <p>Most of the team’s engineering time went into <strong>public submissions</strong>, the <strong>moderation queue</strong>, and <strong>merge / deduplication</strong>—keeping bad data out and folding duplicates into one vetted listing. Sprint pages hold planning, backlogs, and technical detail; this table only answers <em>where each theme was the main push</em>.</p>
+      </div>
+      <div class="section-body">
+        <div class="table-wrap">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th scope="col">What we built</th>
+                <th scope="col">Sprint 1</th>
+                <th scope="col">Sprint 2</th>
+                <th scope="col">Sprint 3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Public submissions</strong> — form, validation, caregiver-facing flow</td>
+                <td><a href="sprint1.html">Sprint 1</a> — fixed broken submit path; rate limits, headers, basic hardening so public POST was safe.</td>
+                <td><a href="sprint2.html">Sprint 2</a> — new submit UI, home/base templates, working user/staff login before moderators touch the queue.</td>
+                <td><a href="sprint3.html">Sprint 3</a> — accessibility and template polish on the same flows (labels, contrast, targets).</td>
+              </tr>
+              <tr>
+                <td><strong>Moderation queue</strong> — approve · merge · reject (single item)</td>
+                <td><a href="sprint1.html">Sprint 1</a> — shipped the queue and all three actions end-to-end; first usable moderator loop.</td>
+                <td><a href="sprint2.html">Sprint 2</a> — queue HTML/CSS and Django wiring for the redesigned experience.</td>
+                <td><a href="sprint3.html">Sprint 3</a> — moderator screens easier to use with a keyboard and screen reader. <strong>Bulk multi-select not implemented</strong>—still one row at a time.</td>
+              </tr>
+              <tr>
+                <td><strong>Merge &amp; deduplication</strong> — field-level smart merge + similarity hints</td>
+                <td><a href="sprint1.html">Sprint 1</a> — field-level merge into an existing resource; reject and “approve as new”; core dedup story.</td>
+                <td><a href="sprint2.html#technical-deliverables">Sprint 2</a> — moderator-facing similarity UX so merges are informed by scores, not guesswork.</td>
+                <td><a href="sprint3.html#technical-deliverables">Sprint 3</a> — small hardening and doc alignment with how merge behaves in production.</td>
+              </tr>
+              <tr>
+                <td><strong>Similarity search</strong> — TF‑IDF, embeddings, pgvector</td>
+                <td><a href="sprint1.html">Sprint 1</a> — first similarity pass for “near duplicate” candidates on the moderation path.</td>
+                <td><a href="sprint2.html#technical-deliverables">Sprint 2</a> — main build: full-catalog TF‑IDF + pgvector, <code>rank_similar_smart</code>, parameterized SQL, moderator dedup tooling.</td>
+                <td><a href="sprint3.html">Sprint 3</a> — operational notes, test/deploy docs; no second large algorithm rewrite.</td>
+              </tr>
+              <tr>
+                <td><strong>Docker &amp; deploy</strong> — local + cloud demo</td>
+                <td><a href="sprint1.html">Sprint 1</a> — Docker on Mac and Windows; baseline compose for the class.</td>
+                <td><a href="sprint2.html">Sprint 2</a> — GCP VM demo (firewall, secrets, container on the network).</td>
+                <td><a href="sprint3.html">Sprint 3</a> — env templates and run/deploy guidance for a repeatable handoff.</td>
+              </tr>
+              <tr>
+                <td><strong>Documentation</strong> — runbooks + this site</td>
+                <td>CHANGES / build notes so teammates could boot the stack.</td>
+                <td>README, similarity/schema runbooks in the app repo.</td>
+                <td>Final GitHub Pages hub — <a href="finalproject.html">finalproject.html</a>, this hub, and linked guides.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="muted" style="margin-top:14px;">Sprint artifact panels: <a href="finalproject.html#sprint-1">Sprint 1</a> · <a href="finalproject.html#sprint-2">Sprint 2</a> · <a href="finalproject.html#sprint-3">Sprint 3</a> on <a href="finalproject.html#deliverables">final project — deliverables</a>.</p>
+      </div>
+    </section>
+
+    <section class="section-wide" id="install">
+      <div class="section-head">
+        <h2>How to install software (local)</h2>
+        <p>Host prerequisites, clone the app repo, first-time environment file, first build.</p>
+      </div>
+      <div class="section-body">
+        <div class="doc-block" style="margin:0;padding:0;border:0;">
+          <p><strong>Primary page:</strong> <a href="development-environment.html">Development environment setup</a></p>
+          <ul>
+            <li><strong>What you need:</strong> Git, Docker Desktop (recommended), a browser; optional local Python 3.x for commands outside containers.</li>
+            <li><strong>Repos:</strong> Application code in <span class="mono">carebot-deployable-crowdsourcing</span>; this documentation site is <span class="mono">website-crowdsourcing</span>.</li>
+            <li><strong>Typical first run:</strong> from <span class="mono">root/</span>, <span class="mono">docker compose -f docker-compose.yml -f docker-compose.local.yml up --build</span> — see the page above for details and troubleshooting.</li>
+          </ul>
+          <p class="muted">Deeper stack and folder layout: <a href="development-guide.html">Development guide</a> · <a href="DevelopmentGuide.md">DevelopmentGuide.md</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wide" id="deploy">
+      <div class="section-head">
+        <h2>How to install / deploy software</h2>
+        <p>Running in your own environment, Docker, configuration, and external services (including free vs paid notes).</p>
+      </div>
+      <div class="section-body">
+        <div class="doc-block" style="margin:0;padding:0;border:0;">
+          <p><strong>Primary page:</strong> <a href="deploy-run.html">How to run &amp; deploy</a></p>
+
+          <h3 style="margin:18px 0 8px; font-size:1.05rem;">If someone deploys on their own environment, what should they do?</h3>
+          <ul>
+            <li>Clone <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing">carebot-deployable-crowdsourcing</a>, configure <span class="mono">.env-local</span> (or production env) from the example files in <span class="mono">root/</span>.</li>
+            <li>Run with Docker Compose from <span class="mono">root/</span> using <span class="mono">docker-compose.yml</span> plus the appropriate override (e.g. <span class="mono">docker-compose.local.yml</span> or <span class="mono">docker-compose.gcloud.yml</span> for cloud-shaped deploys).</li>
+            <li>Apply migrations inside the app container; open only required ports; use HTTPS in front if exposed to the internet.</li>
+          </ul>
+
+          <h3 style="margin:18px 0 8px; font-size:1.05rem;">What software is needed? (Docker)</h3>
+          <ul>
+            <li><strong>Docker</strong> + <strong>Docker Compose</strong> bundle the app, <strong>PostgreSQL/PostGIS</strong>, optional <strong>RabbitMQ</strong>, and <strong>nginx</strong> so installs are repeatable across machines.</li>
+            <li>Python dependencies are installed in the image from <span class="mono">requirements.txt</span> (see app repo <span class="mono">root/</span>).</li>
+          </ul>
+
+          <h3 style="margin:18px 0 8px; font-size:1.05rem;">What external resources are used?</h3>
+          <ul>
+            <li><strong>Database:</strong> PostgreSQL with PostGIS (in Compose or managed Postgres that supports PostGIS).</li>
+            <li><strong>Optional messaging:</strong> RabbitMQ if async features are enabled.</li>
+            <li><strong>AI / APIs (optional):</strong> Google Gemini (<span class="mono">GOOGLE_API_KEY</span>) for chat; OpenAI or other providers for embeddings if configured; Hugging Face model downloads may use <span class="mono">HF_TOKEN</span> to ease rate limits.</li>
+          </ul>
+
+          <h3 style="margin:18px 0 8px; font-size:1.05rem;">Free vs paid tiers (typical)</h3>
+          <ul>
+            <li><strong>Google AI / Gemini:</strong> usage is account- and tier-dependent; set quotas in Google Cloud and monitor billing.</li>
+            <li><strong>OpenAI:</strong> paid API usage by token; store keys in environment only.</li>
+            <li><strong>Hugging Face:</strong> community tier for models; rate limits apply — <span class="mono">HF_TOKEN</span> optional.</li>
+            <li><strong>Hosting:</strong> GCP/AWS VM costs depend on machine size; Docker keeps parity with local.</li>
+          </ul>
+          <h3 style="margin:18px 0 8px; font-size:1.05rem;">API keys and OAuth workflow (syllabus)</h3>
+          <ul>
+            <li><strong>Required / common keys:</strong> database credentials, Django <span class="mono">SECRET_KEY</span>, and any keys your deployment uses for optional services — listed on <a href="deploy-run.html">Run &amp; deploy</a> and in the app repo <span class="mono">.env</span> examples.</li>
+            <li><strong>OAuth:</strong> this deployment uses <strong>Django username/password + sessions</strong> for staff; there is <strong>no OAuth server workflow</strong> configured for moderation login. If you add OAuth later, document client IDs, redirect URIs, and token storage in the FAQs and runbook.</li>
+            <li><strong>Optional APIs (e.g. chat):</strong> <a href="faq-component-services.html#keys">FAQs — which keys the app uses</a> (Gemini is chat-only; crowdsourcing core does not require it).</li>
+          </ul>
+          <p class="muted">Operator FAQs: <a href="faq-component-services.html">FAQs — component services</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wide" id="features">
+      <div class="section-head">
+        <h2>How to use each completed feature</h2>
+        <p>What exists, how it connects to other parts, and where it is documented.</p>
+      </div>
+      <div class="section-body">
+        <div class="subgrid two">
+          <div class="mini-card">
+            <strong>Caregiver-facing (public submit)</strong>
+            <a href="user-guide.html">User guide</a> · <a href="userguide.md">userguide.md</a>
+            <p class="muted" style="margin:8px 0 0;">No login required. Submit a resource → goes to moderation queue (not public until approved).</p>
+          </div>
+          <div class="mini-card">
+            <strong>Staff / sponsor overview</strong>
+            <a href="sponsor-user-guide.html">Sponsor user guide</a>
+            <p class="muted" style="margin:8px 0 0;">Moderation, merge, duplicate handling at a high level.</p>
+          </div>
+        </div>
+
+        <h3 style="margin:22px 0 10px; font-size:1.05rem;">Features and how they link (examples)</h3>
+        <ul>
+          <li><strong>Public submission</strong> → records appear in the <strong>moderation queue</strong> for staff; staff <strong>approve</strong>, <strong>merge</strong> with an existing directory entry, or <strong>reject</strong>. Nothing appears in the public directory until approved.</li>
+          <li><strong>Similarity search</strong> (home / search tool) helps users and staff find near-duplicate or related resources before submitting; results tie back to directory entries and moderation decisions described in <a href="sprint2.html#technical-deliverables">Sprint 2 technical notes</a>.</li>
+          <li><strong>Staff accounts:</strong> Django session-based login for moderators (not the same as public submitters). OAuth is optional and documented under FAQs if added.</li>
+          <li><strong>Optional chat</strong> (if enabled) uses configured API keys; if disabled, the rest of the crowdsourcing flow still works.</li>
+        </ul>
+
+        <h3 style="margin:22px 0 10px; font-size:1.05rem;">How are external resources incorporated?</h3>
+        <p>Embeddings, similarity, and optional chat call out to providers configured via environment variables; the database holds canonical resource records. See <a href="faq-component-services.html">FAQs</a> and <a href="deploy-run.html">Run &amp; deploy</a>.</p>
+      </div>
+    </section>
+
+    <section class="section-wide" id="extend">
+      <div class="section-head">
+        <h2>How to modify / extend software</h2>
+        <p>After a local install: languages, build, dependencies, backlog, style, and tests.</p>
+      </div>
+      <div class="section-body">
+        <p><strong>Full guide:</strong> <a href="development-guide.html">Development guide</a> · <a href="DevelopmentGuide.md">DevelopmentGuide.md</a></p>
+        <ul>
+          <li><strong>Languages:</strong> Python (Django), HTML/CSS/JS in templates and static, SQL (Postgres/PostGIS).</li>
+          <li><strong>Build / run:</strong> Docker images built from the app <span class="mono">Dockerfile</span>; <span class="mono">manage.py</span> for migrations, tests, and admin.</li>
+          <li><strong>Dependencies:</strong> <span class="mono">requirements.txt</span> in app <span class="mono">root/</span>; pinned in the image build.</li>
+          <li><strong>Automated builds:</strong> CI depends on team setup; run tests locally with <span class="mono">python manage.py test</span> (see test plan for scope).</li>
+          <li><strong>Backlog / issues:</strong> <a href="backlog-tables.html#full-project-backlog">Full project backlog (B1–B14)</a> and <a href="backlog-tables.html#remaining-backlog">deferred themes</a> on the <a href="backlog-tables.html">backlog tables</a> page; major migrations (e.g. Django major version, API upgrades) should be tracked as issues or in repo docs.</li>
+          <li><strong>Style expectations:</strong> follow existing patterns in the repo; prefer small, reviewable PRs; keep secrets out of git (see <a href="cybersecurity-assessment.html">cybersecurity assessment</a>).</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section-wide" id="faqs">
+      <div class="section-head">
+        <h2>FAQs</h2>
+        <p>End-user questions, install gotchas, and external service issues.</p>
+      </div>
+      <div class="section-body">
+        <p><strong>Developer / operator FAQs:</strong> <a href="faq-component-services.html">FAQs — APIs, OAuth, component services</a></p>
+        <ul>
+          <li><strong>End users (caregivers):</strong> see <a href="user-guide.html#faq">User guide — Common questions</a>.</li>
+          <li><strong>Install gotchas:</strong> wrong compose working directory, missing env vars, DB schema drift — summarized in <a href="development-environment.html">Development environment</a> and <a href="faq-component-services.html">FAQs</a>.</li>
+          <li><strong>External resources:</strong> API keys, quotas, rate limits — <a href="faq-component-services.html">FAQs</a> and <a href="deploy-run.html">Run &amp; deploy</a>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section-wide" id="testing">
+      <div class="section-head">
+        <h2>Testing</h2>
+        <p>Components to test, significant cases, and scripts.</p>
+      </div>
+      <div class="section-body">
+        <p><strong>Test plan:</strong> <a href="test-plan.html">Test plan</a></p>
+        <ul>
+          <li><strong>Components / services:</strong> web UI (submit, moderation), PostGIS-backed data, similarity/embeddings paths, forms and auth as applicable.</li>
+          <li><strong>Significant cases:</strong> described in the test plan (critical paths, edge cases).</li>
+          <li><strong>Scripts / automation:</strong> repo scripts such as <span class="mono">scripts/retest-local.sh</span> where present; Django tests via <span class="mono">manage.py test</span> with documented limitations in <a href="DOCUMENTATION_INDEX.md">DOCUMENTATION_INDEX.md</a>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section-wide" id="security">
+      <div class="section-head">
+        <h2>Cybersecurity deliverable</h2>
+        <p>Assessment and periodic review checklist.</p>
+      </div>
+      <div class="section-body">
+        <p><a href="cybersecurity-assessment.html">Cybersecurity assessment</a> · <a href="cybersecurity-assessment.html#checklist">Periodic checklist</a></p>
+      </div>
+    </section>
+
+    <section class="section-wide" id="a11y">
+      <div class="section-head">
+        <h2>Accessibility &amp; inclusive design</h2>
+        <p>Sprint 3 research artifact (WCAG, caregivers, gaps).</p>
+      </div>
+      <div class="section-body">
+        <p><a href="accessibility-research.html">Accessibility design and research</a> · <a href="AccessibilityResearch.md">AccessibilityResearch.md</a></p>
+      </div>
+    </section>
+
+    <div class="footer-actions">
+      <a class="btn-home" href="finalproject.html#deliverables">Final project — deliverables</a>
+      <a class="btn-home" href="backlog-tables.html#full-project-backlog" style="margin-left:10px;">Full backlog tables</a>
+      <a class="btn-home" href="index.html" style="background:linear-gradient(90deg,#64748b,#475569);box-shadow:none;margin-left:10px;">Home</a>
+    </div>
+  </div>
+</body>
+</html>

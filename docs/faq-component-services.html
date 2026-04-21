@@ -3,13 +3,31 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FAQs — APIs, OAuth &amp; component services</title>
+  <title>FAQs — APIs &amp; component services</title>
   <link rel="stylesheet" href="assets/doc-page.css" />
 </head>
 <body>
   <div class="page">
     <h1><span>FAQs: Component services (APIs, OAuth)</span></h1>
-    <p class="subtitle">Selection, setup, and operational considerations for <strong>Crowdsourcing Senior Info (CareBot)</strong>. Mirrors the technical reference in the application repo: <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing/blob/main/docs/FAQ-component-services.md"><code>carebot-deployable-crowdsourcing/docs/FAQ-component-services.md</code></a>.</p>
+    <p class="subtitle">Selection, setup, significant considerations, and gotchas for <strong>Crowdsourcing Senior Info (CareBot)</strong>. The same repo ships <strong>crowdsourcing</strong> (submit → moderation → merge, under <span class="mono">recommendation/</span>) and an <strong>optional public chat</strong> (under <span class="mono">chat/</span>). <strong>Gemini is only for chat</strong>—not required to run the crowdsourcing pipeline.</p>
+
+    <section class="card" id="end-user-faqs">
+      <h2>0. End-user FAQs (quick answers)</h2>
+      <p>These questions are written for <strong>public users</strong> submitting resources and <strong>staff/moderators</strong> reviewing submissions (not for developers).</p>
+      <dl>
+        <dt><strong>Why don’t I see my submission right away?</strong></dt>
+        <dd>Submissions go into a <strong>moderation queue</strong> first. A staff member reviews it, then approves it as a new listing or merges it into an existing listing.</dd>
+
+        <dt><strong>Who can approve or reject submissions?</strong></dt>
+        <dd>Only <strong>staff/moderator accounts</strong> can access moderation pages. Public users can submit recommendations but cannot directly publish them.</dd>
+
+        <dt><strong>Why does the “similar results” list look wrong sometimes?</strong></dt>
+        <dd>Similarity depends on the listing text and (when available) stored embeddings. Some data may not have embeddings yet, and names/addresses may be incomplete—so results can vary. Moderators should still manually confirm duplicates before merging.</dd>
+
+        <dt><strong>Why is chat not responding (or disabled) sometimes?</strong></dt>
+        <dd>Public chat is <strong>separate</strong> from submitting or moderating resources. It only works when operators enable it and set a <strong>Gemini API key</strong> (<span class="mono">GOOGLE_API_KEY</span>). If the key is missing, expired, out of quota, or rate limited, chat may be unavailable—<strong>submit and moderation still work without it.</strong></dd>
+      </dl>
+    </section>
 
     <section class="card" id="components">
       <h2>1. What major components make up the system?</h2>
@@ -17,9 +35,9 @@
         <tr><th>Area</th><th>Technology</th><th>Role</th></tr>
         <tr><td>Web app</td><td>Django 5</td><td>HTTP UI, business logic, staff authentication</td></tr>
         <tr><td>Database</td><td>PostgreSQL + PostGIS + pgvector</td><td>Relational data, geospatial queries, vector similarity</td></tr>
-        <tr><td>LLM (chat)</td><td>Google Gemini (Generative Language API)</td><td>Natural-language understanding and answers for the public chat</td></tr>
+        <tr><td>LLM (chat, <strong>optional</strong>)</td><td>Google Gemini (Generative Language API)</td><td>Only the <span class="mono">chat/</span> app: natural-language answers for public chat. <strong>Not used</strong> for submission, moderation queue, merge, or similarity scoring.</td></tr>
         <tr><td>Containers</td><td>Docker Compose</td><td>Local and deployment-shaped runs (web + database, optional broker)</td></tr>
-        <tr><td>Message broker (optional)</td><td>RabbitMQ</td><td>Intended for Celery; broker URL in settings</td></tr>
+        <tr><td>Message broker (optional)</td><td>RabbitMQ</td><td>Present in some Compose configs, but not required for the core crowdsourcing + moderation flows</td></tr>
         <tr><td>Reverse proxy (production)</td><td>NGINX</td><td>TLS termination and static/front-end patterns in cloud images</td></tr>
       </table>
       <p style="margin-bottom:0;">See the CareBot <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing/tree/main/root">repository <code>root/</code></a> for compose files and run commands.</p>
@@ -27,58 +45,52 @@
 
     <section class="card" id="keys">
       <h2>2. Which APIs and keys does the app require?</h2>
+      <p><strong>Crowdsourcing core</strong> (public submit, moderation, merge/reject, TF‑IDF / pgvector similarity) runs on Django + Postgres and does <strong>not</strong> call Google Gemini. <strong><span class="mono">GOOGLE_API_KEY</span> is optional</strong> and only used by the <strong>public chat</strong> code in <span class="mono">app/chat/</span>.</p>
 
-      <h3>Google Gemini (<span class="mono">GOOGLE_API_KEY</span>)</h3>
+      <h3>Required for a typical local or container run</h3>
       <ul>
-        <li><strong>Used for:</strong> The public chat flow calls the Gemini API (via <span class="mono">google.generativeai</span>) to interpret questions and produce responses grounded in query logic and database results.</li>
+        <li><strong>Django <span class="mono">SECRET_KEY</span> —</strong> signing sessions and CSRF tokens. Long random string via environment; never commit production values.</li>
+        <li><strong>Database credentials —</strong> Django DB settings (<span class="mono">DATABASE_*</span>, host, port). PostGIS / pgvector match the crowdsourcing + similarity features.</li>
+      </ul>
+
+      <h3>Optional — Google Gemini (<span class="mono">GOOGLE_API_KEY</span>) for public chat only</h3>
+      <ul>
+        <li><strong>Scope:</strong> Code under <span class="mono">root/app/chat/</span> calls the Gemini API (<span class="mono">google.generativeai</span>) for conversational replies. <strong>Not used</strong> in <span class="mono">recommendation/</span> for submissions or moderation.</li>
+        <li><strong>Used for (when chat is used):</strong> Interpreting user questions and producing responses grounded in query logic and database results.</li>
         <li><strong>Configuration:</strong> Set <span class="mono">GOOGLE_API_KEY</span> in the environment (e.g. <span class="mono">.env-local</span> — never commit). Optionally set <span class="mono">GEMINI_MODEL</span> (default in code: <span class="mono">models/gemini-2.5-flash</span>).</li>
         <li><strong>How to obtain a key:</strong> In <a href="https://aistudio.google.com/">Google AI Studio</a> or Google Cloud, create an API key with access to the Generative Language API. Restrict the key by HTTP referrer or IP where possible.</li>
-        <li><strong>Considerations:</strong> <em>Cost and quotas</em> — monitor usage; set budgets and alerts. <em>Privacy</em> — user queries and model context may leave your server; align with sponsor policy and any HIPAA/FERPA constraints before sending sensitive data. <em>Availability</em> — outages or rate limits degrade chat; fail gracefully in the UI. <em>Model changes</em> — changing <span class="mono">GEMINI_MODEL</span> can change behavior, latency, and pricing — test after upgrades.</li>
+        <li><strong>Considerations:</strong> <em>Cost and quotas</em> — monitor usage; set budgets and alerts. <em>Privacy</em> — user queries and model context may leave your server; align with sponsor policy and any HIPAA/FERPA constraints before sending sensitive data. <em>Availability</em> — outages or rate limits affect <strong>chat only</strong>; fail gracefully in the UI. <em>Model changes</em> — changing <span class="mono">GEMINI_MODEL</span> can change behavior, latency, and pricing — test after upgrades.</li>
       </ul>
 
-      <h3>OpenAI (<span class="mono">OPENAI_API_KEY</span>)</h3>
+      <h3>Embeddings / similarity (separate from Gemini)</h3>
       <ul>
-        <li><strong>Used for:</strong> Optional paths (e.g. embedding backends in settings). The codebase reads <span class="mono">OPENAI_API_KEY</span>; not every deployment needs it, depending on <span class="mono">EMBEDDING_BACKEND</span> and active code paths.</li>
-        <li><strong>Configuration:</strong> Set the key if you enable OpenAI-backed embeddings or related features.</li>
-        <li><strong>Considerations:</strong> Same themes as Gemini — billing, data handling, key rotation.</li>
-      </ul>
-
-      <h3>Django <span class="mono">SECRET_KEY</span></h3>
-      <ul>
-        <li><strong>Used for:</strong> Signing sessions and CSRF tokens.</li>
-        <li><strong>Configuration:</strong> Long random string via environment. Never commit real values or reuse keys across untrusted environments.</li>
-      </ul>
-
-      <h3>Database credentials</h3>
-      <ul>
-        <li><strong>Used for:</strong> Django database settings (<span class="mono">DATABASE_NAME</span>, <span class="mono">DATABASE_USER</span>, <span class="mono">DATABASE_PASSWORD</span>, host, port).</li>
-        <li><strong>Considerations:</strong> Strong passwords in production; restrict network access; prefer secrets managers or platform env injection over plain files on servers.</li>
+        <li>Similarity and merge assistance use <strong>Postgres + pgvector</strong> and local embedding generation in the app (e.g. <span class="mono">recommendation/embeddings.py</span> with SentenceTransformers). That path does <strong>not</strong> use <span class="mono">GOOGLE_API_KEY</span>. Optional cloud keys (e.g. Hugging Face <span class="mono">HF_TOKEN</span> for model download rate limits) may apply depending on your deployment—see env templates in the app repo.</li>
       </ul>
 
       <h3>Optional integrations</h3>
       <ul>
-        <li>Settings may define secrets such as <span class="mono">TWILIO_WEBHOOK_SECRET</span> for webhooks — set only if those endpoints are implemented and exposed.</li>
-        <li><strong>Hugging Face:</strong> If embeddings download models from Hugging Face, an optional <span class="mono">HF_TOKEN</span> can raise rate limits; document in deploy runbook.</li>
+        <li><strong>SMS submission webhook (Twilio-style):</strong> if you use <span class="mono">/webhooks/sms/</span>, set <span class="mono">TWILIO_WEBHOOK_SECRET</span> and keep the endpoint private (don’t expose without a secret).</li>
+        <li><strong>Email submission webhook:</strong> if you use <span class="mono">/webhooks/email/</span>, set <span class="mono">INBOUND_EMAIL_SECRET</span> and keep the endpoint private.</li>
       </ul>
     </section>
 
     <section class="card" id="oauth">
-      <h2>3. OAuth: does CareBot use it?</h2>
-      <p><strong>Current approach:</strong> Staff and moderation flows use <strong>Django’s built-in authentication</strong> (username/password, sessions, <span class="mono">django.contrib.auth</span>), typically with <span class="mono">LOGIN_URL</span> at <span class="mono">/accounts/login/</span>. This is <strong>not</strong> OAuth 2.0 / OpenID Connect against Google, Microsoft, or similar in the default course deployment.</p>
-      <p><strong>Implications:</strong></p>
+      <h2>3. OAuth: is it used in CareBot Deployable Crowdsourcing?</h2>
+      <p><strong>No.</strong> In the current <strong>carebot-deployable-crowdsourcing</strong> deployment, staff/moderation access uses <strong>Django’s built-in authentication</strong> (username/password + sessions). There is no OAuth/OIDC provider configured, so there is <strong>no OAuth client ID/secret</strong> to set up for this project.</p>
+    </section>
+
+    <section class="card" id="gotchas">
+      <h2>4. Gotchas we ran into (install + operations)</h2>
       <ul>
-        <li>No OAuth client ID/secret or authorization-code flow for end users in the default setup.</li>
-        <li>Session cookies and CSRF protection are the primary browser security mechanisms for logged-in users.</li>
-      </ul>
-      <p><strong>If the sponsor adds “Sign in with Google” (or similar):</strong></p>
-      <ul>
-        <li>Add an OAuth/OIDC provider (e.g. <span class="mono">django-allauth</span>, or a cloud IdP) and register redirect URIs, client ID, and client secret.</li>
-        <li>Document provider console steps, scopes, token storage, refresh, logout, and account linking (mapping OAuth identity to existing <span class="mono">User</span> rows).</li>
+        <li><strong>Running Docker Compose from the wrong directory:</strong> compose is intended to be run from the app repo’s <code>root/</code> directory. Running from a different working directory can break relative paths and env-file loading.</li>
+        <li><strong>Django not installed locally:</strong> if you try to run <code>python manage.py …</code> on the host without a venv, it will fail. The recommended path is to run Django inside the Docker container.</li>
+        <li><strong>Schema drift from older DB dumps:</strong> if you restore an older database snapshot, Django models may not match (errors like missing columns). Fix by applying migrations or resetting local volumes and re-initializing the DB.</li>
+        <li><strong>Staff login confusion:</strong> moderation requires a Django user. If no staff account exists yet, create one (e.g. <code>createsuperuser</code>) inside the running container.</li>
       </ul>
     </section>
 
     <section class="card" id="postgis">
-      <h2>4. Why PostGIS and pgvector?</h2>
+      <h2>5. Why PostGIS and pgvector?</h2>
       <ul>
         <li><strong>PostGIS:</strong> Resource and location data use geospatial types and queries (distance, containment).</li>
         <li><strong>pgvector:</strong> Embeddings live in Postgres for similarity search without a separate vector-only database.</li>
@@ -87,7 +99,7 @@
     </section>
 
     <section class="card" id="celery">
-      <h2>5. RabbitMQ and Celery</h2>
+      <h2>6. RabbitMQ and Celery (not required for core flows)</h2>
       <ul>
         <li>RabbitMQ may appear in local Compose for development.</li>
         <li>Full async worker integration may be partial; <span class="mono">CELERY_BROKER_URL</span> must match the environment (container hostname <span class="mono">rabbitmq</span> vs <span class="mono">localhost</span>).</li>
@@ -96,9 +108,9 @@
     </section>
 
     <section class="card" id="selection">
-      <h2>6. Selection criteria (summary)</h2>
+      <h2>7. Selection criteria (summary)</h2>
       <ol>
-        <li><strong>Fit:</strong> Gemini for conversational UX; Postgres for relational + geo + vectors.</li>
+        <li><strong>Fit:</strong> Postgres for relational + geo + vectors (crowdsourcing + similarity); Gemini only if you need optional conversational chat.</li>
         <li><strong>Cost:</strong> Managed API pricing vs. self-hosted LLM.</li>
         <li><strong>Security &amp; compliance:</strong> Data flows, key custody, audit needs.</li>
         <li><strong>Team familiarity:</strong> Django + Docker.</li>
@@ -107,30 +119,40 @@
     </section>
 
     <section class="card" id="review">
-      <h2>7. Periodic review checklist (APIs and auth)</h2>
+      <h2>8. Possible issues with external resources (and how to handle them)</h2>
+      <ul>
+        <li><strong>Gemini quota / billing (chat only):</strong> if <strong>chat</strong> stops working, check quota and billing in Google AI Studio / Cloud. Crowdsourcing flows are unaffected.</li>
+        <li><strong>Rate limits / spikes:</strong> spikes in traffic can trigger throttling; ensure rate limiting stays enabled on public endpoints.</li>
+        <li><strong>Key leakage risk:</strong> never store API keys in Git; rotate keys if exposed. Treat logs/error pages as potential leak vectors.</li>
+        <li><strong>Downtime:</strong> third-party outages can break <strong>chat</strong> only if you rely on Gemini; the chat UI should fail gracefully (safe message, no stack traces).</li>
+        <li><strong>Data handling:</strong> do not send sensitive or regulated data to third-party LLM APIs (chat) unless sponsor policy explicitly permits it.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="periodic-review">
+      <h2>9. Periodic review checklist (APIs and auth)</h2>
       <ul>
         <li>API keys rotated after personnel changes or suspected leak.</li>
         <li>Key restrictions (IP, referrer, API surface) reviewed in cloud consoles.</li>
         <li><span class="mono">DEBUG=False</span>, <span class="mono">SECRET_KEY</span>, <span class="mono">ALLOWED_HOSTS</span>, and <span class="mono">CSRF_TRUSTED_ORIGINS</span> correct per environment.</li>
         <li>No secrets in Git history or public READMEs (placeholders only in examples).</li>
-        <li>Rate limiting and abuse monitoring for public chat endpoints remain appropriate.</li>
-        <li>Third-party subprocessors (Google, OpenAI, etc.) still acceptable under sponsor agreements.</li>
-        <li>If OAuth is added: token lifetimes, refresh, and logout documented and tested.</li>
+        <li>Rate limiting and abuse monitoring for public endpoints (including chat, if enabled) remain appropriate.</li>
+        <li>If chat is enabled: third-party subprocessors (Google Gemini) should remain acceptable under sponsor agreements.</li>
       </ul>
     </section>
 
     <section class="card" id="codebase">
-      <h2>8. Where to look in the codebase</h2>
+      <h2>10. Where to look in the codebase</h2>
       <ul>
-        <li>API keys and model name: <span class="mono">root/app/carebot/settings.py</span> (<span class="mono">GOOGLE_API_KEY</span>, <span class="mono">OPENAI_API_KEY</span>, <span class="mono">GEMINI_MODEL</span>).</li>
-        <li>Gemini usage: <span class="mono">root/app/chat/views.py</span> (<span class="mono">genai.configure</span>, <span class="mono">GenerativeModel</span>).</li>
+        <li>API keys and model name: <span class="mono">root/app/carebot/settings.py</span> (<span class="mono">GOOGLE_API_KEY</span>, <span class="mono">GEMINI_MODEL</span>, <span class="mono">SECRET_KEY</span>).</li>
+        <li>Gemini usage (chat only): <span class="mono">root/app/chat/views.py</span> (<span class="mono">genai.configure</span>, <span class="mono">GenerativeModel</span>) — not used in <span class="mono">recommendation/</span>.</li>
         <li>Auth URLs: <span class="mono">root/app/carebot/urls.py</span> (<span class="mono">django.contrib.auth.urls</span>).</li>
-        <li>Environment template: <span class="mono">root/.env-local.example</span> (if present).</li>
+        <li>Webhook secrets (if using SMS/email submissions): <span class="mono">root/app/carebot/settings.py</span> (<span class="mono">TWILIO_WEBHOOK_SECRET</span>, <span class="mono">INBOUND_EMAIL_SECRET</span>).</li>
       </ul>
-      <p style="margin-bottom:0;">For run/deploy, dev setup, sponsor guide, and tests, see the <a href="deliverables.html">Project Deliverables</a> page and linked team docs.</p>
+      <p style="margin-bottom:0;">For run/deploy, dev setup, sponsor guide, and tests, see <a href="finalproject.html">final project</a> and linked team docs.</p>
     </section>
 
-    <a class="btn" href="deliverables.html">Back to Deliverables</a>
+    <a class="btn" href="finalproject.html#deliverables">Final project — deliverables</a>
   </div>
 </body>
 </html>

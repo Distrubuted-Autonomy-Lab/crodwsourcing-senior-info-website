@@ -7,10 +7,8 @@ Sprint 2 presentation (course submission)
 
 2. Place the PDF in this folder: docs/assets/deliverables/
 
-3. deliverables.html links to assets/deliverables/Sprint2_Presentation_CS495.pdf
+3. finalproject.html#deliverables links to assets/deliverables/Sprint2_Presentation_CS495.pdf
 
 4. Submit the SAME file on Blackboard (instructor downloads slides for class).
 
-Slide outline + checklist (HTML): docs/sprint2_presentation.html
-Sprint 2 docs (single page): docs/sprint2.html
-Web guide: docs/sprint2_presentation.html
+Sprint 2 planning / backlog / retrospective: docs/sprint2.html

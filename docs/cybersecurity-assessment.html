@@ -9,20 +9,51 @@
 <body>
   <div class="page">
     <h1><span>Final cybersecurity assessment</span></h1>
-    <p class="subtitle">CS 495 final deliverable — <strong>placeholder narrative</strong>. Replace this section with the team’s written assessment before submission (due April 16, 2026).</p>
+    <p class="subtitle">CS 495 final deliverable — written assessment and periodic review checklist (April 2026).</p>
 
     <section class="card">
-      <div class="placeholder">
-        <strong>Assigned team member:</strong> <em>— assign in <a href="DOCUMENTATION_INDEX.md">DOCUMENTATION_INDEX.md</a> or team notes —</em><br /><br />
-        Add: threat model summary, controls in place (auth, CSRF, secrets, TLS, network), third-party/API risks (Gemini, DB exposure), gaps and mitigations, and sponsor-appropriate language on data handling.
-      </div>
-      <h2>Draft outline (fill in)</h2>
+      <h2>1) Scope</h2>
+      <p>This assessment covers the CareBot web application (Django), the PostgreSQL/PostGIS database (including pgvector usage), containerized deployment (Docker Compose), and optional third-party API integrations (Gemini / embeddings providers). It assumes a public-facing submission endpoint and a staff-only moderation interface.</p>
+
+      <h2>2) Assets, trust boundaries, and threats</h2>
+      <ul>
+        <li><strong>Assets:</strong> staff credentials, moderation actions (approve/merge/reject), database contents (resource listings and submitted recommendations), API keys (Gemini/OpenAI/Hugging Face), and server logs.</li>
+        <li><strong>Trust boundaries:</strong> public browser → web app; web app → database; web app → external AI APIs; admin/staff browser → moderation endpoints.</li>
+        <li><strong>Threats:</strong> credential theft, unauthorized access to staff-only routes, abuse of public endpoints (spam/rate), injection attacks, secrets leakage (in Git, logs, error pages), and data-handling risks when sending text to third-party AI APIs.</li>
+      </ul>
+
+      <h2>3) Controls currently in place</h2>
+      <ul>
+        <li><strong>Authentication &amp; authorization:</strong> staff access via Django authentication (session-based). Moderation actions are not intended for anonymous users.</li>
+        <li><strong>CSRF protection:</strong> Django’s CSRF mechanisms are expected for form posts; production configurations should include correct <span class="mono">CSRF_TRUSTED_ORIGINS</span>.</li>
+        <li><strong>Secrets management:</strong> sensitive configuration (API keys, <span class="mono">SECRET_KEY</span>, DB credentials) should be supplied via environment variables; never committed to Git.</li>
+        <li><strong>Input handling:</strong> standard Django escaping in templates reduces XSS risk; server-side validation is still required on submission fields.</li>
+        <li><strong>Database safety:</strong> vector similarity queries should use parameterized SQL to reduce injection risk; least-privilege DB users are recommended.</li>
+        <li><strong>Abuse resistance:</strong> rate limiting and safe error handling were implemented earlier in the project and should remain enabled on public endpoints.</li>
+      </ul>
+
+      <h2>4) Third‑party / AI integration risks</h2>
+      <ul>
+        <li><strong>Data sent to AI providers:</strong> chat and embedding requests may transmit user-entered text to Gemini/OpenAI (or other providers). This must be disclosed to the sponsor and limited to non-sensitive content.</li>
+        <li><strong>Billing and quota:</strong> API keys are billable; quotas/rate limits can cause outages if not monitored.</li>
+        <li><strong>Key leakage:</strong> API keys accidentally committed to Git or logged by the app is a high-severity risk.</li>
+      </ul>
+
+      <h2>5) Residual risks / gaps</h2>
+      <ul>
+        <li><strong>Production HTTPS hardening:</strong> if deployed publicly, the system must enforce HTTPS end-to-end (reverse proxy, HSTS where appropriate).</li>
+        <li><strong>Centralized logging &amp; monitoring:</strong> ensure moderation actions are traceable without logging PII; add alerting for auth anomalies and API quota spikes.</li>
+        <li><strong>Dependency vulnerability management:</strong> Docker base images and Python dependencies should be periodically reviewed/updated for CVEs.</li>
+        <li><strong>Spam / misuse:</strong> public submission forms can be abused; consider CAPTCHA or additional controls if exposed broadly.</li>
+      </ul>
+
+      <h2>6) Recommendations (actionable)</h2>
       <ol>
-        <li><strong>Scope:</strong> What was assessed (web app, DB, cloud VM, integrations).</li>
-        <li><strong>Assets &amp; threats:</strong> User data, moderator actions, API keys, public chat.</li>
-        <li><strong>Controls:</strong> Django defaults, parameterized SQL for vectors, rate limits, env-based secrets.</li>
-        <li><strong>Residual risk:</strong> What remains acceptable vs. needs Sprint+ work.</li>
-        <li><strong>Recommendations:</strong> HTTPS everywhere, key rotation, OAuth if required, logging/monitoring.</li>
+        <li><strong>Enforce HTTPS in production</strong> and verify <span class="mono">DEBUG=False</span>, correct <span class="mono">ALLOWED_HOSTS</span>, and <span class="mono">CSRF_TRUSTED_ORIGINS</span>.</li>
+        <li><strong>Rotate keys</strong> (Gemini/OpenAI/SECRET_KEY) on staff turnover or suspected exposure; keep keys out of logs and commits.</li>
+        <li><strong>Harden staff auth</strong>: strong passwords, least-privilege accounts, remove unused staff accounts, and consider MFA if your deployment platform supports it.</li>
+        <li><strong>Document AI data handling</strong> for the sponsor: what data is sent, why, and how it is limited.</li>
+        <li><strong>Review dependencies quarterly</strong> and update base images and Python packages as needed.</li>
       </ol>
     </section>
 
@@ -46,9 +77,9 @@
       </table>
     </section>
 
-    <p class="subtitle">API-specific review items also appear under <a href="faq-component-services.html#review">FAQs — periodic review</a>.</p>
+    <p class="subtitle">API-specific review items also appear under <a href="faq-component-services.html#periodic-review">FAQs — periodic review</a>.</p>
 
-    <a class="btn" href="deliverables.html">Back to Deliverables</a>
+    <a class="btn" href="finalproject.html#deliverables">Final project — deliverables</a>
   </div>
 </body>
 </html>
