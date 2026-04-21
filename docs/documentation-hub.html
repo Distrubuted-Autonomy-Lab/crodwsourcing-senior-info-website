@@ -16,75 +16,26 @@
       </div>
     </header>
     <nav class="jump-nav" aria-label="Sections on this page">
-      <a href="#sprint-map">Sprint map</a>
-      <a href="#install">Install</a>
-      <a href="#deploy">Deploy</a>
-      <a href="#features">Features</a>
-      <a href="#extend">Extend</a>
-      <a href="#faqs">FAQs</a>
-      <a href="#testing">Testing</a>
-      <a href="#security">Security</a>
-      <a href="#a11y">Accessibility</a>
-      <a href="backlog-tables.html#full-project-backlog">Backlog tables</a>
+      <a href="sprint-map.html">Sprint map</a>
+      <a href="development-environment.html">Install</a>
+      <a href="deploy-run.html">Deploy</a>
+      <a href="user-guide.html">Features</a>
+      <a href="development-guide.html">Extend</a>
+      <a href="faq-component-services.html">FAQs</a>
+      <a href="test-plan.html">Testing</a>
+      <a href="cybersecurity-assessment.html">Security</a>
+      <a href="accessibility-research.html">Accessibility</a>
+      <a href="backlog-tables.html">Backlog tables</a>
     </nav>
 
     <section class="section-wide" id="sprint-map">
       <div class="section-head">
-        <h2>Where work landed (Sprint 1 → 3)</h2>
-        <p>Most of the team’s engineering time went into <strong>public submissions</strong>, the <strong>moderation queue</strong>, and <strong>merge / deduplication</strong>—keeping bad data out and folding duplicates into one vetted listing. Sprint pages hold planning, backlogs, and technical detail; this table only answers <em>where each theme was the main push</em>.</p>
+        <h2>Sprint map</h2>
+        <p>Open the sprint map page for the “where work landed” table across Sprint 1 → 3.</p>
       </div>
       <div class="section-body">
-        <div class="table-wrap">
-          <table class="doc-table">
-            <thead>
-              <tr>
-                <th scope="col">What we built</th>
-                <th scope="col">Sprint 1</th>
-                <th scope="col">Sprint 2</th>
-                <th scope="col">Sprint 3</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Public submissions</strong> — form, validation, caregiver-facing flow</td>
-                <td><a href="sprint1.html">Sprint 1</a> — fixed broken submit path; rate limits, headers, basic hardening so public POST was safe.</td>
-                <td><a href="sprint2.html">Sprint 2</a> — new submit UI, home/base templates, working user/staff login before moderators touch the queue.</td>
-                <td><a href="sprint3.html">Sprint 3</a> — accessibility and template polish on the same flows (labels, contrast, targets).</td>
-              </tr>
-              <tr>
-                <td><strong>Moderation queue</strong> — approve · merge · reject (single item)</td>
-                <td><a href="sprint1.html">Sprint 1</a> — shipped the queue and all three actions end-to-end; first usable moderator loop.</td>
-                <td><a href="sprint2.html">Sprint 2</a> — queue HTML/CSS and Django wiring for the redesigned experience.</td>
-                <td><a href="sprint3.html">Sprint 3</a> — moderator screens easier to use with a keyboard and screen reader. <strong>Bulk multi-select not implemented</strong>—still one row at a time.</td>
-              </tr>
-              <tr>
-                <td><strong>Merge &amp; deduplication</strong> — field-level smart merge + similarity hints</td>
-                <td><a href="sprint1.html">Sprint 1</a> — field-level merge into an existing resource; reject and “approve as new”; core dedup story.</td>
-                <td><a href="sprint2.html#technical-deliverables">Sprint 2</a> — moderator-facing similarity UX so merges are informed by scores, not guesswork.</td>
-                <td><a href="sprint3.html#technical-deliverables">Sprint 3</a> — small hardening and doc alignment with how merge behaves in production.</td>
-              </tr>
-              <tr>
-                <td><strong>Similarity search</strong> — TF‑IDF, embeddings, pgvector</td>
-                <td><a href="sprint1.html">Sprint 1</a> — first similarity pass for “near duplicate” candidates on the moderation path.</td>
-                <td><a href="sprint2.html#technical-deliverables">Sprint 2</a> — main build: full-catalog TF‑IDF + pgvector, <code>rank_similar_smart</code>, parameterized SQL, moderator dedup tooling.</td>
-                <td><a href="sprint3.html">Sprint 3</a> — operational notes, test/deploy docs; no second large algorithm rewrite.</td>
-              </tr>
-              <tr>
-                <td><strong>Docker &amp; deploy</strong> — local + cloud demo</td>
-                <td><a href="sprint1.html">Sprint 1</a> — Docker on Mac and Windows; baseline compose for the class.</td>
-                <td><a href="sprint2.html">Sprint 2</a> — GCP VM demo (firewall, secrets, container on the network).</td>
-                <td><a href="sprint3.html">Sprint 3</a> — env templates and run/deploy guidance for a repeatable handoff.</td>
-              </tr>
-              <tr>
-                <td><strong>Documentation</strong> — runbooks + this site</td>
-                <td>CHANGES / build notes so teammates could boot the stack.</td>
-                <td>README, similarity/schema runbooks in the app repo.</td>
-                <td>Final GitHub Pages hub — <a href="finalproject.html">finalproject.html</a>, this hub, and linked guides.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="muted" style="margin-top:14px;">Sprint artifact panels: <a href="finalproject.html#sprint-1">Sprint 1</a> · <a href="finalproject.html#sprint-2">Sprint 2</a> · <a href="finalproject.html#sprint-3">Sprint 3</a> on <a href="finalproject.html#deliverables">final project — deliverables</a>.</p>
+        <p><strong>Primary page:</strong> <a href="sprint-map.html">Sprint map</a></p>
+        <p class="muted" style="margin-top:10px;">Sprint artifact panels: <a href="finalproject.html#sprint-1">Sprint 1</a> · <a href="finalproject.html#sprint-2">Sprint 2</a> · <a href="finalproject.html#sprint-3">Sprint 3</a> on <a href="finalproject.html#deliverables">final project — deliverables</a>.</p>
       </div>
     </section>
 
@@ -209,12 +160,8 @@
         <p>End-user questions, install gotchas, and external service issues.</p>
       </div>
       <div class="section-body">
-        <p><strong>Developer / operator FAQs:</strong> <a href="faq-component-services.html">FAQs — APIs, OAuth, component services</a></p>
-        <ul>
-          <li><strong>End users (caregivers):</strong> see <a href="user-guide.html#faq">User guide — Common questions</a>.</li>
-          <li><strong>Install gotchas:</strong> wrong compose working directory, missing env vars, DB schema drift — summarized in <a href="development-environment.html">Development environment</a> and <a href="faq-component-services.html">FAQs</a>.</li>
-          <li><strong>External resources:</strong> API keys, quotas, rate limits — <a href="faq-component-services.html">FAQs</a> and <a href="deploy-run.html">Run &amp; deploy</a>.</li>
-        </ul>
+        <p><strong>Primary page:</strong> <a href="faq-component-services.html">FAQ</a></p>
+        <p class="muted" style="margin-top:10px;">All FAQs live on the single FAQ page (mirrors the Sprint 3 <span class="mono">FAQ.md</span>). Caregiver-oriented questions are also summarized in <a href="user-guide.html#faq">User guide — Common questions</a>.</p>
       </div>
     </section>
 

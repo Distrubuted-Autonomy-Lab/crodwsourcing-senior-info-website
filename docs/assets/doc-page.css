@@ -94,12 +94,35 @@ ul { padding-left: 20px; }
   padding: 10px 18px;
   border-radius: 999px;
   background: var(--accent);
-  color: var(--card);
+  color: #fff;
   text-decoration: none;
   font-weight: 600;
   margin-top: 24px;
 }
+.btn-home {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff !important;
+  text-decoration: none !important;
+  font-weight: 650;
+  font-size: 0.95rem;
+}
+.btn-home:hover { opacity: 0.92; }
+.btn-home.btn-home-secondary {
+  background: rgba(148, 163, 184, 0.18);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  box-shadow: none;
+}
 .btn:hover { opacity: 0.9; }
+.footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 24px;
+}
 .card a, .page a {
   color: var(--accent);
   font-weight: 600;
