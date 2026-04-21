@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cloud deployment — CareBot</title>
+  <link rel="stylesheet" href="assets/doc-page.css" />
+</head>
+<body>
+  <div class="page">
+    <h1><span>Deployment of Carebot to the Google Cloud Platform</span></h1>
+    <p class="subtitle">Guide for deploying the application to GCP using Docker Compose, Docker containers, and the Google Cloud SDK.</p>
+
+    <section class="card">
+      <h2>Overview</h2>
+      <p>This guide describes deploying the application to the Google Cloud Platform (GCP) and exposes three main services: the Django web application, an Nginx proxy, and a PostgreSQL (PostGIS + pgvector) database.</p>
+    </section>
+
+    <section class="card">
+      <h2>Prerequisites</h2>
+      <ul>
+        <li><span class="mono">Google Cloud SDK</span> (<span class="mono">gcloud</span>)</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Deployment steps</h2>
+
+      <h3>1. Configure Google Cloud SDK CLI</h3>
+      <p>First, we must ensure that we are logged into the account with which the deployment should be associated. If you aren't logged in, run the below script::</p>
+      <pre><code>gcloud auth login</code></pre>
+
+      <h3>2. Create and configure the GCP project</h3>
+      <p>Create a project and set it as the default:</p>
+      <pre>
+<code>gcloud projects create &lt;project-id&gt; --name="&lt;project-name&gt;"</code>
+<code>gcloud config set project &lt;project-id&gt;</code></pre>
+      <p>Attach a billing account (list with <span class="mono">gcloud billing accounts list</span> and link with):</p>
+      <pre><code>gcloud beta billing projects link &lt;project-id&gt; --billing-account=&lt;billing-account-id&gt;</code></pre>
+      <p>Enable Compute Engine:</p>
+      <pre><code>gcloud services enable compute.googleapis.com</code></pre>
+
+      <h3>3. Create and configure the virtual machine</h3>
+      <p>Create a startup script to install Docker and Compose on boot. Example startup script:</p>
+      <pre><code>#!/bin/bash
+
+set -euo pipefail
+
+# Configure startup script logging
+LOG=/var/log/startup.log
+exec &gt; >(tee -a "$LOG") 2&gt;&amp;1
+
+echo "=== Startup Script Beginning ==="
+
+apt-get update
+apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
+
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo \"$VERSION_CODENAME\") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+echo "=== Startup Script Finished ==="
+</code></pre>
+
+      <p>Create the Compute Engine instance referencing the startup script:</p>
+      <pre><code>gcloud compute instances create &lt;instance-name&gt; \
+    --project=&lt;project-id&gt; \
+    --zone=us-central1-a \
+    --machine-type=e2-medium \
+    --image-family=ubuntu-2204-lts \
+    --image-project=ubuntu-os-cloud \
+    --boot-disk-size=30GB \
+    --tags=http-server,https-server \
+    --metadata-from-file=startup-script=./&lt;startup-script&gt;</code></pre>
+
+      <p>Configure firewall rules (HTTP/HTTPS):</p>
+      <pre><code>gcloud compute firewall-rules create allow-http \
+    --action=ALLOW \
+    --rules=tcp:80 \
+    --source-ranges=0.0.0.0/0 \
+    --target-tags=http-server \
+    --description="Enable HTTP traffic"
+
+# Optional (only if HTTPS is configured)
+gcloud compute firewall-rules create allow-https \
+    --action=ALLOW \
+    --rules=tcp:443 \
+    --source-ranges=0.0.0.0/0 \
+    --target-tags=https-server \
+    --description="Enable HTTPS traffic"</code></pre>
+
+      <h3>4. Prepare Cloud environment variables</h3>
+      <p>Create a <span class="mono">.env-gcloud</span> based on <span class="mono">.env-gcloud.example</span> and populate it with the required values. Keep this file private.</p>
+
+      <h3>5. Upload code and environment variables to the instance</h3>
+      <p>Either copy files directly or clone the repo on the instance. Example using <span class="mono">gcloud</span> copy:</p>
+      <pre>
+<code>gcloud compute ssh &lt;instance-name&gt; --command="mkdir -p ~/carebot"</code>
+<code>gcloud compute scp --recurse . &lt;instance-name&gt;:~/carebot/</code>
+<code>gcloud compute scp .env-gcloud &lt;instance-name&gt;:~/carebot/root/</code></pre>
+      <p>Or, SSH and clone the repository:</p>
+      <pre><code>gcloud compute ssh &lt;instance-name&gt;
+
+git clone &lt;repository-url&gt; ~/carebot/
+cd ~/carebot/root
+# Ensure .env-gcloud is at ~/carebot/root/.env-gcloud</code></pre>
+
+      <h3>6. Prepare for deployment on the instance</h3>
+      <pre><code>gcloud compute ssh &lt;instance-name&gt;
+cd ~/carebot/root/</code></pre>
+
+      <h3>7. Deploy with Docker Compose</h3>
+      <p>Run the Compose stack with the GCP overlay:</p>
+      <pre><code>sudo docker compose -f docker-compose.yml -f docker-compose.gcloud.yml up -d</code></pre>
+
+      <h3>8. Initialize database and Django</h3>
+      <pre><code>sudo docker compose -f docker-compose.yml -f docker-compose.gcloud.yml exec web python manage.py migrate
+sudo docker compose -f docker-compose.yml -f docker-compose.gcloud.yml exec web python manage.py createsuperuser</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>Troubleshooting</h2>
+      <h3>Application errors</h3>
+      <ol>
+        <li>Ensure API keys are valid and active.</li>
+        <li>Validate <span class="mono">SECRET_KEY</span> and <span class="mono">ALLOWED_HOSTS</span>.</li>
+        <li>Check application logs (see Monitoring below).</li>
+      </ol>
+
+      <h3>Database errors</h3>
+      <ol>
+        <li>Confirm the Postgres service is running: <span class="mono">docker ps</span> (look for <span class="mono">web</span> or <span class="mono">root-web</span>).</li>
+        <li>Ensure DB username/password match between web and the Postgres service.</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>Security & reliability</h2>
+      <ul>
+        <li>Keep <span class="mono">.env-gcloud</span> private.</li>
+        <li>Restrict access with GCP firewall rules.</li>
+        <li>Regularly update Docker images and apply OS patches.</li>
+        <li>Automate and verify regular backups of PostgreSQL.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Volumes & ports</h2>
+      <p>Compose uses named volumes for persistence:</p>
+      <pre><code>volumes:
+    static_volume:  # Nginx static files
+    media_volume:   # Media files
+    postgis_data:   # PostgreSQL data</code></pre>
+      <h2>External ports</h2>
+      <ul>
+        <li>Port 80 — Nginx reverse proxy (HTTP)</li>
+      </ul>
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Monitoring</h2>
+      <p>Tail service logs with:</p>
+      <pre><code>sudo docker compose -f docker-compose.yml -f docker-compose.gcloud.yml logs -f web
+sudo docker compose -f docker-compose.yml -f docker-compose.gcloud.yml logs -f nginx
+sudo docker compose -f docker-compose.yml -f docker-compose.gcloud.yml logs -f postgis</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>Maintenance</h2>
+      <ul>
+        <li>Stop services:
+          <pre><code>sudo docker compose -f docker-compose.yml -f docker-compose.gcloud.yml down</code></pre>
+        </li>
+        <li>Restart without rebuild:
+          <pre><code>sudo docker compose -f docker-compose.yml -f docker-compose.gcloud.yml restart</code></pre>
+        </li>
+        <li>Backup database:
+          <pre><code>sudo docker compose -f docker-compose.yml -f docker-compose.gcloud.yml exec postgis pg_dump -U &lt;your-db-user&gt; &lt;your-database-name&gt; &gt; backup.sql</code></pre>
+        </li>
+        <li>Restore database:
+          <pre><code>sudo docker compose -f docker-compose.yml -f docker-compose.gcloud.yml exec postgis psql -U &lt;your-db-user&gt; &lt;your-database-name&gt; &lt; backup.sql</code></pre>
+        </li>
+      </ul>
+    </section>
+
+    <p class="footer-note">Application repo: <a href="https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing">carebot-deployable-crowdsourcing</a></p>
+  </div>
+</body>
+</html>

@@ -20,6 +20,7 @@
 | **Accessibility design & research** — Sprint 3 artifact (WCAG, caregivers, gaps) | Cole Segura | **[website](accessibility-research.html)** · **[Markdown](AccessibilityResearch.md)** |
 | **Development environment** — dependencies, OS, first build | *assign* | **[Placeholder — website](development-environment.html)** · `root/README.md` |
 | **Development guide** — full technical onboarding (stack, structure, workflows) | team | **[website](development-guide.html)** · **[Markdown](DevelopmentGuide.md)** |
+| **Deployment guide** - full guide to cloud deployment | Jarl Evanson | **[deployment.html]** . **[Markdown](CLOUD_DEPLOYMENT.md)** |
 | **FAQs** — APIs, OAuth, component services | *Sheala Miller (edit if different)* | **[Live — website](faq-component-services.html)** · [`carebot-deployable-crowdsourcing/docs/FAQ-component-services.md`](https://github.com/Distrubuted-Autonomy-Lab/carebot-deployable-crowdsourcing/blob/main/docs/FAQ-component-services.md) |
 | **Test plan** — cases + scripts | *assign* | **[Placeholder — website](test-plan.html)** · `docs/TEST_PLAN.md` + `scripts/retest-local.sh` |
 | **Final cybersecurity assessment** | *assign* | **[Placeholder — website](cybersecurity-assessment.html)** |
